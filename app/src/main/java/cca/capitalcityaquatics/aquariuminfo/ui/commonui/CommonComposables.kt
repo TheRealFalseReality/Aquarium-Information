@@ -599,47 +599,47 @@ fun CalculatorSubtitleThree(
 
 @Composable
 fun SalinityCalculatedString(
-	@StringRes salinityLabel: Int,
-	@StringRes salinityInputText: Int,
-	salinityValue: String,
-	@StringRes densityLabel: Int,
-	@StringRes densityInputText: Int,
-	densityValue: String,
-	@StringRes conductivityLabel: Int,
-	@StringRes conductivityInputText: Int,
-	conductivityValue: String,
+	@StringRes label1: Int,
+	@StringRes inputText1: Int,
+	value1: String,
+	@StringRes label2: Int,
+	@StringRes inputText2: Int,
+	value2: String,
+	@StringRes label3: Int,
+	@StringRes inputText3: Int,
+	value3: String,
 	contentColor: Color
 ) {
 	// Salinity // TODO
 	BodyText(
-		text = salinityLabel,
+		text = label1,
 		color = contentColor
 	)
 	CalculatedTextString(
-		text = salinityInputText,
-		calculatedValue = salinityValue,
+		text = inputText1,
+		calculatedValue = value1,
 		textColor = contentColor,
 	)
 	VerticalSpacerVerySmall()
 	// Density
 	BodyText(
-		text = densityLabel,
+		text = label2,
 		color = contentColor
 	)
 	CalculatedTextString(
-		text = densityInputText,
-		calculatedValue = densityValue,
+		text = inputText2,
+		calculatedValue = value2,
 		textColor = contentColor,
 	)
 	VerticalSpacerVerySmall()
 	// Conductivity
 	BodyText(
-		text = conductivityLabel,
+		text = label3,
 		color = contentColor
 	)
 	CalculatedTextString(
-		text = conductivityInputText,
-		calculatedValue = conductivityValue,
+		text = inputText3,
+		calculatedValue = value3,
 		textColor = contentColor,
 	)
 }
