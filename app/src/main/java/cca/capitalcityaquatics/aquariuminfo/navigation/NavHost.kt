@@ -127,9 +127,6 @@ fun AquariumNavHost(
 			TankVolumeTabRow(selectedState = 4, windowSize = windowSize)
 		}
 		composable(route = Doser.route) {
-			CalculatorsTabRow(selectedState = 4, windowSize = windowSize)
-		}
-		composable(route = Doser.route) {
 			CalculatorsTabRow(windowSize = windowSize, selectedState = 4)
 		}
 		composable(route = PumpFlow.route) {

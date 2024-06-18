@@ -35,12 +35,12 @@ import cca.capitalcityaquatics.aquariuminfo.navigation.Rectangle
 import cca.capitalcityaquatics.aquariuminfo.navigation.Salinity
 import cca.capitalcityaquatics.aquariuminfo.navigation.TankVolume
 import cca.capitalcityaquatics.aquariuminfo.navigation.Temperature
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.MediumSpacer
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerMedium
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.NavButton
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.NavButtonRow
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TitleWideContent
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerySmallSpacer
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TitledContentWithIcon
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerVerySmall
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
@@ -111,7 +111,7 @@ fun OverviewLayout(
 		onClickDoser = onClickDoser,
 		onClickPumpFlow = onClickPumpFlow,
 	)
-	VerySmallSpacer()
+	VerticalSpacerVerySmall()
 	TankVolumeGrid(
 		onClickRectangle = onClickRectangle,
 		onClickCube = onClickCube,
@@ -119,7 +119,7 @@ fun OverviewLayout(
 		onClickHexagonal = onClickHexagonal,
 		onClickBowFront = onClickBowFront,
 	)
-	VerySmallSpacer()
+	VerticalSpacerVerySmall()
 	FishCompatibilityGrid(
 		onClickFreshwater = onClickFreshwater,
 		onClickMarine = onClickMarine,
@@ -167,9 +167,9 @@ fun CalculatorsGrid(
 	onClickPumpFlow: () -> Unit = {},
 ) {
 	Column(modifier = modifier) {
-		TitleWideContent(
-			text = Calculators.title,
-			color = fontColor,
+		TitledContentWithIcon(
+			title = Calculators.title,
+			contentColor = fontColor,
 			icon = Calculators.icon
 		) {
 			NavButtonRow(
@@ -182,7 +182,7 @@ fun CalculatorsGrid(
 				onClick1 = onClickSalinity,
 				onClick2 = onClickAlkalinity,
 			)
-			MediumSpacer()
+			VerticalSpacerMedium()
 			NavButtonRow(
 				title1 = Temperature.title,
 				icon1 = Temperature.icon,
@@ -193,7 +193,7 @@ fun CalculatorsGrid(
 				onClick1 = onClickTemperature,
 				onClick2 = onClickCo2
 			)
-			MediumSpacer()
+			VerticalSpacerMedium()
 			NavButtonRow(
 				title1 = Doser.title,
 				icon1 = Doser.icon,
@@ -221,10 +221,10 @@ fun TankVolumeGrid(
 	onClickBowFront: () -> Unit = {},
 ) {
 	Column(modifier = modifier) {
-		TitleWideContent(
-			text = TankVolume.title,
+		TitledContentWithIcon(
+			title = TankVolume.title,
 			icon = TankVolume.icon,
-			color = fontColor
+			contentColor = fontColor
 		) {
 			NavButtonRow(
 				title1 = Rectangle.title,
@@ -236,7 +236,7 @@ fun TankVolumeGrid(
 				contentColor = contentColor,
 				containerColor = containerColor,
 			)
-			MediumSpacer()
+			VerticalSpacerMedium()
 			NavButtonRow(
 				title1 = Cylinder.title,
 				icon1 = Cylinder.icon,
@@ -247,7 +247,7 @@ fun TankVolumeGrid(
 				contentColor = contentColor,
 				containerColor = containerColor,
 			)
-			MediumSpacer()
+			VerticalSpacerMedium()
 			NavButton(
 				modifier = Modifier
 					.fillMaxWidth(fraction = 0.9f),
@@ -271,9 +271,9 @@ fun FishCompatibilityGrid(
 	onClickMarine: () -> Unit = {},
 ) {
 	Column(modifier) {
-		TitleWideContent(
-			text = FishCompatibility.title,
-			color = fontColor,
+		TitledContentWithIcon(
+			title = FishCompatibility.title,
+			contentColor = fontColor,
 			icon = FishCompatibility.icon
 		) {
 			NavButtonRow(
@@ -301,9 +301,9 @@ fun HomeInfoGrid(
 	onClickInformation: () -> Unit = {},
 ) {
 	Column(modifier) {
-		TitleWideContent(
-			text = HomeInfo.title,
-			color = fontColor,
+		TitledContentWithIcon(
+			title = HomeInfo.title,
+			contentColor = fontColor,
 			icon = HomeInfo.icon
 		) {
 			NavButtonRow(

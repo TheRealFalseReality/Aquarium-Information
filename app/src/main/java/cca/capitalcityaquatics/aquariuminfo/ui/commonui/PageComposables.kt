@@ -78,11 +78,11 @@ fun GenericCalculatePage(
 					horizontalAlignment = Alignment.CenterHorizontally,
 					verticalArrangement = Arrangement.SpaceAround
 				) {
-					SmallSpacer()
+					VerticalSpacerSmall()
 					selectContent()
-					SmallSpacer()
+					VerticalSpacerSmall()
 					optionsContent()
-					SmallSpacer()
+					VerticalSpacerSmall()
 					inputFieldContent()
 				}
 				Column(
@@ -95,7 +95,7 @@ fun GenericCalculatePage(
 					calculateFieldContent()
 				}
 			}
-			MediumSpacer()
+			VerticalSpacerMedium()
 			Row(
 				verticalAlignment = Alignment.Top
 			) {
@@ -129,19 +129,19 @@ fun GenericCalculatePage(
 
 		else -> {
 			subtitleContent()
-			SmallSpacer()
+			VerticalSpacerSmall()
 			selectContent()
-			SmallSpacer()
+			VerticalSpacerSmall()
 			optionsContent()
-			SmallSpacer()
+			VerticalSpacerSmall()
 			inputFieldContent()
-			MediumSpacer()
+			VerticalSpacerMedium()
 			calculateFieldContent()
-			SmallSpacer()
+			VerticalSpacerSmall()
 			if (additionalContent != null) {
 				additionalContent()
 			}
-			SmallSpacer()
+			VerticalSpacerSmall()
 			if (formulaContent != null) {
 				formulaContent()
 			}

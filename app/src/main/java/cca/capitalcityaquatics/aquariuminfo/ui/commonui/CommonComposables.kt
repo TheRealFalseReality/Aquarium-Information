@@ -4,6 +4,7 @@ package cca.capitalcityaquatics.aquariuminfo.ui.commonui
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDp
@@ -38,21 +39,26 @@ import androidx.compose.material3.TabPosition
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cca.capitalcityaquatics.aquariuminfo.R
 import cca.capitalcityaquatics.aquariuminfo.data.calculatorDataSource
@@ -61,9 +67,10 @@ import cca.capitalcityaquatics.aquariuminfo.ui.theme.Shapes
 
 @Composable
 fun FancyIndicator(
-	selectedColor: Color,
 	modifier: Modifier = Modifier,
+	selectedColor: Color,
 	shape: Shape = Shapes.large,
+	borderWidth: Dp = 50.dp
 ) {
 	Box(
 		modifier = modifier
@@ -71,7 +78,7 @@ fun FancyIndicator(
 			.height(3.dp)
 			.border(
 				BorderStroke(
-					50.dp,
+					borderWidth,
 					selectedColor
 				), shape
 			)
@@ -117,8 +124,6 @@ fun FancyAnimatedIndicator(
 	}
 
 	FancyIndicator(
-		// Pass the current color to the indicator
-		indicatorColor,
 		modifier = modifier
 			// Fill up the entire TabRow, and place the indicator at the start
 			.fillMaxSize()
@@ -126,7 +131,8 @@ fun FancyAnimatedIndicator(
 			// Apply an offset from the start to correctly position the indicator around the tab
 			.offset(x = indicatorStart)
 			// Make the width of the indicator follow the animated width as we move between tabs
-			.width(indicatorEnd - indicatorStart)
+			.width(indicatorEnd - indicatorStart),
+		selectedColor = indicatorColor,
 	)
 }
 
@@ -136,7 +142,7 @@ fun AppVersion(
 	modifier: Modifier = Modifier,
 	color: Color = MaterialTheme.colorScheme.onSurface,
 ) {
-	val version = cca.capitalcityaquatics.aquariuminfo.BuildConfig.VERSION_NAME
+	val versionName = cca.capitalcityaquatics.aquariuminfo.BuildConfig.VERSION_NAME
 	Row(
 		modifier = modifier,
 		horizontalArrangement = Arrangement.Center,
@@ -146,7 +152,7 @@ fun AppVersion(
 			color = color
 		)
 		Text(
-			text = stringResource(id = R.string.text_label_version, version),
+			text = stringResource(id = R.string.text_label_version, versionName),
 			style = MaterialTheme.typography.bodyMedium,
 			color = color
 		)
@@ -203,7 +209,7 @@ fun SingleWideCardExpandableRadio(
 					modifier = Modifier
 						.fillMaxWidth()
 						.padding(horizontal = dimensionResource(id = R.dimen.padding_small)),
-					horizontalAlignment = Alignment.CenterHorizontally
+					horizontalAlignment = CenterHorizontally
 				) {
 					imageContent()
 					Column(
@@ -226,7 +232,7 @@ fun SingleWideCardExpandableRadio(
 								subtitleContent()
 							}
 							if (!expanded) {
-								MediumSpacerWidth()
+								HorizontalSpacerMedium()
 								LabelText(
 									modifier = modifier.alpha(alpha.value),
 									text = selected,
@@ -307,11 +313,8 @@ fun SingleWideCardExpandableFull(
 						),
 					)
 			) {
-				Column(
-					modifier = Modifier
-						.fillMaxWidth(),
-					horizontalAlignment = Alignment.CenterHorizontally
-				) {
+				Column(modifier = Modifier
+						.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
 					imageContent()
 					Column(
 						modifier = Modifier
@@ -325,7 +328,7 @@ fun SingleWideCardExpandableFull(
 						) {
 							if (header != null) {
 								Column {
-									SmallSpacer()
+									VerticalSpacerSmall()
 									HeaderText(
 										text = header,
 										color = contentColor,
@@ -333,7 +336,7 @@ fun SingleWideCardExpandableFull(
 									)
 								}
 								if (expanded) {
-									VerySmallSpacer()
+									VerticalSpacerVerySmall()
 									subtitleContent()
 								}
 								Row(
@@ -366,9 +369,9 @@ fun SingleWideCardExpandableFull(
 									.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
 							) {
 								descriptionContent()
-								VerySmallSpacer()
+								VerticalSpacerVerySmall()
 								content()
-								SmallSpacer()
+								VerticalSpacerSmall()
 							}
 						}
 					} else {
@@ -398,14 +401,14 @@ fun SingleWideCardExpandableFull(
 								modifier = Modifier
 									.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
 							) {
-								SingleWideCard(
+								CenteredSingleCard(
 									contentColor = contentColor,
 									containerColor = containerColor,
 								) {
 									descriptionContent()
-									VerySmallSpacer()
+									VerticalSpacerVerySmall()
 									content()
-									SmallSpacer()
+									VerticalSpacerSmall()
 								}
 							}
 						}
@@ -420,45 +423,42 @@ fun SingleWideCardExpandableFull(
 fun TankVolumeResultsString(
 	modifier: Modifier = Modifier,
 	contentColor: Color,
-	calculatedValue1: String,
-	calculatedValue2: String,
-	calculatedValue3: String,
+	gallons: String,
+	liters: String,
+	waterWeight: String,
 ) {
-	Column(
-		modifier = modifier,
-		horizontalAlignment = Alignment.CenterHorizontally
-	) {
+	Column(modifier = modifier, horizontalAlignment = CenterHorizontally) {
 		CalculatedTextString(
 			text = calculatorDataSource.calculatedTextGallons,
-			calculatedValue = calculatedValue1,
+			calculatedValue = gallons,
 			textColor = contentColor,
 		)
 		CalculatedTextString(
 			text = calculatorDataSource.calculatedTextLiters,
-			calculatedValue = calculatedValue2,
+			calculatedValue = liters,
 			textColor = contentColor,
 		)
-		VerySmallSpacer()
+		VerticalSpacerVerySmall()
 		BodyText(
 			text = calculatorDataSource.labelWaterWeight,
 			color = contentColor
 		)
 		CalculatedTextString(
 			text = calculatorDataSource.calculatedTextWaterWeight,
-			calculatedValue = calculatedValue3,
+			calculatedValue = waterWeight,
 			textColor = contentColor,
 		)
 	}
 }
 
 @Composable
-fun CalculateImageTitle(
+fun CalculateImageWithTitle(
 	color: Color = MaterialTheme.colorScheme.onBackground,
 	@DrawableRes image: Int,
 	@StringRes contentDescription: Int,
 ) {
 	Column(
-		modifier = Modifier.fillMaxWidth(),
+		modifier = Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally,
 	) {
 		TitleTextIcon(
 			text = R.string.dimension_reference,
@@ -466,7 +466,7 @@ fun CalculateImageTitle(
 			color = color
 		)
 	}
-	VerySmallSpacer()
+	VerticalSpacerVerySmall()
 	CalculateImage(
 		painter = image,
 		contentDescription = contentDescription,
@@ -475,24 +475,24 @@ fun CalculateImageTitle(
 }
 
 @Composable
-fun FormulaString(
-	@StringRes text: Int,
-	expandedState: Boolean = true,
+fun FormulaStringCard(
+	@StringRes formulaText: Int,
+//	isExpanded: Boolean = true,
 	contentColor: Color = MaterialTheme.colorScheme.onSurface,
 	containerColor: Color = MaterialTheme.colorScheme
 		.surfaceColorAtElevation(dimensionResource(id = R.dimen.tonal_elevation_medium)),
 ) {
-	TitleWideContent(
-		text = R.string.formula,
+	TitledContentWithIcon(
+		title = R.string.formula,
 		icon = R.drawable.ic_function,
-		color = contentColor,
+		contentColor = contentColor,
 	) {
-		SingleWideCard(
+		CenteredSingleCard(
 			contentColor = contentColor,
 			containerColor = containerColor,
 		) {
 			BodyText(
-				text = text,
+				text = formulaText,
 				color = contentColor,
 			)
 		}
@@ -500,7 +500,7 @@ fun FormulaString(
 }
 
 @Composable
-fun FormulaStringContent(
+fun FormulaContent(
 	modifier: Modifier = Modifier,
 	contentColor: Color = MaterialTheme.colorScheme.onSurface,
 	containerColor: Color = MaterialTheme.colorScheme
@@ -508,20 +508,16 @@ fun FormulaStringContent(
 	content: @Composable () -> Unit,
 ) {
 	Column(modifier = modifier) {
-		TitleWideContent(
-			text = R.string.formula,
+		TitledContentWithIcon(
+			title = R.string.formula,
 			icon = R.drawable.ic_function,
-			color = contentColor,
+			contentColor = contentColor,
 		) {
-			SingleWideCard(
+			CenteredSingleCard(
 				contentColor = contentColor,
 				containerColor = containerColor,
 			) {
-				Column(
-					horizontalAlignment = Alignment.Start
-				) {
-					content()
-				}
+				content()
 			}
 		}
 	}
@@ -532,6 +528,7 @@ fun CalculatorSubtitleTwo(
 	contentColor: Color,
 	@StringRes text1: Int,
 	@StringRes text2: Int,
+	icon: ImageVector = ImageVector.vectorResource(id = R.drawable.ic_sync_alt),
 ) {
 	Row(
 		verticalAlignment = Alignment.CenterVertically
@@ -540,15 +537,15 @@ fun CalculatorSubtitleTwo(
 			text = text1,
 			color = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		Icon(
 			modifier = Modifier
 				.size(dimensionResource(id = R.dimen.icon_size_extremelySmall)),
-			painter = painterResource(id = R.drawable.ic_sync_alt),
+			imageVector = icon,
 			contentDescription = null,
 			tint = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		HeaderText(
 			text = text2,
 			color = contentColor
@@ -562,6 +559,7 @@ fun CalculatorSubtitleThree(
 	@StringRes text1: Int,
 	@StringRes text2: Int,
 	@StringRes text3: Int,
+	icon: ImageVector = ImageVector.vectorResource(id = R.drawable.ic_sync_alt),
 ) {
 	Row(
 		verticalAlignment = Alignment.CenterVertically
@@ -570,28 +568,28 @@ fun CalculatorSubtitleThree(
 			text = text1,
 			color = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		Icon(
 			modifier = Modifier
 				.size(dimensionResource(id = R.dimen.icon_size_extremelySmall)),
-			painter = painterResource(id = R.drawable.ic_sync_alt),
+			imageVector = icon,
 			contentDescription = null,
 			tint = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		HeaderText(
 			text = text2,
 			color = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		Icon(
 			modifier = Modifier
 				.size(dimensionResource(id = R.dimen.icon_size_extremelySmall)),
-			painter = painterResource(id = R.drawable.ic_sync_alt),
+			imageVector = icon,
 			contentDescription = null,
 			tint = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		HeaderText(
 			text = text3,
 			color = contentColor
@@ -601,86 +599,49 @@ fun CalculatorSubtitleThree(
 
 @Composable
 fun SalinityCalculatedString(
-	@StringRes label1: Int,
-	@StringRes inputText1: Int,
-	value1: String,
-	@StringRes label2: Int,
-	@StringRes inputText2: Int,
-	value2: String,
-	@StringRes label3: Int,
-	@StringRes inputText3: Int,
-	value3: String,
+	@StringRes salinityLabel: Int,
+	@StringRes salinityInputText: Int,
+	salinityValue: String,
+	@StringRes densityLabel: Int,
+	@StringRes densityInputText: Int,
+	densityValue: String,
+	@StringRes conductivityLabel: Int,
+	@StringRes conductivityInputText: Int,
+	conductivityValue: String,
 	contentColor: Color
 ) {
 	// Salinity // TODO
 	BodyText(
-		text = label1,
+		text = salinityLabel,
 		color = contentColor
 	)
 	CalculatedTextString(
-		text = inputText1,
-		calculatedValue = value1,
+		text = salinityInputText,
+		calculatedValue = salinityValue,
 		textColor = contentColor,
 	)
-	VerySmallSpacer()
+	VerticalSpacerVerySmall()
 	// Density
 	BodyText(
-		text = label2,
+		text = densityLabel,
 		color = contentColor
 	)
 	CalculatedTextString(
-		text = inputText2,
-		calculatedValue = value2,
+		text = densityInputText,
+		calculatedValue = densityValue,
 		textColor = contentColor,
 	)
-	VerySmallSpacer()
+	VerticalSpacerVerySmall()
 	// Conductivity
 	BodyText(
-		text = label3,
+		text = conductivityLabel,
 		color = contentColor
 	)
 	CalculatedTextString(
-		text = inputText3,
-		calculatedValue = value3,
+		text = conductivityInputText,
+		calculatedValue = conductivityValue,
 		textColor = contentColor,
 	)
-//	VerySmallSpacer()
-//	Row(
-//		verticalAlignment = Alignment.CenterVertically
-//	) {
-//		Column(
-//			modifier = Modifier
-//				.weight(1f),
-//			horizontalAlignment = Alignment.CenterHorizontally
-//		) {
-//			// Density
-//			BodyText(
-//				text = label2,
-//				color = contentColor
-//			)
-//			CalculatedTextString(
-//				text = inputText2,
-//				calculatedValue = value2,
-//				textColor = contentColor,
-//			)
-//		}
-//		Column(
-//			modifier = Modifier
-//			.weight(1f),
-//			horizontalAlignment = Alignment.CenterHorizontally
-//		) {
-//			// Conductivity
-//			BodyText(
-//				text = label3,
-//				color = contentColor
-//			)
-//			CalculatedTextString(
-//				text = inputText3,
-//				calculatedValue = value3,
-//				textColor = contentColor,
-//			)
-//		}
-//	}
 }
 
 @Composable
@@ -690,6 +651,7 @@ fun CalculatorSubtitleFour(
 	@StringRes text2: Int,
 	@StringRes text3: Int,
 	@StringRes text4: Int,
+	icon: ImageVector = ImageVector.vectorResource(id = R.drawable.ic_sync_alt),
 ) {
 	Row(
 		verticalAlignment = Alignment.CenterVertically
@@ -698,41 +660,41 @@ fun CalculatorSubtitleFour(
 			text = text1,
 			color = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		Icon(
 			modifier = Modifier
 				.size(dimensionResource(id = R.dimen.icon_size_extremelySmall)),
-			painter = painterResource(id = R.drawable.ic_sync_alt),
+			imageVector = icon,
 			contentDescription = null,
 			tint = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		HeaderText(
 			text = text2,
 			color = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		Icon(
 			modifier = Modifier
 				.size(dimensionResource(id = R.dimen.icon_size_extremelySmall)),
-			painter = painterResource(id = R.drawable.ic_sync_alt),
+			imageVector = icon,
 			contentDescription = null,
 			tint = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		HeaderText(
 			text = text3,
 			color = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		Icon(
 			modifier = Modifier
 				.size(dimensionResource(id = R.dimen.icon_size_extremelySmall)),
-			painter = painterResource(id = R.drawable.ic_sync_alt),
+			imageVector = icon,
 			contentDescription = null,
 			tint = contentColor
 		)
-		SmallSpacerWidth()
+		HorizontalSpacerSmall()
 		HeaderText(
 			text = text4,
 			color = contentColor
@@ -750,12 +712,13 @@ fun PopOutCard(
 	contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer
 ) {
 	Column(modifier = modifier) {
-		SingleWideCard(
+		CenteredSingleCard(
 			containerColor = containerColor,
 			contentColor = contentColor
 		) {
 			Row(
 				verticalAlignment = Alignment.CenterVertically,
+				horizontalArrangement = Arrangement.Start
 			) {
 				Icon(
 					modifier = Modifier
@@ -765,11 +728,9 @@ fun PopOutCard(
 					contentDescription = null,
 					tint = contentColor
 				)
-				Column(
-					modifier = Modifier
-						.weight(11f),
-					horizontalAlignment = Alignment.CenterHorizontally
-				) {
+				Column(modifier = Modifier
+						.weight(11f)
+						.padding(dimensionResource(id = R.dimen.padding_medium)), horizontalAlignment = CenterHorizontally) {
 					HeaderText(
 						text = title,
 						color = contentColor
@@ -794,54 +755,81 @@ fun PopOutlinedCard(
 	contentColor: Color = MaterialTheme.colorScheme.secondary,
 	shape: Shape = Shapes.large
 ) {
-	Column(
+	OutlinedCard(
 		modifier = modifier,
+		colors = CardDefaults.cardColors(
+			containerColor = containerColor,
+			contentColor = contentColor,
+		),
+		border = BorderStroke(
+			width = dimensionResource(id = R.dimen.border_stroke_small),
+			color = contentColor
+		),
+		shape = shape
 	) {
-		OutlinedCard(
-			colors = CardDefaults.cardColors(
-				containerColor = containerColor,
-				contentColor = contentColor,
-			),
-			border = BorderStroke(
-				width = dimensionResource(id = R.dimen.border_stroke_small),
-				color = contentColor
-			),
-			shape = shape
-		) {
-			BodyText(
-				modifier = Modifier
-					.padding(dimensionResource(id = R.dimen.padding_large)),
-				text = text,
-				color = contentColor
-			)
-		}
+		BodyText(
+			modifier = Modifier
+				.padding(dimensionResource(id = R.dimen.padding_large)),
+			text = text,
+			color = contentColor
+		)
 	}
 }
 
 @Composable
 fun ThemeSwitch() {
-	var isDarkTheme by remember { mutableStateOf(true) }
+	var useDarkTheme by remember { mutableStateOf(false) }
+	var recreate by remember { mutableStateOf(false) }
 
-	AquariumInformationTheme(dynamicColor = isDarkTheme) {
-		Row(
-			verticalAlignment = Alignment.CenterVertically,
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(
-					horizontal = 16.dp,
-					vertical = 10.dp
-				),
-			horizontalArrangement = Arrangement.spacedBy(8.dp)
-		) {
-			Text("☀️")
-			Switch(
-				checked = isDarkTheme,
-				onCheckedChange = {
-					isDarkTheme = it
-				}
-			)
-			Text("🌘")
+	// Set app theme based on useDarkTheme
+	val nightMode = if (useDarkTheme) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+	LaunchedEffect(key1 = nightMode) {
+		AppCompatDelegate.setDefaultNightMode(nightMode)
+		recreate = !recreate
+	}
+
+	if (recreate) {
+		AquariumInformationTheme(useDarkTheme = useDarkTheme) {
+			Column {
+				Text("Toggle Theme", style = MaterialTheme.typography.headlineMedium)
+				Switch(
+					checked = useDarkTheme,
+					onCheckedChange = { useDarkTheme = it }
+				)
+			}
 		}
+	}
+//	var isDarkTheme by remember { mutableStateOf(true) }
+//
+//	AquariumInformationTheme(dynamicColor = isDarkTheme) {
+//		Row(
+//			verticalAlignment = Alignment.CenterVertically,
+//			modifier = Modifier
+//				.fillMaxWidth()
+//				.padding(
+//					horizontal = 16.dp,
+//					vertical = 10.dp
+//				),
+//			horizontalArrangement = Arrangement.spacedBy(8.dp)
+//		) {
+//			Text("☀️")
+//			var isDarkThemeEnabled by remember {mutableStateOf(false) }
+//			Switch(
+//				checked = isDarkTheme,
+//				onCheckedChange = {
+//					isDarkTheme = it
+//				}
+//			)
+//			Text("🌘")
+//		}
+//	}
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ThemeSwitchPreview() {
+	AquariumInformationTheme {
+		ThemeSwitch()
 	}
 }
 
@@ -1013,11 +1001,11 @@ fun CardTitlePreview() {
 			modifier = Modifier
 				.background(color = MaterialTheme.colorScheme.background)
 		) {
-			TitleWideContent(
-				text = R.string.app_name,
+			TitledContentWithIcon(
+				title = R.string.app_name,
 				icon = R.drawable.ic_information
 			) {
-				SingleWideCard {
+				CenteredSingleCard {
 					BodyText(text = R.string.text_welcome)
 				}
 			}
@@ -1034,11 +1022,11 @@ fun CardTitlePreviewDark(
 			modifier = Modifier
 				.background(color = MaterialTheme.colorScheme.background)
 		) {
-			TitleWideContent(
-				text = R.string.app_name,
+			TitledContentWithIcon(
+				title = R.string.app_name,
 				icon = R.drawable.ic_information
 			) {
-				SingleWideCard {
+				CenteredSingleCard {
 					BodyText(text = R.string.text_welcome)
 				}
 			}

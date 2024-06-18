@@ -27,7 +27,7 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.BodyText
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatedTextString
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatorSubtitleThree
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaStringContent
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaContent
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.GenericCalculatePage
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputNumberField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
@@ -163,7 +163,7 @@ fun TemperatureLayout(
 			)
 		}
 	) {
-		FormulaStringContent(
+		FormulaContent(
 			contentColor = color,
 			content = {
 				BodyText(

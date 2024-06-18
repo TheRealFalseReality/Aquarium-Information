@@ -15,7 +15,7 @@ plugins {
 
 val versionMajor = 2
 val versionMinor = 0
-val versionPatch = 8
+val versionPatch = 10
 
 android {
 	namespace = "cca.capitalcityaquatics.aquariuminfo"
@@ -85,6 +85,7 @@ dependencies {
 	implementation(libs.ui.graphics)
 	implementation(libs.ui.tooling.preview)
 	implementation(libs.material3)
+	implementation(libs.androidx.appcompat)
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.test.ext.junit)
 	androidTestImplementation(libs.espresso.core)
@@ -97,18 +98,18 @@ dependencies {
 	implementation(libs.androidx.navigation.compose)
 
 	// Firebase BoM
-	implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+	implementation(platform(libs.firebase.bom))
 	// Firebase SDK for Google Analytics
-	implementation("com.google.firebase:firebase-analytics-ktx")
+	implementation(libs.firebase.analytics.ktx)
 	// Crashlytics and Analytics libraries
-	implementation("com.google.firebase:firebase-crashlytics-ktx")
-	implementation("com.google.firebase:firebase-analytics-ktx")
+	implementation(libs.firebase.crashlytics.ktx)
+	implementation(libs.google.firebase.analytics.ktx)
 	// Performance Monitoring library
-	implementation("com.google.firebase:firebase-perf-ktx")
+	implementation(libs.firebase.perf.ktx)
 
 	// Predicitive Back Gesture
-	implementation("androidx.activity:activity-ktx:1.8.2")
+	implementation(libs.androidx.activity.ktx)
 
 	// WindowSizeClass
-	implementation("androidx.compose.material3:material3-window-size-class:1.1.2")
+	implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
 }

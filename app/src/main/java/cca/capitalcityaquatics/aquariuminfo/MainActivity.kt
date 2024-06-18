@@ -63,7 +63,7 @@ fun AquariumInfoApp(
 	val navController = rememberNavController()
 	val currentBackStack by navController.currentBackStackEntryAsState()
 	val currentDestination = currentBackStack?.destination
-	val currentScreen = bottomNavRow.find {
+	val currentScreen = bottomNavRow.firstOrNull {
 		it.route == currentDestination?.route
 	} ?: Overview
 
@@ -96,9 +96,7 @@ fun AppPortrait(
 ) {
 	Scaffold(
 		topBar = {
-			Column {
-				AquariumAppBar(navController = navController)
-			}
+			AquariumAppBar(navController = navController)
 		},
 		bottomBar = {
 			BottomNavBar(

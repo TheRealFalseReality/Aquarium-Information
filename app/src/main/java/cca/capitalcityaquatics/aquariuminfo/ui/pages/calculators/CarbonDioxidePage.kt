@@ -21,12 +21,12 @@ import cca.capitalcityaquatics.aquariuminfo.data.calculators.carbonDioxideDataSo
 import cca.capitalcityaquatics.aquariuminfo.model.calculators.CalculatorMethods
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateFieldTwoInputs
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatedTextString
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaString
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaStringCard
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.GenericCalculatePage
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.HeaderText
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputRowNumberFieldTwoInputs
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TextCard
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TextOutlinedCard
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
@@ -65,7 +65,7 @@ fun CarbonDioxideLayout(
 			)
 		},
 		selectContent = {
-			TextCard(
+			TextOutlinedCard(
 				text = dataSourceSpecific.unitsLabel,
 				contentColor = color
 			)
@@ -102,9 +102,9 @@ fun CarbonDioxideLayout(
 			)
 		}
 	) {
-		FormulaString(
+		FormulaStringCard(
 			contentColor = color,
-			text = dataSourceSpecific.formulaText,
+			formulaText = dataSourceSpecific.formulaText,
 		)
 	}
 }

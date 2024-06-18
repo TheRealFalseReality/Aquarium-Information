@@ -57,8 +57,8 @@ fun CalculatorsTabRow(
 //	}
 	val indicator = @Composable { tabPositions: List<TabPosition> ->
 		FancyIndicator(
-			selectedColor,
-			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
+			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+			selectedColor = selectedColor,
 		)
 	}
 

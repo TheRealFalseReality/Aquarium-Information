@@ -125,7 +125,7 @@ fun RadioButtonFourUnits(
 				else MaterialTheme.colorScheme.onBackground
 			)
 		}
-		MediumSpacer()
+		VerticalSpacerMedium()
 		Row {
 			RadioButtonComposable(
 				modifier = Modifier

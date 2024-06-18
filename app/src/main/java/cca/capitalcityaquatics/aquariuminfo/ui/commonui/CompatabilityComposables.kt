@@ -112,7 +112,7 @@ fun FishCardsCompatibilityData(
 						color = contentColor,
 						style = MaterialTheme.typography.titleSmall
 					)
-					VerySmallSpacer()
+					VerticalSpacerVerySmall()
 					BodyText(
 						text = compatibilityData.compatible,
 						modifier = Modifier
@@ -124,13 +124,13 @@ fun FishCardsCompatibilityData(
 						color = contentColor,
 						style = MaterialTheme.typography.bodySmall
 					)
-					SmallSpacer()
+					VerticalSpacerSmall()
 					HeaderText(
 						text = R.string.text_caution,
 						color = contentColor,
 						style = MaterialTheme.typography.titleSmall
 					)
-					VerySmallSpacer()
+					VerticalSpacerVerySmall()
 					BodyText(
 						text = compatibilityData.caution,
 						modifier = Modifier
@@ -142,13 +142,13 @@ fun FishCardsCompatibilityData(
 						color = contentColor,
 						style = MaterialTheme.typography.bodySmall
 					)
-					SmallSpacer()
+					VerticalSpacerSmall()
 					HeaderText(
 						text = R.string.text_incompatible,
 						color = contentColor,
 						style = MaterialTheme.typography.titleSmall
 					)
-					VerySmallSpacer()
+					VerticalSpacerVerySmall()
 					BodyText(
 						text = compatibilityData.incompatible,
 						modifier = Modifier

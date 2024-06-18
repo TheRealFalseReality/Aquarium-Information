@@ -24,9 +24,9 @@ import cca.capitalcityaquatics.aquariuminfo.data.tankvolumes.bowFrontDataSource
 import cca.capitalcityaquatics.aquariuminfo.model.tankvolumes.TankVolumeMethods
 import cca.capitalcityaquatics.aquariuminfo.navigation.BowFront
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateFieldFourInputs
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateImageTitle
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateImageWithTitle
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatorSubtitleTwo
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaString
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaStringCard
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.GenericCalculatePage
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputQuadNumberFieldFourInputs
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
@@ -152,9 +152,9 @@ fun BowFrontLayout(
 				calculateContent = {
 					TankVolumeResultsString(
 						contentColor = contentColor,
-						calculatedValue1 = dimensions.calculateVolumeGallons(),
-						calculatedValue2 = dimensions.calculateVolumeLiters(),
-						calculatedValue3 = dimensions.calculateWaterWeightPounds()
+						gallons = dimensions.calculateVolumeGallons(),
+						liters = dimensions.calculateVolumeLiters(),
+						waterWeight = dimensions.calculateWaterWeightPounds()
 					)
 //					when (selected) {
 //						dataSourceCommon.radioTextInches -> {
@@ -181,15 +181,15 @@ fun BowFrontLayout(
 			)
 		},
 		additionalContent = {
-			CalculateImageTitle(
+			CalculateImageWithTitle(
 				image = dataSourceSpecific.image,
 				contentDescription = view,
 				color = color
 			)
 		}
 	) {
-		FormulaString(
-			text = dataSourceSpecific.formulaText,
+		FormulaStringCard(
+			formulaText = dataSourceSpecific.formulaText,
 			contentColor = color
 		)
 	}

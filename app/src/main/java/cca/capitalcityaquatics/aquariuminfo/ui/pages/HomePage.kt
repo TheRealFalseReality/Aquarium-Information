@@ -21,9 +21,9 @@ import cca.capitalcityaquatics.aquariuminfo.navigation.Home
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.BodyText
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PopOutCard
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.SingleWideCard
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.SmallSpacer
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TitleWideContent
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CenteredSingleCard
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerSmall
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TitledContentWithIcon
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
@@ -41,23 +41,23 @@ fun HomeLayout(
 	val uriHandler = LocalUriHandler.current
 	val appURL = stringResource(id = R.string.url_app)
 
-	TitleWideContent(
-		text = Home.title,
+	TitledContentWithIcon(
+		title = Home.title,
 		icon = Home.icon
 	) {
-		SingleWideCard(
+		CenteredSingleCard(
 			containerColor = MaterialTheme.colorScheme
 				.surfaceColorAtElevation(dimensionResource(id = R.dimen.tonal_elevation_medium)),
 		) {
 			BodyText(text = homeHeaderDataSource.title)
-			SmallSpacer()
+			VerticalSpacerSmall()
 			BodyText(
 				text = homeHeaderDataSource.text,
 				textAlign = TextAlign.Justify,
 			)
 		}
 	}
-	SmallSpacer()
+	VerticalSpacerSmall()
 	PopOutCard(
 		modifier = Modifier
 			.clickable { uriHandler.openUri(appURL) },
@@ -67,13 +67,13 @@ fun HomeLayout(
 		containerColor = MaterialTheme.colorScheme.primaryContainer,
 		contentColor = MaterialTheme.colorScheme.onPrimaryContainer
 	)
-	SmallSpacer()
+	VerticalSpacerSmall()
 	PopOutCard(
 		icon = homeCompatibilityDataSource.icon,
 		title = homeCompatibilityDataSource.title,
 		body = homeCompatibilityDataSource.text
 	)
-	SmallSpacer()
+	VerticalSpacerSmall()
 //	ThemeSwitch()
 //	PopOutlinedCard(
 //		text = homeNavigateDataSource.text

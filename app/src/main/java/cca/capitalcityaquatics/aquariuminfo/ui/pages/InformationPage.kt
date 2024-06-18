@@ -37,10 +37,10 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.AppVersion
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.BodyText
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.IconTextRow
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.SingleWideCard
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.SmallSpacer
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TitleWideContent
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerySmallSpacer
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CenteredSingleCard
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerSmall
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TitledContentWithIcon
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerVerySmall
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
@@ -67,11 +67,11 @@ fun InfoLayout(
 	val appURL = stringResource(id = R.string.url_app)
 	val changelogURL = stringResource(id = R.string.changelog_url)
 
-	TitleWideContent(
-		text = Information.title,
+	TitledContentWithIcon(
+		title = Information.title,
 		icon = Information.icon
 	) {
-		SingleWideCard(
+		CenteredSingleCard(
 			containerColor = containerColor
 		) {
 			BodyText(
@@ -82,12 +82,12 @@ fun InfoLayout(
 //			BodyText(text = informationDataSource.text)
 		}
 	}
-	SmallSpacer()
-	TitleWideContent(
-		text = errorDataSource.title,
+	VerticalSpacerSmall()
+	TitledContentWithIcon(
+		title = errorDataSource.title,
 		icon = errorDataSource.icon,
 	) {
-		SingleWideCard(
+		CenteredSingleCard(
 			containerColor = containerColor
 		) {
 			BodyText(
@@ -98,12 +98,12 @@ fun InfoLayout(
 			)
 		}
 	}
-	SmallSpacer()
-	TitleWideContent(
-		text = contactDataSource.title,
+	VerticalSpacerSmall()
+	TitledContentWithIcon(
+		title = contactDataSource.title,
 		icon = contactDataSource.icon,
 	) {
-		SingleWideCard(
+		CenteredSingleCard(
 			containerColor = containerColor
 		) {
 			IconTextRow(
@@ -153,12 +153,12 @@ fun InfoLayout(
 			)
 		}
 	}
-	SmallSpacer()
-	TitleWideContent(
-		text = appInformationDataSource.title,
+	VerticalSpacerSmall()
+	TitledContentWithIcon(
+		title = appInformationDataSource.title,
 		icon = appInformationDataSource.icon,
 	) {
-		SingleWideCard(
+		CenteredSingleCard(
 			modifier = Modifier
 				.clickable { uriHandler.openUri(changelogURL) },
 			containerColor = containerColor,
@@ -172,9 +172,9 @@ fun InfoLayout(
 					horizontalAlignment = Alignment.CenterHorizontally
 				) {
 					AppVersion()
-					VerySmallSpacer()
+					VerticalSpacerVerySmall()
 					// TODO Add more
-					VerySmallSpacer()
+					VerticalSpacerVerySmall()
 					BodyText(
 						text = R.string.tap_to_see_changelog,
 					)
@@ -187,6 +187,7 @@ fun InfoLayout(
 			}
 		}
 	}
+//	ThemeSwitch()
 }
 
 @ExperimentalMaterial3Api

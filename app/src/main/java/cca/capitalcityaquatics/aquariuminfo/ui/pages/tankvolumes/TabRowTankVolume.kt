@@ -49,8 +49,8 @@ fun TankVolumeTabRow(
 	)
 	val indicator = @Composable { tabPositions: List<TabPosition> ->
 		FancyIndicator(
+			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
 			selectedColor,
-			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
 		)
 	}
 

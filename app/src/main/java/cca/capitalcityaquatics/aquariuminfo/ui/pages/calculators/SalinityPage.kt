@@ -24,7 +24,7 @@ import cca.capitalcityaquatics.aquariuminfo.data.calculators.salinityDataSource
 import cca.capitalcityaquatics.aquariuminfo.model.calculators.SalinityMethods
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatorSubtitleFour
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaString
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaStringCard
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.GenericCalculatePage
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputNumberField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
@@ -171,15 +171,15 @@ fun SalinityLayout(
 						// Specific Gravity
 						dataSourceCommon.radioTextSpecificGravity -> {
 							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSalinity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSalinity(),
-								label2 = dataSourceCommon.labelDensity,
-								inputText2 = dataSourceCommon.calculatedTextDensity,
-								value2 = parameters.calculateDensity(),
-								label3 = dataSourceCommon.labelConductivity,
-								inputText3 = dataSourceCommon.calculatedTextConductivity,
-								value3 = parameters.calculateConductivity(),
+								salinityLabel = dataSourceCommon.labelSalinity,
+								salinityInputText = dataSourceCommon.calculatedTextPpt,
+								salinityValue = parameters.calculateSalinity(),
+								densityLabel = dataSourceCommon.labelDensity,
+								densityInputText = dataSourceCommon.calculatedTextDensity,
+								densityValue = parameters.calculateDensity(),
+								conductivityLabel = dataSourceCommon.labelConductivity,
+								conductivityInputText = dataSourceCommon.calculatedTextConductivity,
+								conductivityValue = parameters.calculateConductivity(),
 								contentColor = contentColor,
 							)
 						}
@@ -187,15 +187,15 @@ fun SalinityLayout(
 						// Density
 						dataSourceCommon.radioTextDensity -> {
 							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSalinity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSalinity(),
-								label2 = dataSourceCommon.labelSpecificGravity,
-								inputText2 = dataSourceCommon.calculatedTextSg,
-								value2 = parameters.calculateSpecificGravity(),
-								label3 = dataSourceCommon.labelConductivity,
-								inputText3 = dataSourceCommon.calculatedTextConductivity,
-								value3 = parameters.calculateConductivity(),
+								salinityLabel = dataSourceCommon.labelSalinity,
+								salinityInputText = dataSourceCommon.calculatedTextPpt,
+								salinityValue = parameters.calculateSalinity(),
+								densityLabel = dataSourceCommon.labelSpecificGravity,
+								densityInputText = dataSourceCommon.calculatedTextSg,
+								densityValue = parameters.calculateSpecificGravity(),
+								conductivityLabel = dataSourceCommon.labelConductivity,
+								conductivityInputText = dataSourceCommon.calculatedTextConductivity,
+								conductivityValue = parameters.calculateConductivity(),
 								contentColor = contentColor,
 							)
 						}
@@ -203,15 +203,15 @@ fun SalinityLayout(
 						// Conductivity
 						dataSourceCommon.radioTextConductivity -> {
 							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSalinity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSalinity(),
-								label2 = dataSourceCommon.labelSpecificGravity,
-								inputText2 = dataSourceCommon.calculatedTextSg,
-								value2 = parameters.calculateSpecificGravity(),
-								label3 = dataSourceCommon.labelDensity,
-								inputText3 = dataSourceCommon.calculatedTextDensity,
-								value3 = parameters.calculateDensity(),
+								salinityLabel = dataSourceCommon.labelSalinity,
+								salinityInputText = dataSourceCommon.calculatedTextPpt,
+								salinityValue = parameters.calculateSalinity(),
+								densityLabel = dataSourceCommon.labelSpecificGravity,
+								densityInputText = dataSourceCommon.calculatedTextSg,
+								densityValue = parameters.calculateSpecificGravity(),
+								conductivityLabel = dataSourceCommon.labelDensity,
+								conductivityInputText = dataSourceCommon.calculatedTextDensity,
+								conductivityValue = parameters.calculateDensity(),
 								contentColor = contentColor,
 							)
 						}
@@ -219,15 +219,15 @@ fun SalinityLayout(
 						// Salinity
 						else -> {
 							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSpecificGravity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSpecificGravity(),
-								label2 = dataSourceCommon.labelDensity,
-								inputText2 = dataSourceCommon.calculatedTextDensity,
-								value2 = parameters.calculateDensity(),
-								label3 = dataSourceCommon.labelConductivity,
-								inputText3 = dataSourceCommon.calculatedTextConductivity,
-								value3 = parameters.calculateConductivity(),
+								salinityLabel = dataSourceCommon.labelSpecificGravity,
+								salinityInputText = dataSourceCommon.calculatedTextPpt,
+								salinityValue = parameters.calculateSpecificGravity(),
+								densityLabel = dataSourceCommon.labelDensity,
+								densityInputText = dataSourceCommon.calculatedTextDensity,
+								densityValue = parameters.calculateDensity(),
+								conductivityLabel = dataSourceCommon.labelConductivity,
+								conductivityInputText = dataSourceCommon.calculatedTextConductivity,
+								conductivityValue = parameters.calculateConductivity(),
 								contentColor = contentColor,
 							)
 						}
@@ -253,9 +253,9 @@ fun SalinityLayout(
 //			)
 //		}
 	) {
-		FormulaString(
-			expandedState = true,
-			text = dataSourceSpecific.formulaText, // TODO
+		FormulaStringCard(
+//			isExpanded = true,
+			formulaText = dataSourceSpecific.formulaText, // TODO
 			contentColor = color
 		)
 	}

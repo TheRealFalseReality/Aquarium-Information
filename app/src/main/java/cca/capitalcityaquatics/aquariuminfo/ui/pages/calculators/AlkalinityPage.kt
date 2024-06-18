@@ -25,7 +25,7 @@ import cca.capitalcityaquatics.aquariuminfo.model.calculators.CalculatorMethods
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatedTextString
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatorSubtitleThree
-import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaString
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaStringCard
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.GenericCalculatePage
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputNumberField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
@@ -183,8 +183,8 @@ fun AlkalinityLayout(
 			)
 		}
 	) {
-		FormulaString(
-			text = dataSourceSpecific.formulaText,
+		FormulaStringCard(
+			formulaText = dataSourceSpecific.formulaText,
 			contentColor = color
 		)
 	}

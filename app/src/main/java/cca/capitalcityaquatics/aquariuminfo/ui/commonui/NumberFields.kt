@@ -166,7 +166,7 @@ fun InputNumberFieldTwoInputsStacked(
 			imeAction = ImeAction.Next,
 			leadingIcon = leadingIcon1
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		InputNumberField(
 			label = label2,
 			placeholder = placeholder2,
@@ -310,7 +310,7 @@ fun InputQuadNumberFieldFourInputs(
 				leadingIcon = leadingIcon2
 			)
 		}
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Row(
 			modifier = Modifier
 				.fillMaxWidth(fraction = 0.95f),
@@ -553,7 +553,7 @@ fun InputNumberFieldThreeInputsStackedPortrait(
 				leadingIcon = leadingIcon2
 			)
 		}
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Row(
 			modifier = Modifier
 				.fillMaxWidth(),
@@ -623,7 +623,7 @@ fun InputNumberFieldThreeInputsStackedLandscape(
 				leadingIcon = leadingIcon1
 			)
 		}
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Row(
 			modifier = Modifier
 				.fillMaxWidth(),
@@ -645,7 +645,7 @@ fun InputNumberFieldThreeInputsStackedLandscape(
 				leadingIcon = leadingIcon2
 			)
 		}
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Row(
 			modifier = Modifier
 				.fillMaxWidth(),
@@ -689,17 +689,17 @@ fun CalculateField(
 			color = contentColor,
 			textAlign = TextAlign.Center
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		EqualsText(
 			color = contentColor,
 			equalsText = equalsText
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Column(
 			modifier = Modifier.fillMaxWidth(),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			SingleWideCard(
+			CenteredSingleCard(
 				contentColor = contentColor,
 				containerColor = containerColor
 			) {
@@ -748,17 +748,17 @@ fun CalculateFieldTwoInputs(
 			color = contentColor,
 			textAlign = TextAlign.Center
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		EqualsText(
 			color = contentColor,
 			equalsText = equalsText
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Column(
 			modifier = Modifier.fillMaxWidth(),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			SingleWideCard(
+			CenteredSingleCard(
 				contentColor = contentColor,
 				containerColor = containerColor
 			) {
@@ -798,17 +798,17 @@ fun CalculateFieldFourInputs(
 			color = contentColor,
 			textAlign = TextAlign.Center
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		EqualsText(
 			color = contentColor,
 			equalsText = equalsText
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Column(
 			modifier = Modifier.fillMaxWidth(),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			SingleWideCard(
+			CenteredSingleCard(
 				contentColor = contentColor,
 				containerColor = containerColor
 			) {
@@ -841,17 +841,17 @@ fun CalculateFieldThreeInputs(
 			color = contentColor,
 			textAlign = TextAlign.Center
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		EqualsText(
 			color = contentColor,
 			equalsText = equalsText
 		)
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Column(
 			modifier = Modifier.fillMaxWidth(),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			SingleWideCard(
+			CenteredSingleCard(
 				contentColor = contentColor,
 				containerColor = containerColor
 			) {

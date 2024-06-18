@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -47,42 +47,42 @@ import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.Shapes
 
 @Composable
-fun MediumSpacer(modifier: Modifier = Modifier) {
+fun VerticalSpacerMedium(modifier: Modifier = Modifier) {
 	Column(modifier = modifier) {
 		Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 	}
 }
 
 @Composable
-fun SmallSpacer(modifier: Modifier = Modifier) {
+fun VerticalSpacerSmall(modifier: Modifier = Modifier) {
 	Column(modifier = modifier) {
 		Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
 	}
 }
 
 @Composable
-fun SmallSpacerWidth(modifier: Modifier = Modifier) {
+fun HorizontalSpacerSmall(modifier: Modifier = Modifier) {
 	Column(modifier = modifier) {
 		Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_small)))
 	}
 }
 
 @Composable
-fun MediumSpacerWidth(modifier: Modifier = Modifier) {
+fun HorizontalSpacerMedium(modifier: Modifier = Modifier) {
 	Column(modifier = modifier) {
 		Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_medium)))
 	}
 }
 
 @Composable
-fun VerySmallSpacer(modifier: Modifier = Modifier) {
+fun VerticalSpacerVerySmall(modifier: Modifier = Modifier) {
 	Column(modifier = modifier) {
 		Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_verySmall)))
 	}
 }
 
 @Composable
-fun ExtremelySmallSpacer(modifier: Modifier = Modifier) {
+fun VerticalSpacerExtremelySmall(modifier: Modifier = Modifier) {
 	Column(modifier = modifier) {
 		Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_extremelySmall)))
 	}
@@ -93,21 +93,19 @@ fun AppDivider(
 	modifier: Modifier = Modifier,
 	color: Color = MaterialTheme.colorScheme.onBackground,
 ) {
-	Column(modifier = modifier) {
-		Divider(
-			modifier = Modifier
-				.fillMaxWidth(fraction = 0.8f),
-			color = color
-		)
-	}
+	HorizontalDivider(
+		modifier = modifier
+			.fillMaxWidth(fraction = 0.8f),
+		color = color
+	)
 }
 
 @Composable
-fun TitleWideContent(
+fun TitledContentWithIcon(
 	modifier: Modifier = Modifier,
-	@StringRes text: Int,
+	@StringRes title: Int,
 	@DrawableRes icon: Int,
-	color: Color = MaterialTheme.colorScheme.onSurface,
+	contentColor: Color = MaterialTheme.colorScheme.onSurface,
 	content: @Composable ColumnScope.() -> Unit,
 ) {
 	Column(modifier = modifier) {
@@ -115,12 +113,12 @@ fun TitleWideContent(
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			TitleTextIcon(
-				text = text,
+				text = title,
 				icon = icon,
-				color = color
+				color = contentColor
 			)
 		}
-		SmallSpacer()
+		VerticalSpacerSmall()
 		Column(
 			modifier = Modifier
 				.fillMaxWidth(),
@@ -132,7 +130,7 @@ fun TitleWideContent(
 }
 
 @Composable
-fun SingleWideCard(
+fun CenteredSingleCard(
 	modifier: Modifier = Modifier,
 	shape: Shape = Shapes.large,
 	containerColor: Color = MaterialTheme.colorScheme.surface,
@@ -162,7 +160,7 @@ fun SingleWideCard(
 }
 
 @Composable
-fun TextCard(
+fun TextOutlinedCard(
 	modifier: Modifier = Modifier,
 	@StringRes text: Int,
 	containerColor: Color = MaterialTheme.colorScheme.background,
@@ -193,8 +191,10 @@ fun TextCard(
 					verticalAlignment = Alignment.CenterVertically
 				) {
 					HeaderText(
+						modifier = Modifier.fillMaxWidth(),
 						text = text,
 						color = contentColor,
+						textAlign = TextAlign.Center // Center text within the card
 					)
 				}
 			}

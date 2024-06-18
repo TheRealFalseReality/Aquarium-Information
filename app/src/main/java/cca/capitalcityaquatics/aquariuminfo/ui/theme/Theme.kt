@@ -86,11 +86,6 @@ fun AquariumInformationTheme(
 	dynamicColor: Boolean = true,
 	content: @Composable () -> Unit
 ) {
-//	val colorScheme = if (!useDarkTheme) {
-//		LightColors
-//	} else {
-//		DarkColors
-//	}
 	// Dynamic Theme
 	val colorScheme = when {
 		dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {

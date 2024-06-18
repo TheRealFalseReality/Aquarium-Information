@@ -1,6 +1,6 @@
 package cca.capitalcityaquatics.aquariuminfo.model.calculators
 
-import com.google.android.gms.common.util.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import java.math.RoundingMode
 import java.text.DecimalFormat
 

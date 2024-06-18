@@ -125,7 +125,7 @@ fun NavButtonRowTop(
 			contentColor = contentColor
 		)
 	}
-	MediumSpacer()
+	VerticalSpacerMedium()
 }
 
 @Composable
@@ -180,7 +180,7 @@ fun NavButtonRowMid(
 			contentColor = contentColor
 		)
 	}
-	MediumSpacer()
+	VerticalSpacerMedium()
 }
 
 @Composable
@@ -235,7 +235,7 @@ fun NavButtonRowBottom(
 			contentColor = contentColor
 		)
 	}
-	MediumSpacer()
+	VerticalSpacerMedium()
 }
 
 
