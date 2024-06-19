@@ -3,227 +3,164 @@ package cca.capitalcityaquatics.aquariuminfo.model.calculators
 import androidx.annotation.VisibleForTesting
 import cca.capitalcityaquatics.aquariuminfo.data.calculatorDataSource
 import cca.capitalcityaquatics.aquariuminfo.data.calculators.alkalinityDataSource
-import cca.capitalcityaquatics.aquariuminfo.data.calculators.flowRateDataSourceFreshwater
-import cca.capitalcityaquatics.aquariuminfo.data.calculators.flowRateDataSourceMarine
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.math.pow
 
 class CalculatorMethods(
-	private val selected: Int? = null,
-	private val pH: Double = 0.0,
-	private val dKH: Double = 0.0,
-	private val alkalinity: Double = 0.0,
-	private val temperature: Double = 0.0,
-	private val tankVolume: Double = 0.0,
+    private val selected: Int? = null,
+    private val pH: Double = 0.0,
+    private val dKH: Double = 0.0,
+    private val alkalinity: Double = 0.0,
+    private val temperature: Double = 0.0,
 ) {
-	// Carbon Dioxide
-	@VisibleForTesting
-	fun calculateCarbonDioxide(): String {
-		val phSolution = 10.0.pow(6.37 - pH)
-		val carbonDioxide = (12.839 * dKH) * phSolution
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+    private val decimalFormat = DecimalFormat("#.##")
+        .apply { roundingMode = RoundingMode.HALF_UP }
 
-		return df.format(carbonDioxide)
-	}
+    // Carbon Dioxide
+    @VisibleForTesting
+    fun calculateCarbonDioxide(): String {
+        val phSolution = 10.0.pow(6.37 - pH)
+        val carbonDioxide = (12.839 * dKH) * phSolution
 
-	// Alkalinity
-	// Convert to dKH
-	@VisibleForTesting
-	fun calculateAlkalinityDKH(): String {
-		val conversionFactor =
-			when (selected) {
-				// ppm
-				calculatorDataSource.radioTextPpm -> {
-					alkalinityDataSource.conversionDKHPPM
-				}
+        return decimalFormat.format(carbonDioxide)
+    }
 
-				// meq/L
-				calculatorDataSource.radioTextMeq -> {
-					alkalinityDataSource.conversionDKHMEQ
-				}
+    private fun getAlkalinityConversionFactor(
+        selected: Int?,
+        dkhFactor: Double,
+        meqFactor: Double
+    ): Double {
+        return when (selected) {
+            calculatorDataSource.radioTextPpm -> dkhFactor
+            calculatorDataSource.radioTextMeq -> meqFactor
+            else -> 0.0
+        }
+    }
 
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val ppmDKH = alkalinity * conversionFactor
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+    // Alkalinity
+    // Convert to dKH
+    @VisibleForTesting
+    fun calculateAlkalinityDKH(): String {
+        val conversionFactor = getAlkalinityConversionFactor(
+            selected,
+            alkalinityDataSource.conversionDKHPPM,
+            alkalinityDataSource.conversionDKHMEQ
+        )
+//		val conversionFactor =
+//			when (selected) {
+//				// ppm
+//				calculatorDataSource.radioTextPpm -> {
+//					alkalinityDataSource.conversionDKHPPM
+//				}
+//
+//				// meq/L
+//				calculatorDataSource.radioTextMeq -> {
+//					alkalinityDataSource.conversionDKHMEQ
+//				}
+//
+//				// error
+//				else -> {
+//					0.0
+//				}
+//			}
+        val ppmDKH = alkalinity * conversionFactor
 
-		return df.format(ppmDKH)
-	}
+        return decimalFormat.format(ppmDKH)
+    }
 
-	// Convert to ppm
-	@VisibleForTesting
-	fun calculateAlkalinityPPM(): String {
-		val conversionFactor =
-			when (selected) {
-				// dKH
-				calculatorDataSource.radioTextDkh -> {
-					alkalinityDataSource.conversionPPMDKH
-				}
+    // Convert to ppm
+    @VisibleForTesting
+    fun calculateAlkalinityPPM(): String {
+        val conversionFactor =
+            when (selected) {
+                // dKH
+                calculatorDataSource.radioTextDkh -> {
+                    alkalinityDataSource.conversionPPMDKH
+                }
 
-				// meq/L
-				calculatorDataSource.radioTextMeq -> {
-					alkalinityDataSource.conversionPPMMEQ
-				}
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val ppmDKH = alkalinity * conversionFactor
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+                // meq/L
+                calculatorDataSource.radioTextMeq -> {
+                    alkalinityDataSource.conversionPPMMEQ
+                }
+                // error
+                else -> {
+                    0.0
+                }
+            }
+        val ppmDKH = alkalinity * conversionFactor
 
-		return df.format(ppmDKH)
-	}
+        return decimalFormat.format(ppmDKH)
+    }
 
-	// Convert to meq/L
-	@VisibleForTesting
-	fun calculateAlkalinityMEQ(): String {
-		val conversionFactor =
-			when (selected) {
-				// dKH
-				calculatorDataSource.radioTextDkh -> {
-					alkalinityDataSource.conversionMEQDKH
-				}
+    // Convert to meq/L
+    @VisibleForTesting
+    fun calculateAlkalinityMEQ(): String {
+        val conversionFactor =
+            when (selected) {
+                // dKH
+                calculatorDataSource.radioTextDkh -> {
+                    alkalinityDataSource.conversionMEQDKH
+                }
 
-				// ppm
-				calculatorDataSource.radioTextPpm -> {
-					alkalinityDataSource.conversionMEQPPM
-				}
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val ppmDKH = alkalinity * conversionFactor
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+                // ppm
+                calculatorDataSource.radioTextPpm -> {
+                    alkalinityDataSource.conversionMEQPPM
+                }
+                // error
+                else -> {
+                    0.0
+                }
+            }
+        val ppmDKH = alkalinity * conversionFactor
 
-		return df.format(ppmDKH)
-	}
+        return decimalFormat.format(ppmDKH)
+    }
 
-	// Temperature
-	@VisibleForTesting
-	fun convertTemperature(): String {
-		val calculatedTemperature =
-			when (selected) {
-				// Fahrenheit
-				calculatorDataSource.radioTextFahrenheit -> {
-					(temperature - 32) * (5.0 / 9.0)
-				}
+    // Temperature
+    @VisibleForTesting
+    fun convertTemperature(): String {
+        val calculatedTemperature =
+            when (selected) {
+                // Fahrenheit
+                calculatorDataSource.radioTextFahrenheit -> {
+                    (temperature - 32) * (5.0 / 9.0)
+                }
 
-				//Celsius
-				calculatorDataSource.radioTextCelsius -> {
-					(temperature * (9.0 / 5.0) + 32)
-				}
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+                //Celsius
+                calculatorDataSource.radioTextCelsius -> {
+                    (temperature * (9.0 / 5.0) + 32)
+                }
+                // error
+                else -> {
+                    0.0
+                }
+            }
 
-		return df.format(calculatedTemperature)
-	}
+        return decimalFormat.format(calculatedTemperature)
+    }
 
-	// Convert to Kelvin
-	@VisibleForTesting
-	fun calculateTemperatureKelvin(): String {
-		val calculatedTemperature =
-			when (selected) {
-				// Fahrenheit
-				calculatorDataSource.radioTextFahrenheit -> {
-					(temperature - 32) * (5.0 / 9.0)
-				}
+    // Convert to Kelvin
+    @VisibleForTesting
+    fun calculateTemperatureKelvin(): String {
+        val calculatedTemperature =
+            when (selected) {
+                // Fahrenheit
+                calculatorDataSource.radioTextFahrenheit -> {
+                    (temperature - 32) * (5.0 / 9.0)
+                }
 
-				//Celsius
-				calculatorDataSource.radioTextCelsius -> {
-					temperature
-				}
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val calculatedTemperatureKelvin = calculatedTemperature + 273.15
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+                //Celsius
+                calculatorDataSource.radioTextCelsius -> {
+                    temperature
+                }
+                // error
+                else -> {
+                    0.0
+                }
+            }
+        val calculatedTemperatureKelvin = calculatedTemperature + 273.15
 
-		return df.format(calculatedTemperatureKelvin)
-	}
-
-	@VisibleForTesting
-	fun calculatePumpFlowLowMarine(): String {
-		val flow = flowRateDataSourceMarine.conversionLow
-
-		val flowRate = tankVolume * flow
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
-
-		return df.format(flowRate)
-	}
-
-	@VisibleForTesting
-	fun calculatePumpFlowHighMarine(): String {
-		val flow = flowRateDataSourceMarine.conversionHigh
-
-		val flowRate = tankVolume * flow
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
-
-		return df.format(flowRate)
-	}
-
-	@VisibleForTesting
-	fun calculatePumpFlowIdealMarine(): String {
-		val flow =
-			(flowRateDataSourceMarine.conversionLow + flowRateDataSourceMarine.conversionHigh) / 2.0
-
-		val flowRate = tankVolume * flow
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
-
-		return df.format(flowRate)
-	}
-
-	@VisibleForTesting
-	fun calculatePumpFlowLowFreshwater(): String {
-		val flow = flowRateDataSourceFreshwater.conversionLow
-
-		val flowRate = tankVolume * flow
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
-
-		return df.format(flowRate)
-	}
-
-	@VisibleForTesting
-	fun calculatePumpFlowHighFreshwater(): String {
-		val flow = flowRateDataSourceFreshwater.conversionHigh
-
-		val flowRate = tankVolume * flow
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
-
-		return df.format(flowRate)
-	}
-
-	@VisibleForTesting
-	fun calculatePumpFlowIdealFreshwater(): String {
-		val flow =
-			(flowRateDataSourceFreshwater.conversionLow + flowRateDataSourceFreshwater.conversionHigh) / 2.0
-
-		val flowRate = tankVolume * flow
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
-
-		return df.format(flowRate)
-	}
+        return decimalFormat.format(calculatedTemperatureKelvin)
+    }
 }

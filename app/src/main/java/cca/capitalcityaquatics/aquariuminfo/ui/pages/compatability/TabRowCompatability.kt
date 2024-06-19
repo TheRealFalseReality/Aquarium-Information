@@ -31,13 +31,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CompatibilityTabRow(
-	selectedState: Int = 0,
-	selectedColor: Color = MaterialTheme.colorScheme.tertiary,
-	unselectedColor: Color = MaterialTheme.colorScheme.outline,
+    selectedState: Int = 0,
+    selectedColor: Color = MaterialTheme.colorScheme.tertiary,
+    unselectedColor: Color = MaterialTheme.colorScheme.outline,
 ) {
 //	val state by rememberSaveable { mutableIntStateOf(selectedState) }
-	val coroutineScope = rememberCoroutineScope()
-	val tabs = compatibilityTabRow
+    val coroutineScope = rememberCoroutineScope()
+    val tabs = compatibilityTabRow
 //	val fancyIndicator = @Composable { tabPositions: List<TabPosition> ->
 //		FancyAnimatedIndicator(
 //			tabPositions = tabPositions,
@@ -45,65 +45,69 @@ fun CompatibilityTabRow(
 //			indicatorColor = selectedColor
 //		)
 //	}
-	val pagerState = rememberPagerState(
-		initialPage = selectedState,
-		pageCount = { tabs.size }
-	)
-	val indicator = @Composable { tabPositions: List<TabPosition> ->
-		FancyIndicator(
-			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-			selectedColor,
-		)
-	}
+    val pagerState = rememberPagerState(
+        initialPage = selectedState,
+        pageCount = { tabs.size }
+    )
+    val indicator = @Composable { tabPositions: List<TabPosition> ->
+        FancyIndicator(
+            Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+            selectedColor,
+        )
+    }
 
-	Column(
-		modifier = Modifier.fillMaxSize()
-	) {
-		TabRow(
-			selectedTabIndex = pagerState.currentPage,
-			indicator = indicator
-		) {
-			tabs.forEachIndexed { index, tab ->
-				LeadingIconTab(
-					selectedContentColor = selectedColor,
-					unselectedContentColor = unselectedColor,
-					selected = pagerState.currentPage == index,
-					onClick = {
-						coroutineScope.launch {
-							pagerState.animateScrollToPage(index)
-						}
-					},
-					text = {
-						Text(
-							text = stringResource(id = tab.title),
-							maxLines = 2,
-							overflow = TextOverflow.Ellipsis
-						)
-					},
-					icon = {
-						Icon(
-							painter =
-							if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
-							else painterResource(id = tab.icon),
-							contentDescription = stringResource(id = tab.title)
-						)
-					}
-				)
-			}
-		}
-		HorizontalPager(
-			state = pagerState,
-		) { index ->
-			when (index) {
-				0 -> {
-					CompatibilityDataList(FreshwaterDataSource().loadFishCardsFreshwaterDataSource())
-				}
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        TabRow(
+            selectedTabIndex = pagerState.currentPage,
+            indicator = indicator
+        ) {
+            tabs.forEachIndexed { index, tab ->
+                LeadingIconTab(
+                    selectedContentColor = selectedColor,
+                    unselectedContentColor = unselectedColor,
+                    selected = pagerState.currentPage == index,
+                    onClick = {
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
+                    text = {
+                        Text(
+                            text = stringResource(id = tab.title),
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            painter =
+                            if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
+                            else painterResource(id = tab.icon),
+                            contentDescription = stringResource(id = tab.title)
+                        )
+                    }
+                )
+            }
+        }
+        HorizontalPager(
+            state = pagerState,
+        ) { index ->
+            when (index) {
+                0 -> {
+                    CompatibilityDataList(FreshwaterDataSource().loadFishCardsFreshwaterDataSource())
+                }
 
-				1 -> {
-					CompatibilityDataList(MarineDataSource().loadFishCardsMarineDataSource())
-				}
-			}
-		}
+                1 -> {
+                    CompatibilityDataList(MarineDataSource().loadFishCardsMarineDataSource())
+                }
+
+                else -> {
+                    CompatibilityDataList(FreshwaterDataSource().loadFishCardsFreshwaterDataSource())
+                }
+            }
+        }
 //		when (state) {
 //			0 -> {
 //				CompatibilityDataList(FreshwaterDataSource().loadFishCardsFreshwaterDataSource())
@@ -113,22 +117,22 @@ fun CompatibilityTabRow(
 //				CompatibilityDataList(MarineDataSource().loadFishCardsMarineDataSource())
 //			}
 //		}
-	}
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TopAppBarPreview() {
-	AquariumInformationTheme {
-		CompatibilityTabRow()
-	}
+    AquariumInformationTheme {
+        CompatibilityTabRow()
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TopAppBarPreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		CompatibilityTabRow()
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        CompatibilityTabRow()
+    }
 }

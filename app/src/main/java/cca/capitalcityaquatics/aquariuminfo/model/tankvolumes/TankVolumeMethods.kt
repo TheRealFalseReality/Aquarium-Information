@@ -13,150 +13,146 @@ import kotlin.math.PI
 import kotlin.math.pow
 
 class TankVolumeMethods(
-	private val selected: Int,
-	selectedCylinder: Int? = null,
-	view: Int,
-	length: Double = 0.0,
-	width: Double = 0.0,
-	height: Double = 0.0,
-	diameter: Double = 0.0,
-	edge: Double = 0.0,
-	fullWidth: Double = 0.0,
+    private val selected: Int,
+    selectedCylinder: Int? = null,
+    view: Int,
+    length: Double = 0.0,
+    width: Double = 0.0,
+    height: Double = 0.0,
+    diameter: Double = 0.0,
+    edge: Double = 0.0,
+    fullWidth: Double = 0.0,
 ) {
-	private val radius = diameter / 2.0
+    private val decimalFormat = DecimalFormat("#.##")
+        .apply { roundingMode = RoundingMode.HALF_UP }
+    private val radius = diameter / 2.0
 
-	private var volume =
-		when (view) {
-			// Cube
-			Cube.title -> {
-				length.pow(3)
-			}
+    private var volume =
+        when (view) {
+            // Cube
+            Cube.title -> {
+                length.pow(3)
+            }
 
-			// Cylinder
-			Cylinder.title -> {
-				when (selectedCylinder) {
-					// Half
-					calculatorDataSource.radioHalfCylinder -> {
-						(PI * radius.pow(2) * height) / 2
-					}
+            // Cylinder
+            Cylinder.title -> {
+                when (selectedCylinder) {
+                    // Half
+                    calculatorDataSource.radioHalfCylinder -> {
+                        (PI * radius.pow(2) * height) / 2
+                    }
 
-					// Corner
-					calculatorDataSource.radioCornerCylinder -> {
-						(PI * radius.pow(2) * height) / 4
-					}
+                    // Corner
+                    calculatorDataSource.radioCornerCylinder -> {
+                        (PI * radius.pow(2) * height) / 4
+                    }
 
-					// Full
-					calculatorDataSource.radioFullCylinder -> {
-						PI * radius.pow(2) * height
-					}
+                    // Full
+                    calculatorDataSource.radioFullCylinder -> {
+                        PI * radius.pow(2) * height
+                    }
 
-					// error
-					else -> {
-						0.0
-					}
-				}
-			}
+                    // error
+                    else -> {
+                        0.0
+                    }
+                }
+            }
 
-			// Hexagonal
-			Hexagonal.title -> {
-				(((3 * kotlin.math.sqrt(3.0)) / 2) * edge * edge * height)
-			}
+            // Hexagonal
+            Hexagonal.title -> {
+                (((3 * kotlin.math.sqrt(3.0)) / 2) * edge * edge * height)
+            }
 
-			// Bow-Front
-			BowFront.title -> {
-				((length * width + (PI * (length / 2) * (fullWidth - width)) / 2) * height)
-			}
+            // Bow-Front
+            BowFront.title -> {
+                ((length * width + (PI * (length / 2) * (fullWidth - width)) / 2) * height)
+            }
 
-			// Rectangle
-			Rectangle.title -> {
-				length * width * height
-			}
+            // Rectangle
+            Rectangle.title -> {
+                length * width * height
+            }
 
-			// error
-			else -> {
-				0.0
-			}
-		}
+            // error
+            else -> {
+                0.0
+            }
+        }
 
-	//Gallons
-	@VisibleForTesting
-	fun calculateVolumeGallons(): String {
-		val conversionFactor =
-			when (selected) {
-				// Inches
-				calculatorDataSource.radioTextInches -> {
-					calculatorDataSource.conversionGallonsInches
-				}
+    //Gallons
+    @VisibleForTesting
+    fun calculateVolumeGallons(): String {
+        val conversionFactor =
+            when (selected) {
+                // Inches
+                calculatorDataSource.radioTextInches -> {
+                    calculatorDataSource.conversionGallonsInches
+                }
 
-				// Feet
-				calculatorDataSource.radioTextFeet -> {
-					calculatorDataSource.conversionGallonsFeet
-				}
+                // Feet
+                calculatorDataSource.radioTextFeet -> {
+                    calculatorDataSource.conversionGallonsFeet
+                }
 
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val volGallons = volume * conversionFactor
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+                // error
+                else -> {
+                    0.0
+                }
+            }
+        val volGallons = volume * conversionFactor
 
-		return df.format(volGallons)
-	}
+        return decimalFormat.format(volGallons)
+    }
 
-	//Liters
-	@VisibleForTesting
-	fun calculateVolumeLiters(): String {
-		val conversionFactor =
-			when (selected) {
-				// Inches
-				calculatorDataSource.radioTextInches -> {
-					calculatorDataSource.conversionLitersInches
-				}
+    //Liters
+    @VisibleForTesting
+    fun calculateVolumeLiters(): String {
+        val conversionFactor =
+            when (selected) {
+                // Inches
+                calculatorDataSource.radioTextInches -> {
+                    calculatorDataSource.conversionLitersInches
+                }
 
-				// Feet
-				calculatorDataSource.radioTextFeet -> {
-					calculatorDataSource.conversionLitersFeet
-				}
+                // Feet
+                calculatorDataSource.radioTextFeet -> {
+                    calculatorDataSource.conversionLitersFeet
+                }
 
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val volLiters = volume * conversionFactor
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+                // error
+                else -> {
+                    0.0
+                }
+            }
+        val volLiters = volume * conversionFactor
 
-		return df.format(volLiters)
-	}
+        return decimalFormat.format(volLiters)
+    }
 
-	// Water Weight
-	@VisibleForTesting
-	fun calculateWaterWeightPounds(): String {
-		val conversionFactor = calculatorDataSource.conversionPoundsGallons
-		val conversionFactorVolume =
-			when (selected) {
-				// Inches
-				calculatorDataSource.radioTextInches -> {
-					calculatorDataSource.conversionGallonsInches
-				}
+    // Water Weight
+    @VisibleForTesting
+    fun calculateWaterWeightPounds(): String {
+        val conversionFactor = calculatorDataSource.conversionPoundsGallons
+        val conversionFactorVolume =
+            when (selected) {
+                // Inches
+                calculatorDataSource.radioTextInches -> {
+                    calculatorDataSource.conversionGallonsInches
+                }
 
-				// Feet
-				calculatorDataSource.radioTextFeet -> {
-					calculatorDataSource.conversionGallonsFeet
-				}
+                // Feet
+                calculatorDataSource.radioTextFeet -> {
+                    calculatorDataSource.conversionGallonsFeet
+                }
 
-				// error
-				else -> {
-					0.0
-				}
-			}
-		val waterWeight = (volume * conversionFactorVolume) * conversionFactor
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
+                // error
+                else -> {
+                    0.0
+                }
+            }
+        val waterWeight = (volume * conversionFactorVolume) * conversionFactor
 
-		return df.format(waterWeight)
-	}
+        return decimalFormat.format(waterWeight)
+    }
 }

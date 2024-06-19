@@ -3,11 +3,9 @@ package cca.capitalcityaquatics.aquariuminfo.ui.commonui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
@@ -27,181 +25,175 @@ import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
 fun CompatibilityDataList(
-	marineList: List<CompatibilityData>,
-	modifier: Modifier = Modifier
+    compatibilityDataList: List<CompatibilityData>,
+    modifier: Modifier = Modifier
 ) {
-	Column(
-		modifier = modifier,
-		horizontalAlignment = Alignment.CenterHorizontally
-	) {
-		LazyVerticalGrid(
-			columns = GridCells.Adaptive(
-				minSize = dimensionResource(id = R.dimen.grid_colum_medium)
-			),
-			userScrollEnabled = true,
-			state = LazyGridState(),
-			content = {
-				items(marineList) { compatibilityData ->
-					FishCardsCompatibilityData(
-						modifier = Modifier
-							.padding(vertical = dimensionResource(id = R.dimen.padding_verySmall)),
-						compatibilityData = compatibilityData
-					)
-				}
-				item {
-					Column(
-						modifier = Modifier.fillMaxSize()
-					) {
-						Disclaimer()
-					}
-				}
-			}
-		)
-	}
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(
+                minSize = dimensionResource(id = R.dimen.grid_column_medium)
+            ),
+            userScrollEnabled = true,
+//			state = LazyGridState(),
+            content = {
+                items(compatibilityDataList) { compatibilityData ->
+                    FishCompatibilityCard(
+                        modifier = Modifier
+                            .padding(vertical = dimensionResource(id = R.dimen.padding_verySmall)),
+                        compatibilityData = compatibilityData
+                    )
+                }
+                item {
+                    DisclaimerNotice()
+                }
+            }
+        )
+    }
 }
 
 @Composable
-fun FishCardsCompatibilityData(
-	modifier: Modifier = Modifier,
-	compatibilityData: CompatibilityData,
-	containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
-	contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
+fun FishCompatibilityCard(
+    modifier: Modifier = Modifier,
+    compatibilityData: CompatibilityData,
+    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
 ) {
-	Column(
-		modifier = modifier,
-		horizontalAlignment = Alignment.CenterHorizontally
-	) {
-		SingleWideCardExpandableFull(
-			modifier = Modifier
-				.fillMaxWidth(fraction = 0.95f),
-			header = compatibilityData.title,
-			headerStyle = MaterialTheme.typography.titleLarge,
-			containerColor = containerColor,
-			contentColor = contentColor,
-			imageContent = {
-				// TODO Expand to Full Size?
-				CardImage(
-					image = compatibilityData.image,
-					contentDescription = compatibilityData.title,
-				)
-			},
-			subtitleContent = {
-				BodyText(
-					text = compatibilityData.latin,
-					style = MaterialTheme.typography.labelLarge,
-					fontStyle = FontStyle.Italic,
-					textAlign = TextAlign.Start,
-					color = contentColor
-				)
-			},
-			descriptionContent = {
-				BodyText(
-					text = compatibilityData.description,
-					color = contentColor,
-					style = MaterialTheme.typography.bodySmall,
-					textAlign = TextAlign.Justify
-				)
-			},
-			content = {
-				Column(
-					modifier = Modifier
-						.padding(start = dimensionResource(id = R.dimen.padding_verySmall))
-				) {
-					HeaderText(
-						text = R.string.text_compatible,
-						color = contentColor,
-						style = MaterialTheme.typography.titleSmall
-					)
-					VerticalSpacerVerySmall()
-					BodyText(
-						text = compatibilityData.compatible,
-						modifier = Modifier
-							.padding(
-								start = dimensionResource(id = R.dimen.padding_medium),
-								end = dimensionResource(id = R.dimen.padding_medium)
-							),
-						textAlign = TextAlign.Justify,
-						color = contentColor,
-						style = MaterialTheme.typography.bodySmall
-					)
-					VerticalSpacerSmall()
-					HeaderText(
-						text = R.string.text_caution,
-						color = contentColor,
-						style = MaterialTheme.typography.titleSmall
-					)
-					VerticalSpacerVerySmall()
-					BodyText(
-						text = compatibilityData.caution,
-						modifier = Modifier
-							.padding(
-								start = dimensionResource(id = R.dimen.padding_medium),
-								end = dimensionResource(id = R.dimen.padding_medium)
-							),
-						textAlign = TextAlign.Justify,
-						color = contentColor,
-						style = MaterialTheme.typography.bodySmall
-					)
-					VerticalSpacerSmall()
-					HeaderText(
-						text = R.string.text_incompatible,
-						color = contentColor,
-						style = MaterialTheme.typography.titleSmall
-					)
-					VerticalSpacerVerySmall()
-					BodyText(
-						text = compatibilityData.incompatible,
-						modifier = Modifier
-							.padding(
-								start = dimensionResource(id = R.dimen.padding_medium),
-								end = dimensionResource(id = R.dimen.padding_medium)
-							),
-						textAlign = TextAlign.Justify,
-						color = contentColor,
-						style = MaterialTheme.typography.bodySmall
-					)
-				}
-			}
-		)
-	}
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        SingleWideCardExpandableFull(
+            modifier = Modifier
+                .fillMaxWidth(fraction = 0.95f),
+            header = compatibilityData.title,
+            headerStyle = MaterialTheme.typography.titleLarge,
+            containerColor = containerColor,
+            contentColor = contentColor,
+            imageContent = {
+                CardImage(
+                    image = compatibilityData.image,
+                    contentDescription = compatibilityData.title,
+                )
+            },
+            subtitleContent = {
+                BodyText(
+                    text = compatibilityData.latin,
+                    style = MaterialTheme.typography.labelLarge,
+                    fontStyle = FontStyle.Italic,
+                    textAlign = TextAlign.Start,
+                    color = contentColor
+                )
+            },
+            descriptionContent = {
+                BodyText(
+                    text = compatibilityData.description,
+                    color = contentColor,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Justify
+                )
+            },
+            content = {
+                CompatibilityInfoList(
+                    compatibilityData = compatibilityData,
+                    contentColor = contentColor
+                )
+            }
+        )
+    }
+}
+
+@Composable
+fun CompatibilityInfoList(
+    compatibilityData: CompatibilityData,
+    contentColor: Color
+) {
+    Column(
+        modifier = Modifier
+            .padding(start = dimensionResource(id = R.dimen.padding_verySmall))
+    ) {
+        CompatibilityInfoItem(
+            title = R.string.text_compatible,
+            description = compatibilityData.compatible,
+            contentColor = contentColor
+        )
+        CompatibilityInfoItem(
+            title = R.string.text_caution,
+            description = compatibilityData.caution,
+            contentColor = contentColor
+        )
+        CompatibilityInfoItem(
+            title = R.string.text_incompatible,
+            description = compatibilityData.incompatible,
+            contentColor = contentColor
+        )
+    }
+}
+
+@Composable
+fun CompatibilityInfoItem(
+    title: Int,
+    description: Int,
+    contentColor: Color
+) {
+    HeaderText(
+        text = title,
+        color = contentColor,
+        style = MaterialTheme.typography.titleSmall
+    )
+    VerticalSpacerVerySmall()
+    BodyText(
+        text = description,
+        modifier = Modifier
+            .padding(
+                start = dimensionResource(id = R.dimen.padding_medium),
+                end = dimensionResource(id = R.dimen.padding_medium)
+            ),
+        textAlign = TextAlign.Justify,
+        color = contentColor,
+        style = MaterialTheme.typography.bodySmall
+    )
+    VerticalSpacerSmall()
 }
 
 @Composable
 fun BetaFeature(modifier: Modifier = Modifier) {
-	Column(modifier = modifier) {
-		BodyText(
-			text = R.string.text_beta,
-			color = MaterialTheme.colorScheme.error,
-			style = MaterialTheme.typography.labelMedium
-		)
-	}
+    Column(modifier = modifier) {
+        BodyText(
+            text = R.string.text_beta,
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.labelMedium
+        )
+    }
 }
 
 @Composable
-fun Disclaimer(modifier: Modifier = Modifier) {
-	Column(
-		modifier = modifier,
-		verticalArrangement = Arrangement.Center,
-		horizontalAlignment = Alignment.CenterHorizontally
-	) {
-		IconTextRow(
-			icon = disclaimerDataSource.icon,
-			text = disclaimerDataSource.text,
-			fontWeight = FontWeight.Bold
-		)
-	}
+fun DisclaimerNotice(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        IconTextRow(
+            icon = disclaimerDataSource.icon,
+            text = disclaimerDataSource.text,
+            fontWeight = FontWeight.Bold
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TankVolumePreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.background)
-		) {
-			Disclaimer()
-		}
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            DisclaimerNotice()
+        }
+    }
 }

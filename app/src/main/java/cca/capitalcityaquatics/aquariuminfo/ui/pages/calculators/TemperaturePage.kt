@@ -33,171 +33,208 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputNumberField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.RadioButtonTwoUnits
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.SingleWideCardExpandableRadio
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerSmall
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
 fun TemperaturePage(windowSize: WindowSizeClass) {
-	PageView {
-		TemperatureLayout(windowSize = windowSize)
-	}
+    PageView {
+        TemperatureLayout(windowSize = windowSize)
+    }
 }
 
 @SuppressLint("VisibleForTests")
 @Composable
 fun TemperatureLayout(
-	windowSize: WindowSizeClass,
-	color: Color = MaterialTheme.colorScheme.primary,
-	containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
-	contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    windowSize: WindowSizeClass,
+    color: Color = MaterialTheme.colorScheme.primary,
+    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
 ) {
-	val dataSourceCommon = calculatorDataSource
-	val dataSourceSpecific = temperatureDataSource
-	var inputTemperature by rememberSaveable {
-		mutableStateOf("0")
-	}
-	var selected by rememberSaveable {
-		mutableIntStateOf(dataSourceCommon.radioTextCelsius)
-	}
-	val temperature = inputTemperature.toDoubleOrNull() ?: 0.0
-	val parameters = CalculatorMethods(selected = selected, temperature = temperature)
+    val dataSourceCommon = calculatorDataSource
+    val dataSourceSpecific = temperatureDataSource
+    var inputTemperature by rememberSaveable {
+        mutableStateOf("0")
+    }
+    var selected by rememberSaveable {
+        mutableIntStateOf(dataSourceCommon.radioTextCelsius)
+    }
+    val temperature = inputTemperature.toDoubleOrNull() ?: 0.0
+    val parameters = CalculatorMethods(selected = selected, temperature = temperature)
 
-	GenericCalculatePage(
-		windowSize = windowSize,
-		subtitleContent = {
-			CalculatorSubtitleThree(
-				contentColor = color,
-				text1 = dataSourceSpecific.subtitle1,
-				text2 = dataSourceSpecific.subtitle2,
-				text3 = dataSourceSpecific.subtitle3,
-			)
-		},
-		selectContent = {
-			SingleWideCardExpandableRadio(
-				modifier = Modifier.fillMaxWidth(fraction = 0.75f),
-				expandedState = true,
-				header = R.string.select_input_units,
-				contentColor = color,
-				selected = selected,
-				content = {
-					RadioButtonTwoUnits(
-						onClick1 = { selected = dataSourceCommon.radioTextCelsius },
-						onClick2 = { selected = dataSourceCommon.radioTextFahrenheit },
-						label1 = dataSourceCommon.radioTextCelsius,
-						label2 = dataSourceCommon.radioTextFahrenheit,
-						selected = selected,
-						selectedColor = color,
-						textColor = color
-					)
-				}
-			)
-		},
-		inputFieldContent = {
-			InputNumberField(
-				label =
-				when (selected) {
-					dataSourceCommon.radioTextFahrenheit -> {
-						dataSourceCommon.labelFahrenheit
-					}
+    GenericCalculatePage(
+        windowSize = windowSize,
+        subtitleContent = {
+            CalculatorSubtitleThree(
+                contentColor = color,
+                text1 = dataSourceSpecific.subtitle1,
+                text2 = dataSourceSpecific.subtitle2,
+                text3 = dataSourceSpecific.subtitle3,
+            )
+        },
+        selectContent = {
+            SingleWideCardExpandableRadio(
+                modifier = Modifier.fillMaxWidth(fraction = 0.75f),
+                expandedState = true,
+                header = R.string.select_input_units,
+                contentColor = color,
+                selected = selected,
+                content = {
+                    RadioButtonTwoUnits(
+                        onClick1 = { selected = dataSourceCommon.radioTextCelsius },
+                        onClick2 = { selected = dataSourceCommon.radioTextFahrenheit },
+                        label1 = dataSourceCommon.radioTextCelsius,
+                        label2 = dataSourceCommon.radioTextFahrenheit,
+                        selected = selected,
+                        selectedColor = color,
+                        textColor = color
+                    )
+                }
+            )
+        },
+        inputFieldContent = {
+            InputNumberField(
+                label =
+                when (selected) {
+                    dataSourceCommon.radioTextFahrenheit -> {
+                        dataSourceCommon.labelFahrenheit
+                    }
 
-					else -> {
-						dataSourceCommon.labelCelsius
-					}
-				},
-				value = inputTemperature,
-				onValueChange = { inputTemperature = it },
-				focusedContainerColor = containerColor,
-				focusedColor = contentColor,
-				unfocusedColor = color,
-				leadingIcon = dataSourceCommon.leadingIconTemperature,
-			)
-		},
-		calculateFieldContent = {
-			CalculateField(
-				inputText =
-				when (selected) {
-					// Fahrenheit
-					dataSourceCommon.radioTextFahrenheit -> {
-						dataSourceCommon.inputTextFahrenheit
-					}
+                    else -> {
+                        dataSourceCommon.labelCelsius
+                    }
+                },
+                value = inputTemperature,
+                onValueChange = { inputTemperature = it },
+                focusedContainerColor = containerColor,
+                focusedColor = contentColor,
+                unfocusedColor = color,
+                leadingIcon = dataSourceCommon.leadingIconTemperature,
+            )
+        },
+        calculateFieldContent = {
+            CalculateField(
+                inputText =
+                when (selected) {
+                    // Fahrenheit
+                    dataSourceCommon.radioTextFahrenheit -> {
+                        dataSourceCommon.inputTextFahrenheit
+                    }
 
-					// Celsius
-					else -> {
-						dataSourceCommon.inputTextCelsius
-					}
-				},
-				equalsText = calculatorDataSource.equalsText,
-				inputValue = inputTemperature,
-				calculateContent = {
-					when (selected) {
-						// Fahrenheit
-						dataSourceCommon.radioTextFahrenheit -> {
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextCelsius,
-								calculatedValue = parameters.convertTemperature(),
-								textColor = contentColor,
-							)
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextKelvin,
-								calculatedValue = parameters.calculateTemperatureKelvin(),
-								textColor = contentColor,
-							)
-						}
+                    // Celsius
+                    else -> {
+                        dataSourceCommon.inputTextCelsius
+                    }
+                },
+                equalsText = calculatorDataSource.equalsText,
+                inputValue = inputTemperature,
+                calculateContent = {
+                    val celsiusContent = @Composable {
+                        CalculatedTextString(
+                            text = dataSourceCommon.calculatedTextCelsius,
+                            calculatedValue = parameters.convertTemperature(),
+                            textColor = contentColor
+                        )
+                        VerticalSpacerSmall()
+                        CalculatedTextString(
+                            text = dataSourceCommon.calculatedTextKelvin,
+                            calculatedValue = parameters.calculateTemperatureKelvin(),
+                            textColor = contentColor,
+                        )
+                    }
+                    val fahrenheitContent = @Composable {
+                        CalculatedTextString(
+                            text = dataSourceCommon.calculatedTextFahrenheit,
+                            calculatedValue = parameters.convertTemperature(),
+                            textColor = contentColor
+                        )
+                        VerticalSpacerSmall()
+                        CalculatedTextString(
+                            text = dataSourceCommon.calculatedTextKelvin,
+                            calculatedValue = parameters.calculateTemperatureKelvin(),
+                            textColor = contentColor,
+                        )
+                    }
+                    when (selected) {
+                        dataSourceCommon.radioTextFahrenheit -> {
+                            fahrenheitContent()
+                        }
 
-						// Celsius
-						else -> {
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextFahrenheit,
-								calculatedValue = parameters.convertTemperature(),
-								textColor = contentColor,
-							)
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextKelvin,
-								calculatedValue = parameters.calculateTemperatureKelvin(),
-								textColor = contentColor,
-							)
-						}
-					}
-				},
-				contentColor = color,
-				containerColor = containerColor,
-			)
-		}
-	) {
-		FormulaContent(
-			contentColor = color,
-			content = {
-				BodyText(
-					text = dataSourceSpecific.formulaText1,
-					textAlign = TextAlign.Start,
-					color = color
-				)
-				BodyText(
-					text = dataSourceSpecific.formulaText2,
-					textAlign = TextAlign.Start,
-					color = color
-				)
-				BodyText(
-					text = dataSourceSpecific.formulaText3,
-					textAlign = TextAlign.Start,
-					color = color
-				)
-			}
-		)
-	}
+                        else -> {
+                            celsiusContent()
+                        }
+                    }
+//					// Fahrenheit
+//					when (selected) {
+//						dataSourceCommon.radioTextFahrenheit -> {
+//							CalculatedTextString(
+//								text = dataSourceCommon.calculatedTextCelsius,
+//								calculatedValue = parameters.convertTemperature(),
+//								textColor = contentColor,
+//							)
+//							CalculatedTextString(
+//								text = dataSourceCommon.calculatedTextKelvin,
+//								calculatedValue = parameters.calculateTemperatureKelvin(),
+//								textColor = contentColor,
+//							)
+//						}
+//
+//						// Celsius
+//						else -> {
+//							CalculatedTextString(
+//								text = dataSourceCommon.calculatedTextFahrenheit,
+//								calculatedValue = parameters.convertTemperature(),
+//								textColor = contentColor,
+//							)
+//							CalculatedTextString(
+//								text = dataSourceCommon.calculatedTextKelvin,
+//								calculatedValue = parameters.calculateTemperatureKelvin(),
+//								textColor = contentColor,
+//							)
+//						}
+//					}
+
+                },
+                contentColor = color,
+                containerColor = containerColor,
+            )
+        }
+    ) {
+        FormulaContent(
+            contentColor = color,
+            content = {
+                BodyText(
+                    text = dataSourceSpecific.formulaText1,
+                    textAlign = TextAlign.Start,
+                    color = color
+                )
+                BodyText(
+                    text = dataSourceSpecific.formulaText2,
+                    textAlign = TextAlign.Start,
+                    color = color
+                )
+                BodyText(
+                    text = dataSourceSpecific.formulaText3,
+                    textAlign = TextAlign.Start,
+                    color = color
+                )
+            }
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun TemperaturePreview() {
-	AquariumInformationTheme {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.surface)
-		) {
-			TemperaturePage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.surface)
+        ) {
+            TemperaturePage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -205,12 +242,12 @@ fun TemperaturePreview() {
 @Composable
 fun TemperaturePreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.surface)
-		) {
-			TemperaturePage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.surface)
+        ) {
+            TemperaturePage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }

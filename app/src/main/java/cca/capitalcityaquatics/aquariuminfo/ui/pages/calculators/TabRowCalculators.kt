@@ -35,18 +35,18 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CalculatorsTabRow(
-	windowSize: WindowSizeClass,
-	selectedState: Int = 0,
-	selectedColor: Color = MaterialTheme.colorScheme.primary,
-	unselectedColor: Color = MaterialTheme.colorScheme.outline,
+    windowSize: WindowSizeClass,
+    selectedState: Int = 0,
+    selectedColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedColor: Color = MaterialTheme.colorScheme.outline,
 ) {
 //	var state by rememberSaveable { mutableIntStateOf(selectedState) }
-	val coroutineScope = rememberCoroutineScope()
-	val tabs = calculatorsTabRow
-	val pagerState = rememberPagerState(
-		initialPage = selectedState,
-		pageCount = { tabs.size }
-	)
+    val coroutineScope = rememberCoroutineScope()
+    val tabs = calculatorsTabRow
+    val pagerState = rememberPagerState(
+        initialPage = selectedState,
+        pageCount = { tabs.size }
+    )
 //	val indicatorAnimated = @Composable { tabPositions: List<TabPosition> ->
 //		FancyAnimatedIndicator(
 //			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
@@ -55,57 +55,57 @@ fun CalculatorsTabRow(
 //			indicatorColor = selectedColor
 //		)
 //	}
-	val indicator = @Composable { tabPositions: List<TabPosition> ->
-		FancyIndicator(
-			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-			selectedColor = selectedColor,
-		)
-	}
+    val indicator = @Composable { tabPositions: List<TabPosition> ->
+        FancyIndicator(
+            Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+            selectedColor = selectedColor,
+        )
+    }
 
-	Column(
-		modifier = Modifier.fillMaxSize()
-	) {
-		when (windowSize.widthSizeClass) {
-			WindowWidthSizeClass.Compact -> {
-				ScrollableTabRow(
-					selectedTabIndex = pagerState.currentPage,
-					indicator = indicator,
-				) {
-					tabs.forEachIndexed { index, tab ->
-						Tab(
-							selected = pagerState.currentPage == index,
-							onClick = {
-								coroutineScope.launch {
-									pagerState.animateScrollToPage(index)
-								}
-							},
-							selectedContentColor = selectedColor,
-							unselectedContentColor = unselectedColor,
-							text = {
-								Text(
-									text = stringResource(id = tab.title),
-									maxLines = 1,
-									overflow = TextOverflow.Ellipsis
-								)
-							},
-							icon = {
-								Icon(
-									painter =
-									if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
-									else painterResource(id = tab.icon),
-									contentDescription = stringResource(id = tab.title)
-								)
-							}
-						)
-					}
-				}
-			}
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        when (windowSize.widthSizeClass) {
+            WindowWidthSizeClass.Compact -> {
+                ScrollableTabRow(
+                    selectedTabIndex = pagerState.currentPage,
+                    indicator = indicator,
+                ) {
+                    tabs.forEachIndexed { index, tab ->
+                        Tab(
+                            selected = pagerState.currentPage == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(index)
+                                }
+                            },
+                            selectedContentColor = selectedColor,
+                            unselectedContentColor = unselectedColor,
+                            text = {
+                                Text(
+                                    text = stringResource(id = tab.title),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            },
+                            icon = {
+                                Icon(
+                                    painter =
+                                    if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
+                                    else painterResource(id = tab.icon),
+                                    contentDescription = stringResource(id = tab.title)
+                                )
+                            }
+                        )
+                    }
+                }
+            }
 
-			else -> {
-				TabRow(
-					selectedTabIndex = pagerState.currentPage,
-					indicator = indicator,
-				) {
+            else -> {
+                TabRow(
+                    selectedTabIndex = pagerState.currentPage,
+                    indicator = indicator,
+                ) {
 //					when (windowSize.heightSizeClass) {
 //						WindowHeightSizeClass.Expanded -> {
 //							tabs.forEachIndexed { index, tab ->
@@ -138,78 +138,82 @@ fun CalculatorsTabRow(
 //						}
 //
 //						else -> {
-					tabs.forEachIndexed { index, tab ->
-						Tab(
-							selected = pagerState.currentPage == index,
-							onClick = {
-								coroutineScope.launch {
-									pagerState.animateScrollToPage(index)
-								}
-							},
-							selectedContentColor = selectedColor,
-							unselectedContentColor = unselectedColor,
-							text = {
-								Text(
-									text = stringResource(id = tab.title),
-									maxLines = 1,
-									overflow = TextOverflow.Ellipsis
-								)
-							},
-							icon = {
-								Icon(
-									painter =
-									if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
-									else painterResource(id = tab.icon),
-									contentDescription = stringResource(id = tab.title)
-								)
-							}
-						)
-					}
+                    tabs.forEachIndexed { index, tab ->
+                        Tab(
+                            selected = pagerState.currentPage == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(index)
+                                }
+                            },
+                            selectedContentColor = selectedColor,
+                            unselectedContentColor = unselectedColor,
+                            text = {
+                                Text(
+                                    text = stringResource(id = tab.title),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            },
+                            icon = {
+                                Icon(
+                                    painter =
+                                    if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
+                                    else painterResource(id = tab.icon),
+                                    contentDescription = stringResource(id = tab.title)
+                                )
+                            }
+                        )
+                    }
 //						}
 //					}
-				}
-			}
-		}
-		HorizontalPager(
-			state = pagerState,
-			beyondBoundsPageCount = 6,
-		) { index ->
-			when (index) {
-				0 -> {
-					SalinityPage(windowSize = windowSize)
-				}
+                }
+            }
+        }
+        HorizontalPager(
+            state = pagerState,
+            beyondBoundsPageCount = 6,
+        ) { index ->
+            when (index) {
+                0 -> {
+                    SalinityPage(windowSize = windowSize)
+                }
 
-				1 -> {
-					AlkalinityPage(windowSize = windowSize)
-				}
+                1 -> {
+                    AlkalinityPage(windowSize = windowSize)
+                }
 
-				2 -> {
-					TemperaturePage(windowSize = windowSize)
-				}
+                2 -> {
+                    TemperaturePage(windowSize = windowSize)
+                }
 
-				3 -> {
-					CarbonDioxidePage(windowSize = windowSize)
-				}
+                3 -> {
+                    CarbonDioxidePage(windowSize = windowSize)
+                }
 
-				4 -> {
-					DosingPage(windowSize = windowSize)
-				}
+                4 -> {
+                    DosingPage(windowSize = windowSize)
+                }
 
-				5 -> {
-					FlowRatePage(windowSize = windowSize)
-				}
-			}
-		}
-	}
+                5 -> {
+                    FlowRatePage(windowSize = windowSize)
+                }
+
+                else -> {
+                    SalinityPage(windowSize = windowSize)
+                }
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun CalculatorsTabRowPreview() {
-	AquariumInformationTheme {
-		CalculatorsTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-	}
+    AquariumInformationTheme {
+        CalculatorsTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -217,7 +221,7 @@ fun CalculatorsTabRowPreview() {
 @Composable
 fun CalculatorsTabRowPreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		CalculatorsTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        CalculatorsTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+    }
 }

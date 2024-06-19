@@ -31,163 +31,167 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputNumberField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.RadioButtonThreeUnits
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.SingleWideCardExpandableRadio
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerSmall
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
 fun AlkalinityPage(windowSize: WindowSizeClass) {
-	PageView {
-		AlkalinityLayout(windowSize = windowSize)
-	}
+    PageView {
+        AlkalinityLayout(windowSize = windowSize)
+    }
 }
 
 @SuppressLint("VisibleForTests")
 @Composable
 fun AlkalinityLayout(
-	windowSize: WindowSizeClass,
-	color: Color = MaterialTheme.colorScheme.primary,
-	containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
-	contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    windowSize: WindowSizeClass,
+    color: Color = MaterialTheme.colorScheme.primary,
+    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
 ) {
-	val dataSourceCommon = calculatorDataSource
-	val dataSourceSpecific = alkalinityDataSource
-	var inputAlk by rememberSaveable {
-		mutableStateOf("10")
-	}
-	var selected by rememberSaveable {
-		mutableIntStateOf(dataSourceCommon.radioTextDkh)
-	}
-	val alkalinity = inputAlk.toDoubleOrNull() ?: 0.0
-	val parameters = CalculatorMethods(selected = selected, alkalinity = alkalinity)
+    val dataSourceCommon = calculatorDataSource
+    val dataSourceSpecific = alkalinityDataSource
+    var inputAlk by rememberSaveable {
+        mutableStateOf("10")
+    }
+    var selected by rememberSaveable {
+        mutableIntStateOf(dataSourceCommon.radioTextDkh)
+    }
+    val alkalinity = inputAlk.toDoubleOrNull() ?: 0.0
+    val parameters = CalculatorMethods(selected = selected, alkalinity = alkalinity)
 
-	GenericCalculatePage(
-		windowSize = windowSize,
-		subtitleContent = {
-			CalculatorSubtitleThree(
-				contentColor = color,
-				text1 = dataSourceSpecific.subtitle2,
-				text2 = dataSourceSpecific.subtitle3,
-				text3 = dataSourceSpecific.subtitle4,
-			)
-		},
-		selectContent = {
-			SingleWideCardExpandableRadio(
-				modifier = Modifier.fillMaxWidth(fraction = 0.75f),
-				expandedState = true,
-				header = R.string.select_input_units,
-				content = {
-					RadioButtonThreeUnits(
-						onClick1 = { selected = dataSourceCommon.radioTextDkh },
-						onClick2 = { selected = dataSourceCommon.radioTextPpm },
-						onClick3 = { selected = dataSourceCommon.radioTextMeq },
-						selected = selected,
-						selectedColor = color,
-						textColor = color
-					)
-				},
-				contentColor = color,
-				selected = selected
-			)
-		},
-		inputFieldContent = {
-			InputNumberField(
-				label =
-				when (selected) {
-					dataSourceCommon.radioTextPpm -> {
-						dataSourceCommon.labelPpm
-					}
+    GenericCalculatePage(
+        windowSize = windowSize,
+        subtitleContent = {
+            CalculatorSubtitleThree(
+                contentColor = color,
+                text1 = dataSourceSpecific.subtitle2,
+                text2 = dataSourceSpecific.subtitle3,
+                text3 = dataSourceSpecific.subtitle4,
+            )
+        },
+        selectContent = {
+            SingleWideCardExpandableRadio(
+                modifier = Modifier.fillMaxWidth(fraction = 0.75f),
+                expandedState = true,
+                header = R.string.select_input_units,
+                content = {
+                    RadioButtonThreeUnits(
+                        onClick1 = { selected = dataSourceCommon.radioTextDkh },
+                        onClick2 = { selected = dataSourceCommon.radioTextPpm },
+                        onClick3 = { selected = dataSourceCommon.radioTextMeq },
+                        selected = selected,
+                        selectedColor = color,
+                        textColor = color
+                    )
+                },
+                contentColor = color,
+                selected = selected
+            )
+        },
+        inputFieldContent = {
+            InputNumberField(
+                label =
+                when (selected) {
+                    dataSourceCommon.radioTextPpm -> {
+                        dataSourceCommon.labelPpm
+                    }
 
-					dataSourceCommon.radioTextMeq -> {
-						dataSourceCommon.labelMeq
-					}
+                    dataSourceCommon.radioTextMeq -> {
+                        dataSourceCommon.labelMeq
+                    }
 
-					else -> {
-						dataSourceCommon.labelDkh
-					}
-				},
-				value = inputAlk,
-				onValueChange = { inputAlk = it },
-				focusedContainerColor = containerColor,
-				focusedColor = contentColor,
-				unfocusedColor = color,
-				leadingIcon = dataSourceCommon.leadingIconTDS,
-			)
-		},
-		calculateFieldContent = {
-			CalculateField(
-				inputText =
-				when (selected) {
-					// ppm
-					dataSourceCommon.radioTextPpm -> {
-						dataSourceCommon.inputTextPpm
-					}
+                    else -> {
+                        dataSourceCommon.labelDkh
+                    }
+                },
+                value = inputAlk,
+                onValueChange = { inputAlk = it },
+                focusedContainerColor = containerColor,
+                focusedColor = contentColor,
+                unfocusedColor = color,
+                leadingIcon = dataSourceCommon.leadingIconTDS,
+            )
+        },
+        calculateFieldContent = {
+            CalculateField(
+                inputText =
+                when (selected) {
+                    // ppm
+                    dataSourceCommon.radioTextPpm -> {
+                        dataSourceCommon.inputTextPpm
+                    }
 
-					// meq/L
-					dataSourceCommon.radioTextMeq -> {
-						dataSourceCommon.inputTextMeq
-					}
+                    // meq/L
+                    dataSourceCommon.radioTextMeq -> {
+                        dataSourceCommon.inputTextMeq
+                    }
 
-					// dKH
-					else -> {
-						dataSourceCommon.inputTextDkh
-					}
-				},
-				inputValue = inputAlk,
-				calculateContent = {
-					when (selected) {
-						// ppm
-						dataSourceCommon.radioTextPpm -> {
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextDkh,
-								calculatedValue = parameters.calculateAlkalinityDKH(),
-								textColor = contentColor,
-							)
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextMeq,
-								calculatedValue = parameters.calculateAlkalinityMEQ(),
-								textColor = contentColor,
-							)
-						}
+                    // dKH
+                    else -> {
+                        dataSourceCommon.inputTextDkh
+                    }
+                },
+                inputValue = inputAlk,
+                calculateContent = {
+                    when (selected) {
+                        // ppm
+                        dataSourceCommon.radioTextPpm -> {
+                            CalculatedTextString(
+                                text = dataSourceCommon.calculatedTextDkh,
+                                calculatedValue = parameters.calculateAlkalinityDKH(),
+                                textColor = contentColor,
+                            )
+                            VerticalSpacerSmall()
+                            CalculatedTextString(
+                                text = dataSourceCommon.calculatedTextMeq,
+                                calculatedValue = parameters.calculateAlkalinityMEQ(),
+                                textColor = contentColor,
+                            )
+                        }
 
-						// meq/L
-						dataSourceCommon.radioTextMeq -> {
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextDkh,
-								calculatedValue = parameters.calculateAlkalinityDKH(),
-								textColor = contentColor,
-							)
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextPpm,
-								calculatedValue = parameters.calculateAlkalinityPPM(),
-								textColor = contentColor,
-							)
-						}
+                        // meq/L
+                        dataSourceCommon.radioTextMeq -> {
+                            CalculatedTextString(
+                                text = dataSourceCommon.calculatedTextDkh,
+                                calculatedValue = parameters.calculateAlkalinityDKH(),
+                                textColor = contentColor,
+                            )
+                            VerticalSpacerSmall()
+                            CalculatedTextString(
+                                text = dataSourceCommon.calculatedTextPpm,
+                                calculatedValue = parameters.calculateAlkalinityPPM(),
+                                textColor = contentColor,
+                            )
+                        }
 
-						// dKH
-						else -> {
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextPpm,
-								calculatedValue = parameters.calculateAlkalinityPPM(),
-								textColor = contentColor,
-							)
-							CalculatedTextString(
-								text = dataSourceCommon.calculatedTextMeq,
-								calculatedValue = parameters.calculateAlkalinityMEQ(),
-								textColor = contentColor,
-							)
-						}
-					}
-				},
-				contentColor = color,
-				equalsText = dataSourceCommon.equalsText,
-				containerColor = containerColor
-			)
-		}
-	) {
-		FormulaStringCard(
-			formulaText = dataSourceSpecific.formulaText,
-			contentColor = color
-		)
-	}
+                        // dKH
+                        else -> {
+                            CalculatedTextString(
+                                text = dataSourceCommon.calculatedTextPpm,
+                                calculatedValue = parameters.calculateAlkalinityPPM(),
+                                textColor = contentColor,
+                            )
+                            VerticalSpacerSmall()
+                            CalculatedTextString(
+                                text = dataSourceCommon.calculatedTextMeq,
+                                calculatedValue = parameters.calculateAlkalinityMEQ(),
+                                textColor = contentColor,
+                            )
+                        }
+                    }
+                },
+                contentColor = color,
+                equalsText = dataSourceCommon.equalsText,
+                containerColor = containerColor
+            )
+        }
+    ) {
+        FormulaStringCard(
+            formulaText = dataSourceSpecific.formulaText,
+            contentColor = color
+        )
+    }
 }
 
 //@Composable
@@ -391,14 +395,14 @@ fun AlkalinityLayout(
 @Preview(showBackground = true)
 @Composable
 fun AlkalinityPreview() {
-	AquariumInformationTheme {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.background)
-		) {
-			AlkalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            AlkalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -406,12 +410,12 @@ fun AlkalinityPreview() {
 @Composable
 fun AlkalinityPreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.background)
-		) {
-			AlkalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            AlkalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }

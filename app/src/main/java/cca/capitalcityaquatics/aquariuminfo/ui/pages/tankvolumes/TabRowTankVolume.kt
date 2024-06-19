@@ -36,168 +36,172 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TankVolumeTabRow(
-	windowSize: WindowSizeClass,
-	selectedState: Int = 0,
-	selectedColor: Color = MaterialTheme.colorScheme.secondary,
-	unselectedColor: Color = MaterialTheme.colorScheme.outline,
+    windowSize: WindowSizeClass,
+    selectedState: Int = 0,
+    selectedColor: Color = MaterialTheme.colorScheme.secondary,
+    unselectedColor: Color = MaterialTheme.colorScheme.outline,
 ) {
-	val coroutineScope = rememberCoroutineScope()
-	val tabs = tankVolumeTabRow
-	val pagerState = rememberPagerState(
-		initialPage = selectedState,
-		pageCount = { tabs.size }
-	)
-	val indicator = @Composable { tabPositions: List<TabPosition> ->
-		FancyIndicator(
-			Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-			selectedColor,
-		)
-	}
+    val coroutineScope = rememberCoroutineScope()
+    val tabs = tankVolumeTabRow
+    val pagerState = rememberPagerState(
+        initialPage = selectedState,
+        pageCount = { tabs.size }
+    )
+    val indicator = @Composable { tabPositions: List<TabPosition> ->
+        FancyIndicator(
+            Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+            selectedColor,
+        )
+    }
 
-	Column(
-		modifier = Modifier.fillMaxSize()
-	) {
-		when (windowSize.widthSizeClass) {
-			WindowWidthSizeClass.Compact -> {
-				ScrollableTabRow(
-					selectedTabIndex = pagerState.currentPage,
-					indicator = indicator,
-				) {
-					tabs.forEachIndexed { index, tab ->
-						Tab(
-							selected = pagerState.currentPage == index,
-							onClick = {
-								coroutineScope.launch {
-									pagerState.animateScrollToPage(index)
-								}
-							},
-							selectedContentColor = selectedColor,
-							unselectedContentColor = unselectedColor,
-							text = {
-								Text(
-									text = stringResource(id = tab.title),
-									maxLines = 1,
-									overflow = TextOverflow.Ellipsis
-								)
-							},
-							icon = {
-								Icon(
-									painter =
-									if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
-									else painterResource(id = tab.icon),
-									contentDescription = stringResource(id = tab.title)
-								)
-							}
-						)
-					}
-				}
-			}
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        when (windowSize.widthSizeClass) {
+            WindowWidthSizeClass.Compact -> {
+                ScrollableTabRow(
+                    selectedTabIndex = pagerState.currentPage,
+                    indicator = indicator,
+                ) {
+                    tabs.forEachIndexed { index, tab ->
+                        Tab(
+                            selected = pagerState.currentPage == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(index)
+                                }
+                            },
+                            selectedContentColor = selectedColor,
+                            unselectedContentColor = unselectedColor,
+                            text = {
+                                Text(
+                                    text = stringResource(id = tab.title),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            },
+                            icon = {
+                                Icon(
+                                    painter =
+                                    if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
+                                    else painterResource(id = tab.icon),
+                                    contentDescription = stringResource(id = tab.title)
+                                )
+                            }
+                        )
+                    }
+                }
+            }
 
-			else -> {
-				TabRow(
-					selectedTabIndex = pagerState.currentPage,
-					indicator = indicator,
-				) {
-					when (windowSize.heightSizeClass) {
-						WindowHeightSizeClass.Compact -> {
-							tabs.forEachIndexed { index, tab ->
-								LeadingIconTab(
-									selected = pagerState.currentPage == index,
-									onClick = {
-										coroutineScope.launch {
-											pagerState.animateScrollToPage(index)
-										}
-									},
-									selectedContentColor = selectedColor,
-									unselectedContentColor = unselectedColor,
-									text = {
-										Text(
-											text = stringResource(id = tab.title),
-											maxLines = 1,
-											overflow = TextOverflow.Ellipsis
-										)
-									},
-									icon = {
-										Icon(
-											painter =
-											if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
-											else painterResource(id = tab.icon),
-											contentDescription = stringResource(id = tab.title)
-										)
-									}
-								)
-							}
-						}
+            else -> {
+                TabRow(
+                    selectedTabIndex = pagerState.currentPage,
+                    indicator = indicator,
+                ) {
+                    when (windowSize.heightSizeClass) {
+                        WindowHeightSizeClass.Compact -> {
+                            tabs.forEachIndexed { index, tab ->
+                                LeadingIconTab(
+                                    selected = pagerState.currentPage == index,
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            pagerState.animateScrollToPage(index)
+                                        }
+                                    },
+                                    selectedContentColor = selectedColor,
+                                    unselectedContentColor = unselectedColor,
+                                    text = {
+                                        Text(
+                                            text = stringResource(id = tab.title),
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    },
+                                    icon = {
+                                        Icon(
+                                            painter =
+                                            if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
+                                            else painterResource(id = tab.icon),
+                                            contentDescription = stringResource(id = tab.title)
+                                        )
+                                    }
+                                )
+                            }
+                        }
 
-						else -> {
-							tabs.forEachIndexed { index, tab ->
-								Tab(
-									selected = pagerState.currentPage == index,
-									onClick = {
-										coroutineScope.launch {
-											pagerState.animateScrollToPage(index)
-										}
-									},
-									selectedContentColor = selectedColor,
-									unselectedContentColor = unselectedColor,
-									text = {
-										Text(
-											text = stringResource(id = tab.title),
-											maxLines = 1,
-											overflow = TextOverflow.Ellipsis
-										)
-									},
-									icon = {
-										Icon(
-											painter =
-											if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
-											else painterResource(id = tab.icon),
-											contentDescription = stringResource(id = tab.title)
-										)
-									}
-								)
-							}
-						}
-					}
-				}
-			}
-		}
-		HorizontalPager(
-			state = pagerState,
-			beyondBoundsPageCount = 6,
-		) { index ->
-			when (index) {
-				0 -> {
-					RectanglePage(windowSize = windowSize)
-				}
+                        else -> {
+                            tabs.forEachIndexed { index, tab ->
+                                Tab(
+                                    selected = pagerState.currentPage == index,
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            pagerState.animateScrollToPage(index)
+                                        }
+                                    },
+                                    selectedContentColor = selectedColor,
+                                    unselectedContentColor = unselectedColor,
+                                    text = {
+                                        Text(
+                                            text = stringResource(id = tab.title),
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    },
+                                    icon = {
+                                        Icon(
+                                            painter =
+                                            if (pagerState.currentPage == index) painterResource(id = tab.iconFilled)
+                                            else painterResource(id = tab.icon),
+                                            contentDescription = stringResource(id = tab.title)
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        HorizontalPager(
+            state = pagerState,
+            beyondBoundsPageCount = 6,
+        ) { index ->
+            when (index) {
+                0 -> {
+                    RectanglePage(windowSize = windowSize)
+                }
 
-				1 -> {
-					CubePage(windowSize = windowSize)
-				}
+                1 -> {
+                    CubePage(windowSize = windowSize)
+                }
 
-				2 -> {
-					CylinderPage(windowSize = windowSize)
-				}
+                2 -> {
+                    CylinderPage(windowSize = windowSize)
+                }
 
-				3 -> {
-					HexagonalPage(windowSize = windowSize)
-				}
+                3 -> {
+                    HexagonalPage(windowSize = windowSize)
+                }
 
-				4 -> {
-					BowFrontPage(windowSize = windowSize)
-				}
-			}
-		}
-	}
+                4 -> {
+                    BowFrontPage(windowSize = windowSize)
+                }
+
+                else -> {
+                    RectanglePage(windowSize = windowSize)
+                }
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun CalculatorsTabRowPreview() {
-	AquariumInformationTheme {
-		TankVolumeTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-	}
+    AquariumInformationTheme {
+        TankVolumeTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -205,7 +209,7 @@ fun CalculatorsTabRowPreview() {
 @Composable
 fun CalculatorsTabRowPreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		TankVolumeTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        TankVolumeTabRow(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+    }
 }

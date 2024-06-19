@@ -35,208 +35,208 @@ import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
 fun SalinityPage(windowSize: WindowSizeClass) {
-	PageView {
-		SalinityLayout(windowSize = windowSize)
-	}
+    PageView {
+        SalinityLayout(windowSize = windowSize)
+    }
 }
 
 @SuppressLint("VisibleForTests")
 @Composable
 fun SalinityLayout(
-	windowSize: WindowSizeClass,
-	color: Color = MaterialTheme.colorScheme.primary,
-	containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
-	contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    windowSize: WindowSizeClass,
+    color: Color = MaterialTheme.colorScheme.primary,
+    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
 ) {
-	val dataSourceCommon = calculatorDataSource
-	val dataSourceSpecific = salinityDataSource
-	var inputSal by rememberSaveable {
-		mutableStateOf("1.026")
-	}
-	var selected by rememberSaveable {
-		mutableIntStateOf(dataSourceCommon.radioTextSpecificGravity)
-	}
-	val tds = inputSal.toDoubleOrNull() ?: 0.0
-	val parameters = SalinityMethods(selected = selected, tds = tds)
+    val dataSourceCommon = calculatorDataSource
+    val dataSourceSpecific = salinityDataSource
+    var inputSal by rememberSaveable {
+        mutableStateOf("1.026")
+    }
+    var selected by rememberSaveable {
+        mutableIntStateOf(dataSourceCommon.radioTextSpecificGravity)
+    }
+    val tds = inputSal.toDoubleOrNull() ?: 0.0
+    val parameters = SalinityMethods(selected = selected, tds = tds)
 
-	GenericCalculatePage(
-		windowSize = windowSize,
-		subtitleContent = {
-			CalculatorSubtitleFour(
-				contentColor = color,
-				text1 = dataSourceSpecific.subtitle1,
-				text2 = dataSourceSpecific.subtitle2,
-				text3 = dataSourceSpecific.subtitle3,
-				text4 = dataSourceSpecific.subtitle4,
-			)
-		},
-		selectContent = {
-			SingleWideCardExpandableRadio(
-				modifier = Modifier.fillMaxWidth(fraction = 0.75f),
-				header = R.string.select_input_units,
-				content = {
-					RadioButtonFourUnits(
-						onClick2 = { selected = dataSourceCommon.radioTextSalinity },
-						onClick1 = { selected = dataSourceCommon.radioTextSpecificGravity },
-						selected = selected,
-						selectedColor = color,
-						textColor = color,
-						onClick3 = { selected = dataSourceCommon.radioTextDensity },
-						onClick4 = { selected = dataSourceCommon.radioTextConductivity },
-					)
-				}, contentColor = color,
-				selected = selected
-			)
-		},
-		inputFieldContent = {
-			InputNumberField(
-				label =
-				when (selected) {
-					// Specific Gravity
-					dataSourceCommon.radioTextSpecificGravity -> {
-						dataSourceCommon.labelSg
-					}
+    GenericCalculatePage(
+        windowSize = windowSize,
+        subtitleContent = {
+            CalculatorSubtitleFour(
+                contentColor = color,
+                text1 = dataSourceSpecific.subtitle1,
+                text2 = dataSourceSpecific.subtitle2,
+                text3 = dataSourceSpecific.subtitle3,
+                text4 = dataSourceSpecific.subtitle4,
+            )
+        },
+        selectContent = {
+            SingleWideCardExpandableRadio(
+                modifier = Modifier.fillMaxWidth(fraction = 0.75f),
+                header = R.string.select_input_units,
+                content = {
+                    RadioButtonFourUnits(
+                        onClick2 = { selected = dataSourceCommon.radioTextSalinity },
+                        onClick1 = { selected = dataSourceCommon.radioTextSpecificGravity },
+                        selected = selected,
+                        selectedColor = color,
+                        textColor = color,
+                        onClick3 = { selected = dataSourceCommon.radioTextDensity },
+                        onClick4 = { selected = dataSourceCommon.radioTextConductivity },
+                    )
+                }, contentColor = color,
+                selected = selected
+            )
+        },
+        inputFieldContent = {
+            InputNumberField(
+                label =
+                when (selected) {
+                    // Specific Gravity
+                    dataSourceCommon.radioTextSpecificGravity -> {
+                        dataSourceCommon.labelSg
+                    }
 
-					// Density
-					dataSourceCommon.radioTextDensity -> {
-						dataSourceCommon.labelDensity
-					}
+                    // Density
+                    dataSourceCommon.radioTextDensity -> {
+                        dataSourceCommon.labelDensity
+                    }
 
-					// Conductivity
-					dataSourceCommon.radioTextConductivity -> {
-						dataSourceCommon.labelConductivity
-					}
+                    // Conductivity
+                    dataSourceCommon.radioTextConductivity -> {
+                        dataSourceCommon.labelConductivity
+                    }
 
-					// Salinity
-					else -> {
-						dataSourceCommon.labelPpt
-					}
-				},
-				value = inputSal,
-				onValueChange = { inputSal = it },
-				focusedContainerColor = containerColor,
-				focusedColor = contentColor,
-				unfocusedColor = color,
-				leadingIcon =
-				when (selected) {
-					// Specific Gravity
-					dataSourceCommon.radioTextSpecificGravity -> {
-						dataSourceCommon.leadingIconSpecificGravity
-					}
+                    // Salinity
+                    else -> {
+                        dataSourceCommon.labelPpt
+                    }
+                },
+                value = inputSal,
+                onValueChange = { inputSal = it },
+                focusedContainerColor = containerColor,
+                focusedColor = contentColor,
+                unfocusedColor = color,
+                leadingIcon =
+                when (selected) {
+                    // Specific Gravity
+                    dataSourceCommon.radioTextSpecificGravity -> {
+                        dataSourceCommon.leadingIconSpecificGravity
+                    }
 
-					// Density
-					dataSourceCommon.radioTextDensity -> {
-						dataSourceCommon.leadingIconDensity
-					}
+                    // Density
+                    dataSourceCommon.radioTextDensity -> {
+                        dataSourceCommon.leadingIconDensity
+                    }
 
-					// Conductivity
-					dataSourceCommon.radioTextConductivity -> {
-						dataSourceCommon.leadingIconConductivity
-					}
+                    // Conductivity
+                    dataSourceCommon.radioTextConductivity -> {
+                        dataSourceCommon.leadingIconConductivity
+                    }
 
-					// Salinity
-					else -> {
-						dataSourceCommon.leadingIconSalinity
-					}
-				},
-			)
-		},
-		calculateFieldContent = {
-			CalculateField(
-				inputText =
-				when (selected) {
-					// Specific Gravity
-					dataSourceCommon.radioTextSpecificGravity -> {
-						dataSourceCommon.inputTextSg
-					}
+                    // Salinity
+                    else -> {
+                        dataSourceCommon.leadingIconSalinity
+                    }
+                },
+            )
+        },
+        calculateFieldContent = {
+            CalculateField(
+                inputText =
+                when (selected) {
+                    // Specific Gravity
+                    dataSourceCommon.radioTextSpecificGravity -> {
+                        dataSourceCommon.inputTextSg
+                    }
 
-					// Density
-					dataSourceCommon.radioTextDensity -> {
-						dataSourceCommon.inputTextDensity
-					}
+                    // Density
+                    dataSourceCommon.radioTextDensity -> {
+                        dataSourceCommon.inputTextDensity
+                    }
 
-					// Conductivity
-					dataSourceCommon.radioTextConductivity -> {
-						dataSourceCommon.inputTextConductivity
-					}
+                    // Conductivity
+                    dataSourceCommon.radioTextConductivity -> {
+                        dataSourceCommon.inputTextConductivity
+                    }
 
-					// Salinity
-					else -> {
-						dataSourceCommon.inputTextPpt
-					}
-				},
-				inputValue = inputSal,
-				calculateContent = {
-					when (selected) {
-						// Specific Gravity
-						dataSourceCommon.radioTextSpecificGravity -> {
-							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSalinity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSalinity(),
-								label2 = dataSourceCommon.labelDensity,
-								inputText2 = dataSourceCommon.calculatedTextDensity,
-								value2 = parameters.calculateDensity(),
-								label3 = dataSourceCommon.labelConductivity,
-								inputText3 = dataSourceCommon.calculatedTextConductivity,
-								value3 = parameters.calculateConductivity(),
-								contentColor = contentColor,
-							)
-						}
+                    // Salinity
+                    else -> {
+                        dataSourceCommon.inputTextPpt
+                    }
+                },
+                inputValue = inputSal,
+                calculateContent = {
+                    when (selected) {
+                        // Specific Gravity
+                        dataSourceCommon.radioTextSpecificGravity -> {
+                            SalinityCalculatedString(
+                                label1 = dataSourceCommon.labelSalinity,
+                                inputText1 = dataSourceCommon.calculatedTextPpt,
+                                value1 = parameters.calculateSalinity(),
+                                label2 = dataSourceCommon.labelDensity,
+                                inputText2 = dataSourceCommon.calculatedTextDensity,
+                                value2 = parameters.calculateDensity(),
+                                label3 = dataSourceCommon.labelConductivity,
+                                inputText3 = dataSourceCommon.calculatedTextConductivity,
+                                value3 = parameters.calculateConductivity(),
+                                contentColor = contentColor,
+                            )
+                        }
 
-						// Density
-						dataSourceCommon.radioTextDensity -> {
-							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSalinity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSalinity(),
-								label2 = dataSourceCommon.labelSpecificGravity,
-								inputText2 = dataSourceCommon.calculatedTextSg,
-								value2 = parameters.calculateSpecificGravity(),
-								label3 = dataSourceCommon.labelConductivity,
-								inputText3 = dataSourceCommon.calculatedTextConductivity,
-								value3 = parameters.calculateConductivity(),
-								contentColor = contentColor,
-							)
-						}
+                        // Density
+                        dataSourceCommon.radioTextDensity -> {
+                            SalinityCalculatedString(
+                                label1 = dataSourceCommon.labelSalinity,
+                                inputText1 = dataSourceCommon.calculatedTextPpt,
+                                value1 = parameters.calculateSalinity(),
+                                label2 = dataSourceCommon.labelSpecificGravity,
+                                inputText2 = dataSourceCommon.calculatedTextSg,
+                                value2 = parameters.calculateSpecificGravity(),
+                                label3 = dataSourceCommon.labelConductivity,
+                                inputText3 = dataSourceCommon.calculatedTextConductivity,
+                                value3 = parameters.calculateConductivity(),
+                                contentColor = contentColor,
+                            )
+                        }
 
-						// Conductivity
-						dataSourceCommon.radioTextConductivity -> {
-							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSalinity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSalinity(),
-								label2 = dataSourceCommon.labelSpecificGravity,
-								inputText2 = dataSourceCommon.calculatedTextSg,
-								value2 = parameters.calculateSpecificGravity(),
-								label3 = dataSourceCommon.labelDensity,
-								inputText3 = dataSourceCommon.calculatedTextDensity,
-								value3 = parameters.calculateDensity(),
-								contentColor = contentColor,
-							)
-						}
+                        // Conductivity
+                        dataSourceCommon.radioTextConductivity -> {
+                            SalinityCalculatedString(
+                                label1 = dataSourceCommon.labelSalinity,
+                                inputText1 = dataSourceCommon.calculatedTextPpt,
+                                value1 = parameters.calculateSalinity(),
+                                label2 = dataSourceCommon.labelSpecificGravity,
+                                inputText2 = dataSourceCommon.calculatedTextSg,
+                                value2 = parameters.calculateSpecificGravity(),
+                                label3 = dataSourceCommon.labelDensity,
+                                inputText3 = dataSourceCommon.calculatedTextDensity,
+                                value3 = parameters.calculateDensity(),
+                                contentColor = contentColor,
+                            )
+                        }
 
-						// Salinity
-						else -> {
-							SalinityCalculatedString(
-								label1 = dataSourceCommon.labelSpecificGravity,
-								inputText1 = dataSourceCommon.calculatedTextPpt,
-								value1 = parameters.calculateSpecificGravity(),
-								label2 = dataSourceCommon.labelDensity,
-								inputText2 = dataSourceCommon.calculatedTextDensity,
-								value2 = parameters.calculateDensity(),
-								label3 = dataSourceCommon.labelConductivity,
-								inputText3 = dataSourceCommon.calculatedTextConductivity,
-								value3 = parameters.calculateConductivity(),
-								contentColor = contentColor,
-							)
-						}
-					}
-				},
-				contentColor = color,
-				containerColor = containerColor
-			)
-		},
+                        // Salinity
+                        else -> {
+                            SalinityCalculatedString(
+                                label1 = dataSourceCommon.labelSpecificGravity,
+                                inputText1 = dataSourceCommon.calculatedTextPpt,
+                                value1 = parameters.calculateSpecificGravity(),
+                                label2 = dataSourceCommon.labelDensity,
+                                inputText2 = dataSourceCommon.calculatedTextDensity,
+                                value2 = parameters.calculateDensity(),
+                                label3 = dataSourceCommon.labelConductivity,
+                                inputText3 = dataSourceCommon.calculatedTextConductivity,
+                                value3 = parameters.calculateConductivity(),
+                                contentColor = contentColor,
+                            )
+                        }
+                    }
+                },
+                contentColor = color,
+                containerColor = containerColor
+            )
+        },
 //		additionalContent = {
 //			SingleWideCardExpandableFull(
 ////				expandedState = true,
@@ -252,27 +252,27 @@ fun SalinityLayout(
 //				}
 //			)
 //		}
-	) {
-		FormulaStringCard(
+    ) {
+        FormulaStringCard(
 //			isExpanded = true,
-			formulaText = dataSourceSpecific.formulaText, // TODO
-			contentColor = color
-		)
-	}
+            formulaText = dataSourceSpecific.formulaText, // TODO
+            contentColor = color
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun SalinityPreview() {
-	AquariumInformationTheme {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.background)
-		) {
-			SalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            SalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -280,12 +280,12 @@ fun SalinityPreview() {
 @Composable
 fun SalinityPreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.background)
-		) {
-			SalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            SalinityPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }

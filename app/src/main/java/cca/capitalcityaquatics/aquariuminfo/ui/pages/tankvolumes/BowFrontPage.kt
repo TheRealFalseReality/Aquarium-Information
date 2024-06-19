@@ -37,125 +37,125 @@ import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
 fun BowFrontPage(windowSize: WindowSizeClass) {
-	PageView {
-		BowFrontLayout(windowSize = windowSize)
-	}
+    PageView {
+        BowFrontLayout(windowSize = windowSize)
+    }
 }
 
 @SuppressLint("VisibleForTests")
 @Composable
 fun BowFrontLayout(
-	windowSize: WindowSizeClass,
-	color: Color = MaterialTheme.colorScheme.secondary,
-	containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
-	contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
+    windowSize: WindowSizeClass,
+    color: Color = MaterialTheme.colorScheme.secondary,
+    containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
 ) {
-	val view = BowFront.title
-	val dataSourceCommon = calculatorDataSource
-	val dataSourceSpecific = bowFrontDataSource
-	var inputLength by rememberSaveable {
-		mutableStateOf("")
-	}
-	var inputWidth by rememberSaveable {
-		mutableStateOf("")
-	}
-	var inputHeight by rememberSaveable {
-		mutableStateOf("")
-	}
-	var inputFullWidth by rememberSaveable {
-		mutableStateOf("")
-	}
-	var selected by rememberSaveable {
-		mutableIntStateOf(dataSourceCommon.radioTextInches)
-	}
-	val length = inputLength.toDoubleOrNull() ?: 0.0
-	val width = inputWidth.toDoubleOrNull() ?: 0.0
-	val height = inputHeight.toDoubleOrNull() ?: 0.0
-	val fullWidth = inputFullWidth.toDoubleOrNull() ?: 0.0
-	val dimensions = TankVolumeMethods(
-		selected = selected,
-		view = view,
-		length = length,
-		width = width,
-		height = height,
-		fullWidth = fullWidth,
-	)
+    val view = BowFront.title
+    val dataSourceCommon = calculatorDataSource
+    val dataSourceSpecific = bowFrontDataSource
+    var inputLength by rememberSaveable {
+        mutableStateOf("")
+    }
+    var inputWidth by rememberSaveable {
+        mutableStateOf("")
+    }
+    var inputHeight by rememberSaveable {
+        mutableStateOf("")
+    }
+    var inputFullWidth by rememberSaveable {
+        mutableStateOf("")
+    }
+    var selected by rememberSaveable {
+        mutableIntStateOf(dataSourceCommon.radioTextInches)
+    }
+    val length = inputLength.toDoubleOrNull() ?: 0.0
+    val width = inputWidth.toDoubleOrNull() ?: 0.0
+    val height = inputHeight.toDoubleOrNull() ?: 0.0
+    val fullWidth = inputFullWidth.toDoubleOrNull() ?: 0.0
+    val dimensions = TankVolumeMethods(
+        selected = selected,
+        view = view,
+        length = length,
+        width = width,
+        height = height,
+        fullWidth = fullWidth,
+    )
 
-	GenericCalculatePage(
-		windowSize = windowSize,
-		subtitleContent = {
-			CalculatorSubtitleTwo(
-				contentColor = color,
-				text1 = dataSourceCommon.subtitleVolume1,
-				text2 = dataSourceCommon.subtitleVolume2,
-			)
-		},
-		selectContent = {
-			SingleWideCardExpandableRadio(
-				modifier = Modifier.fillMaxWidth(fraction = 0.75f),
-				header = R.string.select_input_units,
-				content = {
-					RadioButtonTwoUnits(
-						onClick1 = { selected = dataSourceCommon.radioTextInches },
-						onClick2 = { selected = dataSourceCommon.radioTextFeet },
-						selected = selected,
-						selectedColor = color,
-						textColor = color
-					)
-				},
-				contentColor = color,
-				selected = selected
-			)
-		},
-		inputFieldContent = {
-			InputQuadNumberFieldFourInputs(
-				label1 = dataSourceCommon.labelLength,
-				label2 = dataSourceCommon.labelWidth,
-				value1 = inputLength,
-				onValueChange1 = { inputLength = it },
-				value2 = inputWidth,
-				onValueChange2 = { inputWidth = it },
-				focusedContainerColor = containerColor,
-				focusedColor = contentColor,
-				unfocusedColor = color,
-				label3 = dataSourceCommon.labelHeight,
-				label4 = dataSourceCommon.labelFullWidth,
-				value3 = inputHeight,
-				onValueChange3 = { inputHeight = it },
-				value4 = inputFullWidth,
-				onValueChange4 = { inputFullWidth = it },
-				leadingIcon1 = dataSourceCommon.leadingIconLength,
-				leadingIcon2 = dataSourceCommon.leadingIconWidth,
-				leadingIcon3 = dataSourceCommon.leadingIconHeight,
-				leadingIcon4 = dataSourceCommon.leadingIconFullWidth,
-			)
-		},
-		calculateFieldContent = {
-			CalculateFieldFourInputs(
-				inputText =
-				when (selected) {
-					// Inches
-					dataSourceCommon.radioTextInches -> {
-						dataSourceSpecific.inputTextInches
-					}
+    GenericCalculatePage(
+        windowSize = windowSize,
+        subtitleContent = {
+            CalculatorSubtitleTwo(
+                contentColor = color,
+                text1 = dataSourceCommon.subtitleVolume1,
+                text2 = dataSourceCommon.subtitleVolume2,
+            )
+        },
+        selectContent = {
+            SingleWideCardExpandableRadio(
+                modifier = Modifier.fillMaxWidth(fraction = 0.75f),
+                header = R.string.select_input_units,
+                content = {
+                    RadioButtonTwoUnits(
+                        onClick1 = { selected = dataSourceCommon.radioTextInches },
+                        onClick2 = { selected = dataSourceCommon.radioTextFeet },
+                        selected = selected,
+                        selectedColor = color,
+                        textColor = color
+                    )
+                },
+                contentColor = color,
+                selected = selected
+            )
+        },
+        inputFieldContent = {
+            InputQuadNumberFieldFourInputs(
+                label1 = dataSourceCommon.labelLength,
+                label2 = dataSourceCommon.labelWidth,
+                value1 = inputLength,
+                onValueChange1 = { inputLength = it },
+                value2 = inputWidth,
+                onValueChange2 = { inputWidth = it },
+                focusedContainerColor = containerColor,
+                focusedColor = contentColor,
+                unfocusedColor = color,
+                label3 = dataSourceCommon.labelHeight,
+                label4 = dataSourceCommon.labelFullWidth,
+                value3 = inputHeight,
+                onValueChange3 = { inputHeight = it },
+                value4 = inputFullWidth,
+                onValueChange4 = { inputFullWidth = it },
+                leadingIcon1 = dataSourceCommon.leadingIconLength,
+                leadingIcon2 = dataSourceCommon.leadingIconWidth,
+                leadingIcon3 = dataSourceCommon.leadingIconHeight,
+                leadingIcon4 = dataSourceCommon.leadingIconFullWidth,
+            )
+        },
+        calculateFieldContent = {
+            CalculateFieldFourInputs(
+                inputText =
+                when (selected) {
+                    // Inches
+                    dataSourceCommon.radioTextInches -> {
+                        dataSourceSpecific.inputTextInches
+                    }
 
-					// Feet
-					else -> {
-						dataSourceSpecific.inputTextFeet
-					}
-				},
-				inputValue1 = inputLength,
-				inputValue2 = inputWidth,
-				inputValue3 = inputHeight,
-				inputValue4 = inputFullWidth,
-				equalsText = dataSourceCommon.equalsText,
-				calculateContent = {
-					TankVolumeResultsString(
-						contentColor = contentColor,
-						gallons = dimensions.calculateVolumeGallons(),
-						liters = dimensions.calculateVolumeLiters(),
-						waterWeight = dimensions.calculateWaterWeightPounds()
-					)
+                    // Feet
+                    else -> {
+                        dataSourceSpecific.inputTextFeet
+                    }
+                },
+                inputValue1 = inputLength,
+                inputValue2 = inputWidth,
+                inputValue3 = inputHeight,
+                inputValue4 = inputFullWidth,
+                equalsText = dataSourceCommon.equalsText,
+                calculateContent = {
+                    TankVolumeResultsString(
+                        contentColor = contentColor,
+                        gallons = dimensions.calculateVolumeGallons(),
+                        liters = dimensions.calculateVolumeLiters(),
+                        waterWeight = dimensions.calculateWaterWeightPounds()
+                    )
 //					when (selected) {
 //						dataSourceCommon.radioTextInches -> {
 //							TankVolumeResults(
@@ -175,38 +175,38 @@ fun BowFrontLayout(
 //							)
 //						}
 //					}
-				},
-				containerColor = containerColor,
-				contentColor = color
-			)
-		},
-		additionalContent = {
-			CalculateImageWithTitle(
-				image = dataSourceSpecific.image,
-				contentDescription = view,
-				color = color
-			)
-		}
-	) {
-		FormulaStringCard(
-			formulaText = dataSourceSpecific.formulaText,
-			contentColor = color
-		)
-	}
+                },
+                containerColor = containerColor,
+                contentColor = color
+            )
+        },
+        additionalContent = {
+            CalculateImageWithTitle(
+                image = dataSourceSpecific.image,
+                contentDescription = view,
+                color = color
+            )
+        }
+    ) {
+        FormulaStringCard(
+            formulaText = dataSourceSpecific.formulaText,
+            contentColor = color
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun BowFrontPreview() {
-	AquariumInformationTheme {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.background)
-		) {
-			BowFrontPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            BowFrontPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -214,12 +214,12 @@ fun BowFrontPreview() {
 @Composable
 fun BowFrontPreviewDark(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.background)
-		) {
-			BowFrontPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
-		}
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            BowFrontPage(windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp)))
+        }
+    }
 }

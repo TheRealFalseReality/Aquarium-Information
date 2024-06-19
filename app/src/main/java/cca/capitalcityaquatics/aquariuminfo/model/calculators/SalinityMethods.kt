@@ -13,6 +13,7 @@ class SalinityMethods(
 	private val testWaterTemperature: Double = 25.0,
 	pureWaterTemperature: Double = 25.0,
 ) {
+	// Constants for density calculations
 	private val a =
 		8.24493e-1 - 4.0899e-3 * testWaterTemperature + 7.6438e-5 * testWaterTemperature * testWaterTemperature -
 				8.2467e-7 * testWaterTemperature * testWaterTemperature * testWaterTemperature + 5.3875e-9 * testWaterTemperature *
@@ -20,6 +21,8 @@ class SalinityMethods(
 	private val b =
 		-5.72466e-3 + 1.0227e-4 * testWaterTemperature - 1.6546e-6 * testWaterTemperature * testWaterTemperature
 	private val c = 4.8314e-4
+
+	// Density of pure water at test and reference temperatures
 	private val rROo =
 		999.842594 + 6.793952e-2 * testWaterTemperature - 9.095290e-3 * testWaterTemperature *
 				testWaterTemperature + 1.001685e-4 * testWaterTemperature * testWaterTemperature * testWaterTemperature -
@@ -34,10 +37,14 @@ class SalinityMethods(
 				pureWaterTemperature
 	private var rO1 = tds * rROoTD
 	private var roTDS = rROo + a * tds + b * sqrt(tds.pow(3)) + c * tds * tds
+
+	// Iterative variables for calculations
 	private var i = 0.0
 	private var j = 0.0
 	private var p = 0.0
 	private var s2 = 0.0
+
+	// Constants for conductivity calculations
 	private var c0 = 0.6766097
 	private var c1 = 0.0200564
 	private var c2 = 0.0001104259

@@ -23,7 +23,7 @@
     <dimen name="border_stroke_medium" tools:ignore="UnusedResources">4dp</dimen>
     <dimen name="corner_radius_medium" tools:ignore="UnusedResources">10dp</dimen>
     <dimen name="corner_radius_filled" tools:ignore="UnusedResources">50dp</dimen>
-    <dimen name="grid_colum_medium">350dp</dimen>
+    <dimen name="grid_column_medium">350dp</dimen>
     <dimen name="icon_trailing_small">18dp</dimen>
     <dimen name="card_large">12dp</dimen>
     <dimen name="card_image_height">200dp</dimen>

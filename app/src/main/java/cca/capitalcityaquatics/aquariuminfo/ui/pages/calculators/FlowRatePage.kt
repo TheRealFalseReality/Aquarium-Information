@@ -38,99 +38,100 @@ import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 @Composable
 fun FlowRatePage(windowSize: WindowSizeClass) {
-	PageView(
-		verticalArrangement = Arrangement.SpaceBetween
-	) {
-		FlowRateLayout(windowSize = windowSize)
-	}
+    PageView(
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        FlowRateLayout(windowSize = windowSize)
+    }
 
 }
 
 @SuppressLint("VisibleForTests")
 @Composable
 fun FlowRateLayout(
-	windowSize: WindowSizeClass,
+    windowSize: WindowSizeClass,
 //	color: Color = MaterialTheme.colorScheme.primary,
 //	containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
 //	contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
 ) {
-	val dataSource = flowRateDataSourceFreshwater
+    val dataSource = flowRateDataSourceFreshwater
 
-	HeaderText(text = dataSource.subtitle)
-	VerticalSpacerMedium()
-	FlowRateCard(
-		windowSize = windowSize,
-		flowRateData = flowRateDataSourceFreshwater
-	)
-	FlowRateCard(
-		windowSize = windowSize,
-		flowRateData = flowRateDataSourceMarine
-	)
+    HeaderText(text = dataSource.subtitle)
+    VerticalSpacerMedium()
+    FlowRateCard(
+        windowSize = windowSize,
+        flowRateData = flowRateDataSourceFreshwater
+    )
+    FlowRateCard(
+        windowSize = windowSize,
+        flowRateData = flowRateDataSourceMarine
+    )
 }
 
 @Composable
 fun FlowRateCard(
-	windowSize: WindowSizeClass,
-	flowRateData: FlowRateData,
+    windowSize: WindowSizeClass,
+    flowRateData: FlowRateData,
 ) {
-	Column(
-		modifier = Modifier
-			.padding(all = dimensionResource(id = R.dimen.padding_small))
-	) {
-		Box {
-			Image(
-				modifier = Modifier
+    Column(
+        modifier = Modifier
+            .padding(all = dimensionResource(id = R.dimen.padding_small))
+    ) {
+        Box {
+            Image(
+                modifier = Modifier
 					.fillMaxWidth()
 					.aspectRatio(16f / 9f)
 					.clip(RoundedCornerShape(16.dp)),
-				painter = painterResource(id = flowRateData.image),
-				contentDescription = stringResource(id = flowRateData.header),
-				contentScale = ContentScale.Crop,
-			)
-			Box(
-				modifier = Modifier.fillMaxSize(),
-				contentAlignment = Alignment.Center
-			) {
-				HeaderText(
-					text = flowRateData.header,
-					style = MaterialTheme.typography.headlineLarge,
-					color = Color.White
-				)
-			}
-		}
-		GenericCalculatePage(
-			windowSize = windowSize,
-			subtitleContent = {
-				HeaderText(text = flowRateData.formulaText)},
-			inputFieldContent = {
-				// Add input fields here for user interaction
-			},
-			calculateFieldContent = {
-				// Add calculation logic and display results here
-			},
-		)
-	}
+                painter = painterResource(id = flowRateData.image),
+                contentDescription = stringResource(id = flowRateData.header),
+                contentScale = ContentScale.Crop,
+            )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                HeaderText(
+                    text = flowRateData.header,
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.White
+                )
+            }
+        }
+        GenericCalculatePage(
+            windowSize = windowSize,
+            subtitleContent = {
+                HeaderText(text = flowRateData.formulaText)
+            },
+            inputFieldContent = {
+                // Add input fields here for user interaction
+            },
+            calculateFieldContent = {
+                // Add calculation logic and display results here
+            },
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun FlowRatePagePreview() {
-	AquariumInformationTheme {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.surface)
-		) {
-			FlowRatePage(
-				windowSize = WindowSizeClass.calculateFromSize(
-					DpSize(
-						300.dp,
-						400.dp
-					)
-				)
-			)
-		}
-	}
+    AquariumInformationTheme {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.surface)
+        ) {
+            FlowRatePage(
+                windowSize = WindowSizeClass.calculateFromSize(
+                    DpSize(
+                        300.dp,
+                        400.dp
+                    )
+                )
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -138,19 +139,19 @@ fun FlowRatePagePreview() {
 @Composable
 fun FlowRate(
 ) {
-	AquariumInformationTheme(useDarkTheme = true) {
-		Column(
-			modifier = Modifier
-				.background(color = MaterialTheme.colorScheme.surface)
-		) {
-			FlowRatePage(
-				windowSize = WindowSizeClass.calculateFromSize(
-					DpSize(
-						300.dp,
-						400.dp
-					)
-				)
-			)
-		}
-	}
+    AquariumInformationTheme(useDarkTheme = true) {
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.surface)
+        ) {
+            FlowRatePage(
+                windowSize = WindowSizeClass.calculateFromSize(
+                    DpSize(
+                        300.dp,
+                        400.dp
+                    )
+                )
+            )
+        }
+    }
 }

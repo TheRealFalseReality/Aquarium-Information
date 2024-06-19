@@ -38,158 +38,158 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.BottomNavBar
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 
 class MainActivity : ComponentActivity() {
-	@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-	override fun onCreate(savedInstanceState: Bundle?) {
-		window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-		super.onCreate(savedInstanceState)
-		setContent {
-			val windowSizeClass = calculateWindowSizeClass(this)
-			AquariumInformationTheme {
-				Surface(
-					modifier = Modifier.fillMaxSize(),
-					color = MaterialTheme.colorScheme.surface
-				) {
-					AquariumInfoApp(windowSizeClass)
-				}
-			}
-		}
-	}
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        super.onCreate(savedInstanceState)
+        setContent {
+            val windowSizeClass = calculateWindowSizeClass(this)
+            AquariumInformationTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.surface
+                ) {
+                    AquariumInfoApp(windowSizeClass)
+                }
+            }
+        }
+    }
 }
 
 @Composable
 fun AquariumInfoApp(
-	windowSize: WindowSizeClass
+    windowSize: WindowSizeClass
 ) {
-	val navController = rememberNavController()
-	val currentBackStack by navController.currentBackStackEntryAsState()
-	val currentDestination = currentBackStack?.destination
-	val currentScreen = bottomNavRow.firstOrNull {
-		it.route == currentDestination?.route
-	} ?: Overview
+    val navController = rememberNavController()
+    val currentBackStack by navController.currentBackStackEntryAsState()
+    val currentDestination = currentBackStack?.destination
+    val currentScreen = bottomNavRow.firstOrNull {
+        it.route == currentDestination?.route
+    } ?: Overview
 
 
-	when (windowSize.widthSizeClass) {
-		WindowWidthSizeClass.Expanded -> {
-			AppLandscape(
-				navController = navController,
-				currentScreen = currentScreen,
-				windowSize = windowSize,
-			)
-		}
+    when (windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Expanded -> {
+            AppLandscape(
+                navController = navController,
+                currentScreen = currentScreen,
+                windowSize = windowSize,
+            )
+        }
 
-		else -> {
-			AppPortrait(
-				navController = navController,
-				currentScreen = currentScreen,
-				windowSize = windowSize,
-			)
-		}
-	}
+        else -> {
+            AppPortrait(
+                navController = navController,
+                currentScreen = currentScreen,
+                windowSize = windowSize,
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppPortrait(
-	windowSize: WindowSizeClass,
-	navController: NavHostController,
-	currentScreen: Destinations
+    windowSize: WindowSizeClass,
+    navController: NavHostController,
+    currentScreen: Destinations
 ) {
-	Scaffold(
-		topBar = {
-			AquariumAppBar(navController = navController)
-		},
-		bottomBar = {
-			BottomNavBar(
-				allScreens = bottomNavRow,
-				onTabSelected = { newScreen ->
-					navController.navigateSingleTopTo(newScreen.route)
-				},
-				currentScreen = currentScreen,
-			)
-		},
-	) { innerPadding ->
-		AquariumNavHost(
-			windowSize = windowSize,
-			navController = navController,
-			modifier = Modifier.padding(innerPadding)
-		)
-	}
+    Scaffold(
+        topBar = {
+            AquariumAppBar(navController = navController)
+        },
+        bottomBar = {
+            BottomNavBar(
+                allScreens = bottomNavRow,
+                onTabSelected = { newScreen ->
+                    navController.navigateSingleTopTo(newScreen.route)
+                },
+                currentScreen = currentScreen,
+            )
+        },
+    ) { innerPadding ->
+        AquariumNavHost(
+            windowSize = windowSize,
+            navController = navController,
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
 }
 
 @Composable
 fun AppLandscape(
-	windowSize: WindowSizeClass,
-	navController: NavHostController,
-	currentScreen: Destinations
+    windowSize: WindowSizeClass,
+    navController: NavHostController,
+    currentScreen: Destinations
 ) {
-	Row {
-		AppNavigationRail(
-			allScreens = bottomNavRow,
-			onTabSelected = { newScreen ->
-				navController.navigateSingleTopTo(newScreen.route)
-			},
-			currentScreen = currentScreen,
-		)
-		AquariumNavHost(
-			windowSize = windowSize,
-			navController = navController,
-		)
-	}
+    Row {
+        AppNavigationRail(
+            allScreens = bottomNavRow,
+            onTabSelected = { newScreen ->
+                navController.navigateSingleTopTo(newScreen.route)
+            },
+            currentScreen = currentScreen,
+        )
+        AquariumNavHost(
+            windowSize = windowSize,
+            navController = navController,
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun AppPreview() {
-	AquariumInformationTheme {
-		Column(
-			modifier = Modifier
+    AquariumInformationTheme {
+        Column(
+            modifier = Modifier
 				.fillMaxSize()
 				.background(color = MaterialTheme.colorScheme.surface)
-		) {
-			AppPortrait(
-				navController = rememberNavController(),
-				currentScreen = Home,
-				windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp))
-			)
-		}
-	}
+        ) {
+            AppPortrait(
+                navController = rememberNavController(),
+                currentScreen = Home,
+                windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp))
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun AppDarkPreview() {
-	AquariumInformationTheme(useDarkTheme = true) {
-		Column(
-			modifier = Modifier
+    AquariumInformationTheme(useDarkTheme = true) {
+        Column(
+            modifier = Modifier
 				.fillMaxSize()
 				.background(color = MaterialTheme.colorScheme.surface)
-		) {
-			AppPortrait(
-				navController = rememberNavController(),
-				currentScreen = Home,
-				windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp))
-			)
-		}
-	}
+        ) {
+            AppPortrait(
+                navController = rememberNavController(),
+                currentScreen = Home,
+                windowSize = WindowSizeClass.calculateFromSize(DpSize(300.dp, 400.dp))
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showBackground = true)
 @Composable
 fun AppLandscapePreview() {
-	AquariumInformationTheme {
-		Column(
-			modifier = Modifier
+    AquariumInformationTheme {
+        Column(
+            modifier = Modifier
 				.fillMaxSize()
 				.background(color = MaterialTheme.colorScheme.surface)
-		) {
-			AppLandscape(
-				navController = rememberNavController(),
-				currentScreen = Home,
-				windowSize = WindowSizeClass.calculateFromSize(DpSize(700.dp, 400.dp))
-			)
-		}
-	}
+        ) {
+            AppLandscape(
+                navController = rememberNavController(),
+                currentScreen = Home,
+                windowSize = WindowSizeClass.calculateFromSize(DpSize(700.dp, 400.dp))
+            )
+        }
+    }
 }
