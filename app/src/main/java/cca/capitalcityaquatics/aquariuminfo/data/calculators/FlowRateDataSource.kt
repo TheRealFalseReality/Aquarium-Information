@@ -7,7 +7,7 @@ import cca.capitalcityaquatics.aquariuminfo.navigation.FishCompatibilityMarine
 val flowRateDataSourceFreshwater =
     FlowRateData(
         image = R.drawable.freshwater_shark,
-        subtitle = R.string.flow_rate_subtitle,
+        subtitle = R.string.flow_rate_freshwater_description,
         formulaText = R.string.flow_rate_freshwater,
         icon = FishCompatibilityFreshwater.icon,
         header = R.string.freshwater,
@@ -18,7 +18,7 @@ val flowRateDataSourceFreshwater =
 val flowRateDataSourceMarine =
     FlowRateData(
         image = R.drawable.clownfish,
-        subtitle = R.string.flow_rate_subtitle,
+        subtitle = R.string.flow_rate_marine_description,
         formulaText = R.string.flow_rate_marine,
         icon = FishCompatibilityMarine.icon,
         header = R.string.marine,

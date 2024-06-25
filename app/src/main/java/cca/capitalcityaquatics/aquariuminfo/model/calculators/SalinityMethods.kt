@@ -12,6 +12,8 @@ class SalinityMethods(
 	private val tds: Double = 0.0,
 	private val testWaterTemperature: Double = 25.0,
 	pureWaterTemperature: Double = 25.0,
+	private val decimalFormat: DecimalFormat = DecimalFormat("#.##")
+		.apply { roundingMode = RoundingMode.HALF_UP }
 ) {
 	// Constants for density calculations
 	private val a =
@@ -204,9 +206,7 @@ class SalinityMethods(
 				}
 			}
 
-		val df = DecimalFormat("#.##")
-		df.roundingMode = RoundingMode.HALF_UP
-		return df.format(calculate)
+		return decimalFormat.format(calculate)
 	}
 
 	// Convert to Conductivity
@@ -330,10 +330,8 @@ class SalinityMethods(
 											0.0144 * sqrt(rt.pow(5)))
 						i++
 					} while (sal <= s2)
-					val df = DecimalFormat("#.##")
-					df.roundingMode = RoundingMode.HALF_UP
 
-					return df.format(cond)
+					return decimalFormat.format(cond)
 				}
 
 				// Conductivity
@@ -346,8 +344,7 @@ class SalinityMethods(
 					0.0
 				}
 			}
-		val df = DecimalFormat("#.#")
-		df.roundingMode = RoundingMode.HALF_UP
-		return df.format(calculate)
+
+		return decimalFormat.format(calculate)
 	}
 }

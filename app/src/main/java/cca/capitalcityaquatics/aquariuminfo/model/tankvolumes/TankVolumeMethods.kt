@@ -22,9 +22,9 @@ class TankVolumeMethods(
     diameter: Double = 0.0,
     edge: Double = 0.0,
     fullWidth: Double = 0.0,
-) {
-    private val decimalFormat = DecimalFormat("#.##")
+    private val decimalFormat: DecimalFormat = DecimalFormat("#.##")
         .apply { roundingMode = RoundingMode.HALF_UP }
+) {
     private val radius = diameter / 2.0
 
     private var volume =

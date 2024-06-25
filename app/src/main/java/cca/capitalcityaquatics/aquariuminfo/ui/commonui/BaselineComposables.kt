@@ -61,6 +61,13 @@ fun VerticalSpacerSmall(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun VerticalSpacerLarge(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_large)))
+    }
+}
+
+@Composable
 fun HorizontalSpacerSmall(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_small)))

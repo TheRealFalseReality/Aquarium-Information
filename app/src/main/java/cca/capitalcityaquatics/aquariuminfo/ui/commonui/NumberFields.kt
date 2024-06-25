@@ -687,7 +687,8 @@ fun CalculateField(
             modifier = Modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall)),
             color = contentColor,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
         )
         VerticalSpacerSmall()
         EqualsText(
@@ -716,15 +717,15 @@ fun EqualsText(
     color: Color,
 ) {
     Column(modifier = modifier) {
-        Text(
-            text = stringResource(id = equalsText),
+        BodyText(
+            text = equalsText,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             color = color,
+            fontWeight = FontWeight.Bold
         )
     }
 }
-
 
 @Composable
 fun CalculateFieldTwoInputs(
@@ -746,7 +747,8 @@ fun CalculateFieldTwoInputs(
             modifier = Modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall)),
             color = contentColor,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
         )
         VerticalSpacerSmall()
         EqualsText(
@@ -796,7 +798,8 @@ fun CalculateFieldFourInputs(
             modifier = Modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall)),
             color = contentColor,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
         )
         VerticalSpacerSmall()
         EqualsText(
@@ -839,7 +842,8 @@ fun CalculateFieldThreeInputs(
             modifier = Modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall)),
             color = contentColor,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
         )
         VerticalSpacerSmall()
         EqualsText(

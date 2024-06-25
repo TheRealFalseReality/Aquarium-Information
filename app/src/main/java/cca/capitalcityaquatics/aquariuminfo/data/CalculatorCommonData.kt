@@ -2,6 +2,7 @@ package cca.capitalcityaquatics.aquariuminfo.data
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import cca.capitalcityaquatics.aquariuminfo.R
 
 data class CalculatorCommonData(
     @StringRes val subtitleVolume1: Int,
@@ -23,6 +24,7 @@ data class CalculatorCommonData(
     @StringRes val placeholderDiameter: Int,
     @StringRes val placeholderFullWidth: Int,
     @StringRes val equalsText: Int,
+    @StringRes val equalsTextFlow: Int = R.string.equal_flow,
     @StringRes val calculatedTextGallons: Int,
     @StringRes val calculatedTextLiters: Int,
     @StringRes val calculatedTextWaterWeight: Int,
@@ -41,9 +43,12 @@ data class CalculatorCommonData(
     val conversionLitersFeet: Double,
     val conversionLitersInches: Double,
     val conversionPoundsGallons: Double,
+    @StringRes val radioTextGallons: Int = R.string.gallons,
+    @StringRes val radioTextLiters: Int = R.string.liters,
     @StringRes val radioTextDkh: Int,
     @StringRes val radioTextPpm: Int,
     @StringRes val radioTextMeq: Int,
+    @StringRes val labelWaterVolume: Int = R.string.flow_rate_label,
     @StringRes val labelDkh: Int,
     @StringRes val labelPpm: Int,
     @StringRes val labelMeq: Int,
@@ -51,10 +56,14 @@ data class CalculatorCommonData(
     @StringRes val placeholderPpm: Int,
     @StringRes val placeholderMeq: Int,
     @StringRes val inputTextDkh: Int,
+    @StringRes val inputTextGallons: Int = R.string.text_amount_gallon,
+    @StringRes val inputTextLiters: Int = R.string.text_amount_liters,
     @StringRes val inputTextPpm: Int,
     @StringRes val inputTextMeq: Int,
     @StringRes val approxText: Int,
     @StringRes val calculatedTextPpm: Int,
+    @StringRes val calculatedTextGallonsHour: Int = R.string.text_amount_gallons_hour,
+    @StringRes val calculatedTextLitersHour: Int = R.string.text_amount_liters_hour,
     @StringRes val calculatedTextDkh: Int,
     @StringRes val calculatedTextMeq: Int,
     @DrawableRes val leadingIconTDS: Int,
@@ -84,6 +93,7 @@ data class CalculatorCommonData(
     @StringRes val labelSpecificGravity: Int,
     @StringRes val labelConductivity: Int,
     @StringRes val labelDensity: Int,
+    @DrawableRes val leadingIconWaterVolume: Int = R.drawable.ic_waves,
     @DrawableRes val leadingIconSalinity: Int,
     @DrawableRes val leadingIconDensity: Int,
     @DrawableRes val leadingIconConductivity: Int,
@@ -101,4 +111,7 @@ data class CalculatorCommonData(
     @StringRes val calculatedTextKelvin: Int,
     @DrawableRes val leadingIconTemperature: Int,
     @StringRes val labelTankVolume: Int,
+    @StringRes val flowIdeal: Int = R.string.flow_ideal,
+    @StringRes val flowMin: Int = R.string.flow_low,
+    @StringRes val flowMax: Int = R.string.flow_high,
 )

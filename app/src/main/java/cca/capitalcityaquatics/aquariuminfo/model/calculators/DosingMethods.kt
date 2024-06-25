@@ -8,6 +8,8 @@ class DosingMethods(
 	private val treatment: Double = 0.0,
 	private val water: Double = 0.0,
 	private val aquarium: Double = 0.0,
+	private val decimalFormat: DecimalFormat = DecimalFormat("#.##")
+		.apply { roundingMode = RoundingMode.HALF_UP }
 ) {
 	@VisibleForTesting
 	fun dosing(): String {

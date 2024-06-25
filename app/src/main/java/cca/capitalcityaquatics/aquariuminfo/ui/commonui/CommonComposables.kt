@@ -340,6 +340,7 @@ fun SingleWideCardExpandableFull(
                                 if (expanded) {
                                     VerticalSpacerVerySmall()
                                     subtitleContent()
+
                                 }
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically

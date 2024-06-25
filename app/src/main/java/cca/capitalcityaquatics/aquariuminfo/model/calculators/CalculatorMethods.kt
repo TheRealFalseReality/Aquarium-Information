@@ -13,9 +13,9 @@ class CalculatorMethods(
     private val dKH: Double = 0.0,
     private val alkalinity: Double = 0.0,
     private val temperature: Double = 0.0,
-) {
-    private val decimalFormat = DecimalFormat("#.##")
+    private val decimalFormat: DecimalFormat = DecimalFormat("#.##")
         .apply { roundingMode = RoundingMode.HALF_UP }
+) {
 
     // Carbon Dioxide
     @VisibleForTesting
@@ -26,14 +26,10 @@ class CalculatorMethods(
         return decimalFormat.format(carbonDioxide)
     }
 
-    private fun getAlkalinityConversionFactor(
-        selected: Int?,
-        dkhFactor: Double,
-        meqFactor: Double
-    ): Double {
+    private fun getAlkalinityConversionFactor(selected:Int?): Double {
         return when (selected) {
-            calculatorDataSource.radioTextPpm -> dkhFactor
-            calculatorDataSource.radioTextMeq -> meqFactor
+            calculatorDataSource.radioTextPpm -> alkalinityDataSource.conversionDKHPPM
+            calculatorDataSource.radioTextMeq -> alkalinityDataSource.conversionDKHMEQ
             else -> 0.0
         }
     }
@@ -42,28 +38,7 @@ class CalculatorMethods(
     // Convert to dKH
     @VisibleForTesting
     fun calculateAlkalinityDKH(): String {
-        val conversionFactor = getAlkalinityConversionFactor(
-            selected,
-            alkalinityDataSource.conversionDKHPPM,
-            alkalinityDataSource.conversionDKHMEQ
-        )
-//		val conversionFactor =
-//			when (selected) {
-//				// ppm
-//				calculatorDataSource.radioTextPpm -> {
-//					alkalinityDataSource.conversionDKHPPM
-//				}
-//
-//				// meq/L
-//				calculatorDataSource.radioTextMeq -> {
-//					alkalinityDataSource.conversionDKHMEQ
-//				}
-//
-//				// error
-//				else -> {
-//					0.0
-//				}
-//			}
+        val conversionFactor = getAlkalinityConversionFactor(selected)
         val ppmDKH = alkalinity * conversionFactor
 
         return decimalFormat.format(ppmDKH)
@@ -72,22 +47,11 @@ class CalculatorMethods(
     // Convert to ppm
     @VisibleForTesting
     fun calculateAlkalinityPPM(): String {
-        val conversionFactor =
-            when (selected) {
-                // dKH
-                calculatorDataSource.radioTextDkh -> {
-                    alkalinityDataSource.conversionPPMDKH
-                }
-
-                // meq/L
-                calculatorDataSource.radioTextMeq -> {
-                    alkalinityDataSource.conversionPPMMEQ
-                }
-                // error
-                else -> {
-                    0.0
-                }
-            }
+        val conversionFactor = when (selected) {
+            calculatorDataSource.radioTextDkh -> alkalinityDataSource.conversionPPMDKH
+            calculatorDataSource.radioTextMeq -> alkalinityDataSource.conversionPPMMEQ
+            else -> 0.0
+        }
         val ppmDKH = alkalinity * conversionFactor
 
         return decimalFormat.format(ppmDKH)
@@ -96,22 +60,11 @@ class CalculatorMethods(
     // Convert to meq/L
     @VisibleForTesting
     fun calculateAlkalinityMEQ(): String {
-        val conversionFactor =
-            when (selected) {
-                // dKH
-                calculatorDataSource.radioTextDkh -> {
-                    alkalinityDataSource.conversionMEQDKH
-                }
-
-                // ppm
-                calculatorDataSource.radioTextPpm -> {
-                    alkalinityDataSource.conversionMEQPPM
-                }
-                // error
-                else -> {
-                    0.0
-                }
-            }
+        val conversionFactor = when (selected) {
+            calculatorDataSource.radioTextDkh -> alkalinityDataSource.conversionMEQDKH
+            calculatorDataSource.radioTextPpm -> alkalinityDataSource.conversionMEQPPM
+            else -> 0.0
+        }
         val ppmDKH = alkalinity * conversionFactor
 
         return decimalFormat.format(ppmDKH)

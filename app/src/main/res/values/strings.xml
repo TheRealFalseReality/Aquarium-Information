@@ -66,6 +66,8 @@
     <string name="button_label_meq">meq/L</string>
     <string name="field_label_ppm">Enter ppm</string>
     <string name="field_label_meq">Enter meq/L</string>
+    <string name="text_amount_gallons_hour">%s GPH</string>
+    <string name="text_amount_liters_hour">%s LPH</string>
     <string name="text_amount_dkh">%s dKH</string>
     <string name="text_amount_ppm">%s ppm CaCO3</string>
     <string name="text_amount_meq">%s meq/L</string>
@@ -634,8 +636,8 @@
     <string name="aquarium">Aquarium Size</string>
     <string name="please_enter_a_number">Please enter a number.</string>
     <string name="flow_rate_subtitle">Recommended Flow Rates for Return Pump</string>
-    <string name="flow_rate_freshwater">Recommended 3 – 5x</string>
-    <string name="flow_rate_marine">Recommended 5 – 10x</string>
+    <string name="flow_rate_freshwater">Recommended\n 3 – 5x</string>
+    <string name="flow_rate_marine">Recommended\n 5 – 10x</string>
     <string name="salinity_information">Salinity, the salt content of your aquarium water, is a crucial factor for the health and well-being of your aquatic inhabitants. It plays a vital role in regulating their internal body fluids and processes. Maintaining the right salinity level is essential for creating a thriving underwater ecosystem.</string>
     <string name="salinity_ideal">The ideal salinity range for a saltwater aquarium generally falls between 34 and 36 parts per thousand (ppt), or a specific gravity of 1.023 to 1.028. This range reflects the natural salinity of ocean water, providing optimal conditions for most marine fish and invertebrates.</string>
     <string name="salinity_formula_1">The direct calculation from Salinity (‰ - ppt) to Density (g/l or kg/m3) / Specific Gravity is based on the equation adopted by UNESCO - The One Atmosphere International Equation of the State of Seawater (Millero and Poisson, 1981).</string>
@@ -646,4 +648,14 @@
     <string name="salinity_thanks">Thanks to OceanLife for providing the source code for the calculations.\nThanks to CaptiveReefs for providing the source code for the salinity table.</string>
     <string name="ideal_salinity_ranges">Ideal Salinity Ranges</string>
     <string name="tap_to_reveal">Tap to Reveal</string>
+    <string name="flow_rate_label">Water Volume</string>
+    <string name="flow_rate_marine_description">A marine aquarium typically requires a higher flow rate than freshwater with the same bioload. A pump with a flow rate 5 to 10 times your tank\'s total volume ensures proper water circulation, oxygen levels, and filtration efficiency.</string>
+    <string name="flow_rate_freshwater_description">A freshwater aquarium\'s flow rate is also dependent on bioload. A pump with a flow rate 3 to 5 times your tank\'s total volume ensures proper water circulation, oxygen levels, and filtration efficiency.</string>
+    <string name="flow_rate_minimun">Minimum Flow: %s</string>
+    <string name="gallons">Gallons</string>
+    <string name="liters">Liters</string>
+    <string name="equal_flow">Recommended Return Pump Flow Rate</string>
+    <string name="flow_ideal">Ideal Rate</string>
+    <string name="flow_low">Minimum</string>
+    <string name="flow_high">High Flow</string>
 </resources>
