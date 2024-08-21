@@ -28,23 +28,15 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FancyIndicator
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CompatibilityTabRow(
     selectedState: Int = 0,
     selectedColor: Color = MaterialTheme.colorScheme.tertiary,
     unselectedColor: Color = MaterialTheme.colorScheme.outline,
 ) {
-//	val state by rememberSaveable { mutableIntStateOf(selectedState) }
     val coroutineScope = rememberCoroutineScope()
     val tabs = compatibilityTabRow
-//	val fancyIndicator = @Composable { tabPositions: List<TabPosition> ->
-//		FancyAnimatedIndicator(
-//			tabPositions = tabPositions,
-//			selectedTabIndex = state,
-//			indicatorColor = selectedColor
-//		)
-//	}
+
     val pagerState = rememberPagerState(
         initialPage = selectedState,
         pageCount = { tabs.size }

@@ -38,6 +38,7 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.BodyText
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CenteredSingleCard
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.IconTextRow
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.ThemeSwitch
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.TitledContentWithIcon
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerSmall
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.VerticalSpacerVerySmall
@@ -185,7 +186,7 @@ fun InfoLayout(
             }
         }
     }
-//	ThemeSwitch()
+    ThemeSwitch()
 }
 
 @ExperimentalMaterial3Api
@@ -195,8 +196,8 @@ fun InfoPreview() {
     AquariumInformationTheme {
         Column(
             modifier = Modifier
-				.fillMaxSize()
-				.background(color = MaterialTheme.colorScheme.surface)
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
             InfoPage()
         }
@@ -211,8 +212,8 @@ fun InfoPreviewDark(
     AquariumInformationTheme(useDarkTheme = true) {
         Column(
             modifier = Modifier
-				.fillMaxSize()
-				.background(color = MaterialTheme.colorScheme.surface)
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
             InfoPage()
         }

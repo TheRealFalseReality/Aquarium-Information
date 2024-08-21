@@ -48,15 +48,15 @@ fun NavButton(
             containerColor = containerColor,
             contentColor = contentColor,
         ),
-        elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = dimensionResource(id = R.dimen.elevation_medium),
-            pressedElevation = dimensionResource(id = R.dimen.elevation_small)
-        )
+//        elevation = ButtonDefaults.buttonElevation(
+//            defaultElevation = dimensionResource(id = R.dimen.elevation_medium),
+//            pressedElevation = dimensionResource(id = R.dimen.elevation_small)
+//        )
     ) {
         Column(
             modifier = Modifier
-				.padding(dimensionResource(id = R.dimen.padding_small))
-				.fillMaxHeight(),
+                .padding(dimensionResource(id = R.dimen.padding_small))
+                .fillMaxHeight(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -68,8 +68,8 @@ fun NavButton(
                 painter = painterResource(id = icon),
                 contentDescription = null,
                 modifier = Modifier
-					.padding(top = dimensionResource(id = R.dimen.padding_small))
-					.size(dimensionResource(id = R.dimen.icon_size_verySmall)),
+                    .padding(top = dimensionResource(id = R.dimen.padding_small))
+                    .size(dimensionResource(id = R.dimen.icon_size_verySmall)),
                 tint = contentColor,
             )
         }
@@ -91,11 +91,11 @@ fun NavButtonRowTop(
     Row(modifier = modifier.fillMaxWidth(fraction = 0.9f)) {
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(fraction = 0.9f)
-				.padding(
-					end = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(
+                    end = dimensionResource(id = R.dimen.padding_small),
+                ),
             shape = RoundedCornerShape(
                 bottomEnd = 0.dp,
                 bottomStart = dimensionResource(id = R.dimen.card_large),
@@ -110,11 +110,11 @@ fun NavButtonRowTop(
         )
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(fraction = 0.9f)
-				.padding(
-					start = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(
+                    start = dimensionResource(id = R.dimen.padding_small),
+                ),
             shape = RoundedCornerShape(
                 bottomEnd = dimensionResource(id = R.dimen.card_large),
                 bottomStart = 0.dp,
@@ -146,11 +146,11 @@ fun NavButtonRowMid(
     Row(modifier = modifier.fillMaxWidth(fraction = 0.9f)) {
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(fraction = 0.9f)
-				.padding(
-					end = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(
+                    end = dimensionResource(id = R.dimen.padding_small),
+                ),
             shape = RoundedCornerShape(
                 bottomEnd = 0.dp,
                 bottomStart = dimensionResource(id = R.dimen.card_large),
@@ -165,11 +165,11 @@ fun NavButtonRowMid(
         )
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(fraction = 0.9f)
-				.padding(
-					start = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(
+                    start = dimensionResource(id = R.dimen.padding_small),
+                ),
             shape = RoundedCornerShape(
                 bottomEnd = dimensionResource(id = R.dimen.card_large),
                 bottomStart = 0.dp,
@@ -201,11 +201,11 @@ fun NavButtonRowBottom(
     Row(modifier = modifier.fillMaxWidth(fraction = 0.9f)) {
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(fraction = 0.9f)
-				.padding(
-					end = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(
+                    end = dimensionResource(id = R.dimen.padding_small),
+                ),
             shape = RoundedCornerShape(
                 bottomEnd = dimensionResource(id = R.dimen.card_large),
                 bottomStart = dimensionResource(id = R.dimen.card_large),
@@ -220,11 +220,11 @@ fun NavButtonRowBottom(
         )
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(fraction = 0.9f)
-				.padding(
-					start = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(
+                    start = dimensionResource(id = R.dimen.padding_small),
+                ),
             shape = RoundedCornerShape(
                 bottomEnd = dimensionResource(id = R.dimen.card_large),
                 bottomStart = dimensionResource(id = R.dimen.card_large),
@@ -334,11 +334,11 @@ fun NavButtonRow(
     ) {
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(fraction = 0.9f)
-				.padding(
-					end = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(
+                    end = dimensionResource(id = R.dimen.padding_small),
+                ),
             title = title1,
             icon = icon1,
             containerColor = containerColor,
@@ -347,10 +347,10 @@ fun NavButtonRow(
         )
         NavButton(
             modifier = Modifier
-				.weight(1f)
-				.padding(
-					start = dimensionResource(id = R.dimen.padding_small),
-				),
+                .weight(1f)
+                .padding(
+                    start = dimensionResource(id = R.dimen.padding_small),
+                ),
             title = title2,
             icon = icon2,
             containerColor = containerColor,

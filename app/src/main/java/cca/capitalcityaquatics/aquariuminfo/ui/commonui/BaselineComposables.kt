@@ -68,6 +68,13 @@ fun VerticalSpacerLarge(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun HorizontalSpacerVerySmall(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_verySmall)))
+    }
+}
+
+@Composable
 fun HorizontalSpacerSmall(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_small)))
@@ -156,8 +163,8 @@ fun CenteredSingleCard(
         ) {
             Column(
                 modifier = Modifier
-					.padding(dimensionResource(id = R.dimen.padding_small))
-					.fillMaxWidth(),
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 content()
@@ -188,8 +195,8 @@ fun TextOutlinedCard(
         ) {
             Column(
                 modifier = Modifier
-					.padding(dimensionResource(id = R.dimen.padding_small))
-					.fillMaxWidth(fraction = 0.6f),
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .fillMaxWidth(fraction = 0.6f),
             ) {
                 Row(
                     modifier = Modifier
@@ -359,8 +366,8 @@ fun IconTextRow(
     Column(modifier = modifier) {
         Row(
             modifier = Modifier
-				.fillMaxWidth()
-				.padding(vertical = dimensionResource(id = R.dimen.padding_medium_small)),
+                .fillMaxWidth()
+                .padding(vertical = dimensionResource(id = R.dimen.padding_medium_small)),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(

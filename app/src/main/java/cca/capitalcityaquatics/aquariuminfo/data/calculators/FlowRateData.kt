@@ -13,7 +13,7 @@ data class FlowRateData(
     @StringRes val formulaText: Int,
     @DrawableRes val icon: Int,
     @StringRes val header: Int,
-    @StringRes val minimum: Int = R.string.flow_rate_minimun,
+    @StringRes val minimum: Int = R.string.flow_rate_minimum,
     @StringRes val label: Int = R.string.flow_rate_label,
     val conversionLow: Double,
     val conversionHigh: Double,

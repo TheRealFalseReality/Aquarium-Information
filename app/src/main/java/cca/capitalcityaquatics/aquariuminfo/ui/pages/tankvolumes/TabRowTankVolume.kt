@@ -33,7 +33,6 @@ import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FancyIndicator
 import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TankVolumeTabRow(
     windowSize: WindowSizeClass,
@@ -164,7 +163,7 @@ fun TankVolumeTabRow(
         }
         HorizontalPager(
             state = pagerState,
-            beyondBoundsPageCount = 6,
+            beyondViewportPageCount = 6,
         ) { index ->
             when (index) {
                 0 -> {

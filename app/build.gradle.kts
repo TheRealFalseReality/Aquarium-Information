@@ -111,5 +111,6 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
 
     // WindowSizeClass
+    implementation(libs.androidx.material3)
     implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
-}
+    implementation(libs.androidx.material3.adaptive.navigation.suite)}

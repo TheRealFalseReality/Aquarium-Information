@@ -144,8 +144,8 @@ fun AppPreview() {
     AquariumInformationTheme {
         Column(
             modifier = Modifier
-				.fillMaxSize()
-				.background(color = MaterialTheme.colorScheme.surface)
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
             AppPortrait(
                 navController = rememberNavController(),
@@ -163,8 +163,8 @@ fun AppDarkPreview() {
     AquariumInformationTheme(useDarkTheme = true) {
         Column(
             modifier = Modifier
-				.fillMaxSize()
-				.background(color = MaterialTheme.colorScheme.surface)
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
             AppPortrait(
                 navController = rememberNavController(),
@@ -182,8 +182,8 @@ fun AppLandscapePreview() {
     AquariumInformationTheme {
         Column(
             modifier = Modifier
-				.fillMaxSize()
-				.background(color = MaterialTheme.colorScheme.surface)
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
             AppLandscape(
                 navController = rememberNavController(),

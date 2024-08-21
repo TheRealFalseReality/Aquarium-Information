@@ -62,8 +62,9 @@ data class CalculatorCommonData(
     @StringRes val inputTextMeq: Int,
     @StringRes val approxText: Int,
     @StringRes val calculatedTextPpm: Int,
-    @StringRes val calculatedTextGallonsHour: Int = R.string.text_amount_gallons_hour,
-    @StringRes val calculatedTextLitersHour: Int = R.string.text_amount_liters_hour,
+    @StringRes val calculatedText: Int = R.string.text_amount,
+    @StringRes val textGallonsHour: Int = R.string.text_gallons_hour,
+    @StringRes val textLitersHour: Int = R.string.text_liters_hour,
     @StringRes val calculatedTextDkh: Int,
     @StringRes val calculatedTextMeq: Int,
     @DrawableRes val leadingIconTDS: Int,
@@ -114,4 +115,5 @@ data class CalculatorCommonData(
     @StringRes val flowIdeal: Int = R.string.flow_ideal,
     @StringRes val flowMin: Int = R.string.flow_low,
     @StringRes val flowMax: Int = R.string.flow_high,
+    @StringRes val formulaFlow: Int = R.string.flow_rate_info,
 )

@@ -14,6 +14,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -58,7 +59,7 @@ fun InputNumberField(
     @DrawableRes leadingIcon: Int,
 ) {
     val focusManager = LocalFocusManager.current
-    val isError = !value.matches(Regex("[0-9]+(\\.[0-9]+)?"))
+    val isError = !value.matches(Regex("^(0|[1-9]\\d*)(\\.\\d+)?$"))
 
     Column(
         modifier = modifier,
@@ -66,10 +67,11 @@ fun InputNumberField(
     ) {
         TextField(
             modifier = Modifier
-				.widthIn(max = dimensionResource(id = R.dimen.text_field_width))
-				.align(Alignment.CenterHorizontally),
+                .widthIn(max = dimensionResource(id = R.dimen.text_field_width))
+                .align(Alignment.CenterHorizontally),
             value = value,
             onValueChange = onValueChange,
+            textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center),
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = focusedColor,
                 focusedLabelColor = focusedColor,
@@ -88,13 +90,17 @@ fun InputNumberField(
             ),
             label = {
                 Text(
-                    stringResource(id = label),
+                    modifier = Modifier.fillMaxWidth(),
+                    text = stringResource(id = label),
+                    textAlign = TextAlign.Center,
                 )
             },
             placeholder = {
                 Text(
-                    stringResource(id = placeholder),
+                    modifier = Modifier.fillMaxWidth(),
+                    text = stringResource(id = placeholder),
                     maxLines = 1,
+                    textAlign = TextAlign.Center,
                 )
             },
             keyboardOptions = KeyboardOptions(
@@ -206,11 +212,11 @@ fun InputRowNumberFieldTwoInputs(
         ) {
             InputNumberField(
                 modifier = Modifier
-					.padding(
-						start = dimensionResource(id = R.dimen.padding_verySmall),
-						end = dimensionResource(id = R.dimen.padding_verySmall)
-					)
-					.weight(1f),
+                    .padding(
+                        start = dimensionResource(id = R.dimen.padding_verySmall),
+                        end = dimensionResource(id = R.dimen.padding_verySmall)
+                    )
+                    .weight(1f),
                 label = label1,
                 placeholder = placeholder1,
                 value = value1,
@@ -223,11 +229,11 @@ fun InputRowNumberFieldTwoInputs(
             )
             InputNumberField(
                 modifier = Modifier
-					.padding(
-						start = dimensionResource(id = R.dimen.padding_verySmall),
-						end = dimensionResource(id = R.dimen.padding_verySmall)
-					)
-					.weight(1f),
+                    .padding(
+                        start = dimensionResource(id = R.dimen.padding_verySmall),
+                        end = dimensionResource(id = R.dimen.padding_verySmall)
+                    )
+                    .weight(1f),
                 label = label2,
                 placeholder = placeholder2,
                 value = value2,
@@ -277,11 +283,11 @@ fun InputQuadNumberFieldFourInputs(
         ) {
             InputNumberField(
                 modifier = Modifier
-					.padding(
-						start = dimensionResource(id = R.dimen.padding_verySmall),
-						end = dimensionResource(id = R.dimen.padding_verySmall)
-					)
-					.weight(1f),
+                    .padding(
+                        start = dimensionResource(id = R.dimen.padding_verySmall),
+                        end = dimensionResource(id = R.dimen.padding_verySmall)
+                    )
+                    .weight(1f),
                 label = label1,
                 placeholder = placeholder1,
                 value = value1,
@@ -294,11 +300,11 @@ fun InputQuadNumberFieldFourInputs(
             )
             InputNumberField(
                 modifier = Modifier
-					.padding(
-						start = dimensionResource(id = R.dimen.padding_verySmall),
-						end = dimensionResource(id = R.dimen.padding_verySmall)
-					)
-					.weight(1f),
+                    .padding(
+                        start = dimensionResource(id = R.dimen.padding_verySmall),
+                        end = dimensionResource(id = R.dimen.padding_verySmall)
+                    )
+                    .weight(1f),
                 label = label2,
                 placeholder = placeholder2,
                 value = value2,
@@ -319,11 +325,11 @@ fun InputQuadNumberFieldFourInputs(
         ) {
             InputNumberField(
                 modifier = Modifier
-					.padding(
-						start = dimensionResource(id = R.dimen.padding_verySmall),
-						end = dimensionResource(id = R.dimen.padding_verySmall)
-					)
-					.weight(1f),
+                    .padding(
+                        start = dimensionResource(id = R.dimen.padding_verySmall),
+                        end = dimensionResource(id = R.dimen.padding_verySmall)
+                    )
+                    .weight(1f),
                 label = label3,
                 placeholder = placeholder3,
                 value = value3,
@@ -336,11 +342,11 @@ fun InputQuadNumberFieldFourInputs(
             )
             InputNumberField(
                 modifier = Modifier
-					.padding(
-						start = dimensionResource(id = R.dimen.padding_verySmall),
-						end = dimensionResource(id = R.dimen.padding_verySmall)
-					)
-					.weight(1f),
+                    .padding(
+                        start = dimensionResource(id = R.dimen.padding_verySmall),
+                        end = dimensionResource(id = R.dimen.padding_verySmall)
+                    )
+                    .weight(1f),
                 label = label4,
                 placeholder = placeholder4,
                 value = value4,
@@ -383,8 +389,8 @@ fun InputNumberFieldThreeInputs(
         ) {
             InputNumberField(
                 modifier = Modifier
-					.padding(dimensionResource(id = R.dimen.padding_verySmall))
-					.weight(1f),
+                    .padding(dimensionResource(id = R.dimen.padding_verySmall))
+                    .weight(1f),
                 label = label1,
                 placeholder = placeholder1,
                 value = value1,
@@ -397,8 +403,8 @@ fun InputNumberFieldThreeInputs(
             )
             InputNumberField(
                 modifier = Modifier
-					.padding(dimensionResource(id = R.dimen.padding_verySmall))
-					.weight(1f),
+                    .padding(dimensionResource(id = R.dimen.padding_verySmall))
+                    .weight(1f),
                 label = label2,
                 placeholder = placeholder2,
                 value = value2,
@@ -411,8 +417,8 @@ fun InputNumberFieldThreeInputs(
             )
             InputNumberField(
                 modifier = Modifier
-					.padding(dimensionResource(id = R.dimen.padding_verySmall))
-					.weight(1f),
+                    .padding(dimensionResource(id = R.dimen.padding_verySmall))
+                    .weight(1f),
                 label = label3,
                 placeholder = placeholder3,
                 value = value3,
@@ -526,8 +532,8 @@ fun InputNumberFieldThreeInputsStackedPortrait(
         ) {
             InputNumberField(
                 modifier = Modifier
-					.padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
-					.weight(1f),
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
+                    .weight(1f),
                 label = label1,
                 placeholder = placeholder1,
                 value = value1,
@@ -540,8 +546,8 @@ fun InputNumberFieldThreeInputsStackedPortrait(
             )
             InputNumberField(
                 modifier = Modifier
-					.padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
-					.weight(1f),
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
+                    .weight(1f),
                 label = label2,
                 placeholder = placeholder2,
                 value = value2,
@@ -610,8 +616,8 @@ fun InputNumberFieldThreeInputsStackedLandscape(
         ) {
             InputNumberField(
                 modifier = Modifier
-					.padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
-					.weight(1f),
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
+                    .weight(1f),
                 label = label1,
                 placeholder = placeholder1,
                 value = value1,
@@ -632,8 +638,8 @@ fun InputNumberFieldThreeInputsStackedLandscape(
         ) {
             InputNumberField(
                 modifier = Modifier
-					.padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
-					.weight(1f),
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_verySmall))
+                    .weight(1f),
                 label = label2,
                 placeholder = placeholder2,
                 value = value2,

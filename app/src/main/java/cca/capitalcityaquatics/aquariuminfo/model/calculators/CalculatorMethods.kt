@@ -26,7 +26,7 @@ class CalculatorMethods(
         return decimalFormat.format(carbonDioxide)
     }
 
-    private fun getAlkalinityConversionFactor(selected:Int?): Double {
+    private fun getAlkalinityConversionFactor(selected: Int?): Double {
         return when (selected) {
             calculatorDataSource.radioTextPpm -> alkalinityDataSource.conversionDKHPPM
             calculatorDataSource.radioTextMeq -> alkalinityDataSource.conversionDKHMEQ

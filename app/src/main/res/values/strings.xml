@@ -66,8 +66,9 @@
     <string name="button_label_meq">meq/L</string>
     <string name="field_label_ppm">Enter ppm</string>
     <string name="field_label_meq">Enter meq/L</string>
-    <string name="text_amount_gallons_hour">%s GPH</string>
-    <string name="text_amount_liters_hour">%s LPH</string>
+    <string name="text_amount">%s</string>
+    <string name="text_gallons_hour">GPH</string>
+    <string name="text_liters_hour">LPH</string>
     <string name="text_amount_dkh">%s dKH</string>
     <string name="text_amount_ppm">%s ppm CaCO3</string>
     <string name="text_amount_meq">%s meq/L</string>
@@ -651,11 +652,12 @@
     <string name="flow_rate_label">Water Volume</string>
     <string name="flow_rate_marine_description">A marine aquarium typically requires a higher flow rate than freshwater with the same bioload. A pump with a flow rate 5 to 10 times your tank\'s total volume ensures proper water circulation, oxygen levels, and filtration efficiency.</string>
     <string name="flow_rate_freshwater_description">A freshwater aquarium\'s flow rate is also dependent on bioload. A pump with a flow rate 3 to 5 times your tank\'s total volume ensures proper water circulation, oxygen levels, and filtration efficiency.</string>
-    <string name="flow_rate_minimun">Minimum Flow: %s</string>
+    <string name="flow_rate_minimum">Minimum Flow: %s</string>
     <string name="gallons">Gallons</string>
     <string name="liters">Liters</string>
     <string name="equal_flow">Recommended Return Pump Flow Rate</string>
     <string name="flow_ideal">Ideal Rate</string>
     <string name="flow_low">Minimum</string>
     <string name="flow_high">High Flow</string>
+    <string name="flow_rate_info">For Freshwater, between 3 – 5 times per hour.\nFor Marine, between 5 – 10 times per hour.</string>
 </resources>

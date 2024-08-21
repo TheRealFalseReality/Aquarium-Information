@@ -32,7 +32,6 @@ import cca.capitalcityaquatics.aquariuminfo.ui.theme.AquariumInformationTheme
 import kotlinx.coroutines.launch
 
 @Suppress("SpellCheckingInspection")
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CalculatorsTabRow(
     windowSize: WindowSizeClass,
@@ -172,7 +171,7 @@ fun CalculatorsTabRow(
         }
         HorizontalPager(
             state = pagerState,
-            beyondBoundsPageCount = 6,
+            beyondViewportPageCount = 6,
         ) { index ->
             when (index) {
                 0 -> {

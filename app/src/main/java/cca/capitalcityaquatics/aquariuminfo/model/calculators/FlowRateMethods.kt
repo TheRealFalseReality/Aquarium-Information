@@ -8,9 +8,9 @@ import java.text.DecimalFormat
 
 class FlowRateMethods(
     private val tankVolume: Double = 0.0,
-) {
-    private val decimalFormat = DecimalFormat("#")
+    private val decimalFormat: DecimalFormat = DecimalFormat("#")
         .apply { roundingMode = RoundingMode.HALF_UP }
+) {
 
     private fun calculateFlowRate(flowConversion: Double): String {
         val flowRate = tankVolume * flowConversion

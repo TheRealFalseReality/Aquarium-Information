@@ -4,7 +4,6 @@ package cca.capitalcityaquatics.aquariuminfo.ui.commonui
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDp
@@ -34,12 +33,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
-import androidx.compose.material3.Switch
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -480,14 +477,16 @@ fun CalculateImageWithTitle(
 @Composable
 fun FormulaStringCard(
     @StringRes formulaText: Int,
-//	isExpanded: Boolean = true,
+	isExpanded: Boolean = true,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
     containerColor: Color = MaterialTheme.colorScheme
         .surfaceColorAtElevation(dimensionResource(id = R.dimen.tonal_elevation_medium)),
+    icon: Int = R.drawable.ic_function,
+    title: Int = R.string.formula,
 ) {
     TitledContentWithIcon(
-        title = R.string.formula,
-        icon = R.drawable.ic_function,
+        title = title,
+        icon = icon,
         contentColor = contentColor,
     ) {
         CenteredSingleCard(
@@ -784,52 +783,6 @@ fun PopOutlinedCard(
 
 @Composable
 fun ThemeSwitch() {
-    var useDarkTheme by remember { mutableStateOf(false) }
-    var recreate by remember { mutableStateOf(false) }
-
-    // Set app theme based on useDarkTheme
-    val nightMode =
-        if (useDarkTheme) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-    LaunchedEffect(key1 = nightMode) {
-        AppCompatDelegate.setDefaultNightMode(nightMode)
-        recreate = !recreate
-    }
-
-    if (recreate) {
-        AquariumInformationTheme(useDarkTheme = useDarkTheme) {
-            Column {
-                Text("Toggle Theme", style = MaterialTheme.typography.headlineMedium)
-                Switch(
-                    checked = useDarkTheme,
-                    onCheckedChange = { useDarkTheme = it }
-                )
-            }
-        }
-    }
-//	var isDarkTheme by remember { mutableStateOf(true) }
-//
-//	AquariumInformationTheme(dynamicColor = isDarkTheme) {
-//		Row(
-//			verticalAlignment = Alignment.CenterVertically,
-//			modifier = Modifier
-//				.fillMaxWidth()
-//				.padding(
-//					horizontal = 16.dp,
-//					vertical = 10.dp
-//				),
-//			horizontalArrangement = Arrangement.spacedBy(8.dp)
-//		) {
-//			Text("☀️")
-//			var isDarkThemeEnabled by remember {mutableStateOf(false) }
-//			Switch(
-//				checked = isDarkTheme,
-//				onCheckedChange = {
-//					isDarkTheme = it
-//				}
-//			)
-//			Text("🌘")
-//		}
-//	}
 }
 
 @Preview(showBackground = true)

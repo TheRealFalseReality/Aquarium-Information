@@ -50,10 +50,10 @@ fun AquariumAppBar(
         title = {
             Box(
                 modifier = Modifier
-					.fillMaxWidth()
-					.clickable {
-						navController.navigateSingleTopTo(Overview.route)
-					},
+                    .fillMaxWidth()
+                    .clickable {
+                        navController.navigateSingleTopTo(Overview.route)
+                    },
                 contentAlignment = Alignment.Center
             ) {
                 HeaderTextLarge(

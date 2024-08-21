@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import cca.capitalcityaquatics.aquariuminfo.R
+import cca.capitalcityaquatics.aquariuminfo.data.CalculatorCommonData
 import cca.capitalcityaquatics.aquariuminfo.data.calculatorDataSource
 import cca.capitalcityaquatics.aquariuminfo.data.calculators.flowRateDataSourceFreshwater
 import cca.capitalcityaquatics.aquariuminfo.data.calculators.flowRateDataSourceMarine
@@ -30,10 +31,12 @@ import cca.capitalcityaquatics.aquariuminfo.model.calculators.FlowRateMethods
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.BodyText
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculateField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.CalculatedTextString
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.FormulaStringCard
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.GenericCalculatePage
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.HeaderText
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.HorizontalSpacerMedium
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.HorizontalSpacerSmall
+import cca.capitalcityaquatics.aquariuminfo.ui.commonui.HorizontalSpacerVerySmall
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.InputNumberField
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.PageView
 import cca.capitalcityaquatics.aquariuminfo.ui.commonui.RadioButtonTwoUnits
@@ -74,7 +77,7 @@ fun FlowRateLayout(
             SingleWideCardExpandableRadio(
                 modifier = Modifier.fillMaxWidth(fraction = 0.75f),
                 header = R.string.select_input_units,
-                expandedState = true,
+                expandedState = false,
                 selected = selected,
                 contentColor = color,
                 content = {
@@ -128,7 +131,6 @@ fun FlowRateLayout(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.SpaceEvenly
                         ) {
-//                            HeaderText(text = dataSourceFreshwater.header)
                             VerticalSpacerSmall()
                             VerticalSpacerLarge()
                             BodyText(text = dataSourceCommon.flowIdeal)
@@ -139,118 +141,99 @@ fun FlowRateLayout(
                         }
                         HorizontalSpacerSmall()
                         // Freshwater
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.SpaceEvenly
-                        ) {
-                            HeaderText(text = dataSourceFreshwater.header)
-                            VerticalSpacerSmall()
-                            when (selected) {
-                                // Gallons
-                                dataSourceCommon.radioTextGallons -> {
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextGallonsHour,
-                                        calculatedValue = parameters.calculatePumpFlowIdealFreshwater(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextGallonsHour,
-                                        calculatedValue = parameters.calculatePumpFlowLowFreshwater(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextGallonsHour,
-                                        calculatedValue = parameters.calculatePumpFlowHighFreshwater(),
-                                        textColor = contentColor,
-                                    )
-                                }
-
-                                // Liters
-                                else -> {
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextLitersHour,
-                                        calculatedValue = parameters.calculatePumpFlowIdealFreshwater(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextLitersHour,
-                                        calculatedValue = parameters.calculatePumpFlowLowFreshwater(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextLitersHour,
-                                        calculatedValue = parameters.calculatePumpFlowHighFreshwater(),
-                                        textColor = contentColor,
-                                    )
-                                }
-                            }
-                        }
+                        FlowRateResultColumn(
+                            headerText = dataSourceFreshwater.header,
+                            idealValue = parameters.calculatePumpFlowIdealFreshwater(),
+                            minValue = parameters.calculatePumpFlowLowFreshwater(),
+                            maxValue = parameters.calculatePumpFlowHighFreshwater(),
+                            selected = selected,
+                            contentColor = contentColor
+                        )
                         HorizontalSpacerSmall()
                         // Marine
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.SpaceEvenly
-                        ) {
-                            HeaderText(text = dataSourceMarine.header)
-                            VerticalSpacerSmall()
-                            when (selected) {
-                                // Gallons
-                                dataSourceCommon.radioTextGallons -> {
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextGallonsHour,
-                                        calculatedValue = parameters.calculatePumpFlowIdealMarine(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextGallonsHour,
-                                        calculatedValue = parameters.calculatePumpFlowLowMarine(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextGallonsHour,
-                                        calculatedValue = parameters.calculatePumpFlowHighMarine(),
-                                        textColor = contentColor,
-                                    )
-                                }
-
-                                // Liters
-                                else -> {
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextLitersHour,
-                                        calculatedValue = parameters.calculatePumpFlowIdealMarine(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextLitersHour,
-                                        calculatedValue = parameters.calculatePumpFlowLowMarine(),
-                                        textColor = contentColor,
-                                    )
-                                    VerticalSpacerSmall()
-                                    CalculatedTextString(
-                                        text = dataSourceCommon.calculatedTextLitersHour,
-                                        calculatedValue = parameters.calculatePumpFlowHighMarine(),
-                                        textColor = contentColor,
-                                    )
-                                }
-                            }
-                        }
+                        FlowRateResultColumn(
+                            headerText = dataSourceMarine.header,
+                            idealValue = parameters.calculatePumpFlowIdealMarine(),
+                            minValue = parameters.calculatePumpFlowLowMarine(),
+                            maxValue = parameters.calculatePumpFlowHighMarine(),
+                            selected = selected,
+                            contentColor = contentColor
+                        )
                         HorizontalSpacerSmall()
                     }
 
                 },
                 contentColor = color,
                 equalsText = dataSourceCommon.equalsTextFlow,
-                containerColor = containerColor
+                containerColor = containerColor,
+            )
+        },
+        formulaContent = {
+            FormulaStringCard(
+                title = R.string.more_information,
+                icon = R.drawable.ic_information,
+                formulaText = dataSourceCommon.formulaFlow
             )
         }
     )
+}
+
+@Composable
+fun FlowRateResultColumn(
+    headerText: Int,
+    idealValue: String,
+    minValue: String,
+    maxValue: String,
+    selected: Int,
+    contentColor: Color,
+    dataSourceCommon: CalculatorCommonData = calculatorDataSource
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        HeaderText(text = headerText)
+        VerticalSpacerSmall()
+        val calculatedLabel = if (selected == dataSourceCommon.radioTextGallons)
+            dataSourceCommon.textGallonsHour
+        else
+            dataSourceCommon.textLitersHour
+        Row(
+            verticalAlignment = Alignment.Bottom
+        ) {
+            CalculatedTextString(
+                text = dataSourceCommon.calculatedText,
+                calculatedValue = idealValue,
+                textColor = contentColor,
+            )
+            HorizontalSpacerVerySmall()
+            BodyText(text = calculatedLabel)
+        }
+        VerticalSpacerSmall()
+        Row(
+            verticalAlignment = Alignment.Bottom
+        ) {
+            CalculatedTextString(
+                text = dataSourceCommon.calculatedText,
+                calculatedValue = minValue,
+                textColor = contentColor,
+            )
+            HorizontalSpacerVerySmall()
+            BodyText(text = calculatedLabel)
+        }
+        VerticalSpacerSmall()
+        Row(
+            verticalAlignment = Alignment.Bottom
+        ) {
+            CalculatedTextString(
+                text = dataSourceCommon.calculatedText,
+                calculatedValue = maxValue,
+                textColor = contentColor,
+            )
+            HorizontalSpacerVerySmall()
+            BodyText(text = calculatedLabel)
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)

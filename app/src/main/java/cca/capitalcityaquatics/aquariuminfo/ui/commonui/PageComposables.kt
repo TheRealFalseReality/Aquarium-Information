@@ -24,8 +24,8 @@ fun PageView(
 ) {
     Column(
         modifier = modifier
-			.fillMaxSize()
-			.verticalScroll(rememberScrollState()),
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = verticalArrangement
     ) {
@@ -67,8 +67,8 @@ fun GenericCalculatePage(
             ) {
                 Column(
                     modifier = Modifier
-						.heightIn(min = dimensionResource(id = R.dimen.landscape_column_height))
-						.weight(3f),
+                        .heightIn(min = dimensionResource(id = R.dimen.landscape_column_height))
+                        .weight(3f),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
@@ -81,8 +81,8 @@ fun GenericCalculatePage(
                 }
                 Column(
                     modifier = Modifier
-						.heightIn(min = dimensionResource(id = R.dimen.landscape_column_height))
-						.weight(2f),
+                        .heightIn(min = dimensionResource(id = R.dimen.landscape_column_height))
+                        .weight(2f),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
